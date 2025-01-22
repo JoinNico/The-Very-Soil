@@ -2,5 +2,8 @@
 *.log
 *.toc 
 *.out
-*.fdb
+*.fdb*
 *.fls
+*.loc
+*.gz
+*.soc
