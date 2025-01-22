@@ -1,0 +1,115 @@
+\documentclass[12pt]{ctexbook}
+
+\usepackage[utf8]{inputenc} % 支持UTF-8编码
+\usepackage{graphicx}       % 插入图片
+\usepackage{hyperref}       % 超链接
+\usepackage{indentfirst}
+\usepackage{geometry}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{hyperref}
+\usepackage[hyphenbreaks]{breakurl}
+\usepackage{hyperref}
+\usepackage{footmisc}
+\usepackage{tocloft} 
+\usepackage{CJKutf8}
+\usepackage{color, soul, xcolor} %用color, 和 soul 包
+  \setulcolor{red} 
+  \setstcolor{blue} 
+  \sethlcolor{yellow} 
+\usepackage[commandnameprefix=always,final,markup=default,authormarkup=none]{changes}
+\definechangesauthor[name={JoinNico}, color=orange]{Join}
+
+\makeatletter
+%解决url超出纸面问题
+\def\UrlAlphabet{%
+      \do\a\do\b\do\c\do\d\do\e\do\f\do\g\do\h\do\i\do\j%
+      \do\k\do\l\do\m\do\n\do\o\do\p\do\q\do\r\do\s\do\t%
+      \do\u\do\v\do\w\do\x\do\y\do\z\do\A\do\B\do\C\do\D%
+      \do\E\do\F\do\G\do\H\do\I\do\J\do\K\do\L\do\M\do\N%
+      \do\O\do\P\do\Q\do\R\do\S\do\T\do\U\do\V\do\W\do\X%
+      \do\Y\do\Z}
+\def\UrlDigits{\do\1\do\2\do\3\do\4\do\5\do\6\do\7\do\8\do\9\do\0}
+\g@addto@macro{\UrlBreaks}{\UrlOrds}
+\g@addto@macro{\UrlBreaks}{\UrlAlphabet}
+\g@addto@macro{\UrlBreaks}{\UrlDigits}
+\makeatother
+
+% 新建一个计数器来控制 interlude 的编号
+\newcounter{interludecounter}
+\setcounter{interludecounter}{0} % 从1开始计数
+
+% 定义新的命令 \interlude，显示为 "Interlude 数字 标题"，并且可以插入自定义标题
+\newcommand{\interlude}[1]{ 
+  \stepcounter{interludecounter} % 自增 interlude 编号
+  \chapter*{幕间 \theinterludecounter\\[25pt] #1} % 标题显示为 "Interlude 数字: 自定义标题"
+  \addcontentsline{toc}{chapter}{幕间 \theinterludecounter\ #1} % 将 Interlude 添加到目录中
+  \markboth{Interlude}{幕间} % 设置页眉
+}
+
+% 定义新的命令 \introduction，显示为 "Introduction" 然后换行显示标题，不带编号
+\newcommand{\introduction}[1]{ 
+  \chapter*{导言\\[25pt]#1} % 不带编号的 Introduction 章节，使用换行
+  \addcontentsline{toc}{chapter}{导言\ #1} % 将 Introduction 添加到目录中
+  \markboth{Introduction}{导言} % 设置页眉
+}
+
+\pagestyle{plain}
+\geometry{a4paper,scale=0.7}
+
+% 标题和作者
+\title{根源之土
+
+《魔法少女小圆》非官方批评研究}
+\author{著：Jed A. Blue \and 译：JoinNico}
+\begin{document}
+
+% 生成标题
+\maketitle
+\newpage
+
+% 生成目录
+\tableofcontents
+\newpage
+
+\frontmatter
+
+\include{./introduction}
+
+\mainmatter
+\part{电视动画}
+\include{./part1/chapter1_zh}
+\include{./part1/chapter2_zh}
+\include{./part1/chapter3_zh}
+\include{./part1/chapter4_zh}
+\include{./part1/chapter5_zh}
+\include{./part1/chapter6_zh}
+\include{./part1/chapter7_zh}
+\include{./part1/chapter8_zh}
+\include{./part1/chapter9_zh}
+\include{./part1/chapter10_zh}
+\include{./part1/chapter11_zh}
+\include{./part1/chapter12_zh}
+\include{./interlude1_zh}
+
+\part{外传漫画}
+\include{./part2/chapter13_zh}
+\include{./part2/chapter14_zh}
+\include{./part2/chapter15_zh}
+\include{./interlude2_zh}
+
+\part{叛逆电影}
+\include{./part3/chapter16_zh}
+\include{./part3/chapter17_zh}
+\include{./part3/chapter18_zh}
+\include{./part3/chapter19_zh}
+\include{./part3/chapter20_zh}
+\include{./part3/chapter21_zh}
+\include{./part3/chapter22_zh}
+
+\backmatter
+\include{./reference}
+
+
+
+\end{document}

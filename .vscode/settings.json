@@ -1,0 +1,15 @@
+{
+    "files.encoding": "utf8",
+    "files.exclude": {
+        "*.aux": true,
+        "*.log":true,
+        "*.toc":true, 
+        "*.out":true,
+        "*.fdb*":true,
+        "*.fls":true
+        
+    },
+    "search.exclude": {
+
+    }    
+}
