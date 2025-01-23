@@ -37,20 +37,20 @@
 
 % 新建一个计数器来控制 interlude 的编号
 \newcounter{interludecounter}
-\setcounter{interludecounter}{0} % 从1开始计数
+\setcounter{interludecounter}{0} 
 
-% 定义新的命令 \interlude，显示为 "Interlude 数字 标题"，并且可以插入自定义标题
+% 定义 \interlude，显示为 "幕间 序号 标题"
 \newcommand{\interlude}[1]{ 
-  \stepcounter{interludecounter} % 自增 interlude 编号
-  \chapter*{幕间 \theinterludecounter\\[25pt] #1} % 标题显示为 "Interlude 数字: 自定义标题"
-  \addcontentsline{toc}{chapter}{幕间 \theinterludecounter\ #1} % 将 Interlude 添加到目录中
-  \markboth{Interlude}{幕间} % 设置页眉
+  \stepcounter{interludecounter} 
+  \chapter*{幕间 \theinterludecounter\\[25pt] #1} 
+  \addcontentsline{toc}{chapter}{幕间 \theinterludecounter\ #1} 
+  \markboth{Interlude}{幕间} 
 }
 
-% 定义新的命令 \introduction，显示为 "Introduction" 然后换行显示标题，不带编号
+% 定义 \introduction，显示为 "导言" 
 \newcommand{\introduction}[1]{ 
-  \chapter*{导言\\[25pt]#1} % 不带编号的 Introduction 章节，使用换行
-  \addcontentsline{toc}{chapter}{导言\ #1} % 将 Introduction 添加到目录中
+  \chapter*{导言\\[25pt]#1} 
+  \addcontentsline{toc}{chapter}{导言\ #1} 
   \markboth{Introduction}{导言} % 设置页眉
 }
 
@@ -58,7 +58,7 @@
 \geometry{a4paper,scale=0.7}
 
 % 标题和作者
-\title{根源之土
+\title{绝望土上的希冀花
 
 《魔法少女小圆》非官方批评研究}
 \author{著：Jed A. Blue \and 译：JoinNico}
