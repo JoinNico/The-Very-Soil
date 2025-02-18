@@ -1,7 +1,5 @@
-# The Very Soil 
-# 绝望土上的希冀花
-## An Unauthorized Critical Study of Puella Magi Madoka Magica
-## 《魔法少女小圆》非官方批评
+# The Very Soil 绝望土上的希冀花
+## An Unauthorized Critical Study of Puella Magi Madoka Magica 《魔法少女小圆》非官方批评
 ### 序
 自笔者观看《魔法少女小圆》之后便对本书有翻译的想法了，但是因为英文水平欠佳再加上自身的惰性，许久都没有新建文件夹行动。恰好《叛逆的物语》正统续集《魔女之夜的回天》将在2025年冬上映，虽然跳票了一年，但也是大喜事意见。为了恭贺，笔者计划在其之前译完本书，力求字句准确，行文流畅。
 
