@@ -1,4 +1,4 @@
-\documentclass[12pt]{ctexbook}
+\documentclass[openany, 12pt]{ctexbook}
 
 \usepackage[utf8]{inputenc} % 支持UTF-8编码
 \usepackage{graphicx}       % 插入图片
@@ -7,9 +7,7 @@
 \usepackage{geometry}
 \usepackage{fancyhdr}
 \usepackage{titlesec}
-\usepackage{hyperref}
 \usepackage[hyphenbreaks]{breakurl}
-\usepackage{hyperref}
 \usepackage{footmisc}
 \usepackage{tocloft} 
 \usepackage{CJKutf8}
@@ -35,16 +33,35 @@
 \g@addto@macro{\UrlBreaks}{\UrlDigits}
 \makeatother
 
+% % 章节标题格式：取消换页、紧凑间距、中文兼容
+% \titleformat{\chapter}[block]  % 控制章节标题样式
+%   {\normalfont\filcenter\bfseries\Large}  % 整体格式（居中、加粗、字号）
+%   {\CTEXthechapter\quad}  % 标签格式（如“第一章”）
+%   {0pt}  % 标签与标题间距
+%   {\Huge}  % 标题字体大小
+
+% % 章节间距调整（上/下间距）
+% \titlespacing*{\chapter}{0pt}{10pt}{20pt}  % {左}{上}{下}{右}
+
+% % 可选：调整 part 标题格式（如果需要）
+% \titleformat{\part}[display]
+%   {\normalfont\centering\bfseries\Huge}
+%   {\partname\ \thepart}
+%   {20pt}
+%   {\Huge}
+% \titlespacing*{\part}{0pt}{30pt}{40pt}
+
+
 % 新建一个计数器来控制 interlude 的编号
 \newcounter{interludecounter}
 \setcounter{interludecounter}{0} 
 
-% 定义 \interlude，显示为 "幕间 序号 标题"
+% 定义 \interlude，显示为 "间幕 序号 标题"
 \newcommand{\interlude}[1]{ 
   \stepcounter{interludecounter} 
-  \chapter*{幕间 \theinterludecounter\\[25pt] #1} 
-  \addcontentsline{toc}{chapter}{幕间 \theinterludecounter\ #1} 
-  \markboth{Interlude}{幕间} 
+  \chapter*{间幕 \theinterludecounter\\[25pt] #1} 
+  \addcontentsline{toc}{chapter}{间幕 \theinterludecounter\ #1} 
+  \markboth{Interlude}{间幕} 
 }
 
 % 定义 \introduction，显示为 "导言" 
