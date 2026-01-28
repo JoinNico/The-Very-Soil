@@ -7,4 +7,6 @@
 *.loc
 *.gz
 *.soc
+.idea
+.vscode
 perface.tex
