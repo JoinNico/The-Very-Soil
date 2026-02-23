@@ -71,6 +71,9 @@
   \markboth{Introduction}{导言} % 设置页眉
 }
 
+% 让所有引用命令失效，避免显示任何引用内容
+\renewcommand{\cite}[2][]{}
+
 \pagestyle{plain}
 \geometry{a4paper,scale=0.7}
 
@@ -95,7 +98,7 @@
 
 \mainmatter
 \part{电视动画}
-\include{./part1/chapter1_zh}
+\include{./part1/chapter01_zh}
 \include{./part1/chapter2_zh}
 \include{./part1/chapter3_zh}
 \include{./part1/chapter4_zh}
