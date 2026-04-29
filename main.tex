@@ -1,0 +1,135 @@
+\documentclass[openany, 12pt]{ctexbook}
+
+\usepackage[utf8]{inputenc} % 支持UTF-8编码
+\usepackage{graphicx}       % 插入图片
+\usepackage{hyperref}       % 超链接
+\usepackage{indentfirst}
+\usepackage{geometry}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage[hyphenbreaks]{breakurl}
+\usepackage{footmisc}
+\usepackage{tocloft} 
+\usepackage{CJKutf8}
+\usepackage{color, soul, xcolor} %用color, 和 soul 包
+  \setulcolor{red} 
+  \setstcolor{blue} 
+  \sethlcolor{yellow} 
+\usepackage[commandnameprefix=always,final,markup=default,authormarkup=none]{changes}
+\definechangesauthor[name={JoinNico}, color=orange]{Join}
+
+\makeatletter
+%解决url超出纸面问题
+\def\UrlAlphabet{%
+      \do\a\do\b\do\c\do\d\do\e\do\f\do\g\do\h\do\i\do\j%
+      \do\k\do\l\do\m\do\n\do\o\do\p\do\q\do\r\do\s\do\t%
+      \do\u\do\v\do\w\do\x\do\y\do\z\do\A\do\B\do\C\do\D%
+      \do\E\do\F\do\G\do\H\do\I\do\J\do\K\do\L\do\M\do\N%
+      \do\O\do\P\do\Q\do\R\do\S\do\T\do\U\do\V\do\W\do\X%
+      \do\Y\do\Z}
+\def\UrlDigits{\do\1\do\2\do\3\do\4\do\5\do\6\do\7\do\8\do\9\do\0}
+\g@addto@macro{\UrlBreaks}{\UrlOrds}
+\g@addto@macro{\UrlBreaks}{\UrlAlphabet}
+\g@addto@macro{\UrlBreaks}{\UrlDigits}
+\makeatother
+
+% % 章节标题格式：取消换页、紧凑间距、中文兼容
+% \titleformat{\chapter}[block]  % 控制章节标题样式
+%   {\normalfont\filcenter\bfseries\Large}  % 整体格式（居中、加粗、字号）
+%   {\CTEXthechapter\quad}  % 标签格式（如“第一章”）
+%   {0pt}  % 标签与标题间距
+%   {\Huge}  % 标题字体大小
+
+% % 章节间距调整（上/下间距）
+% \titlespacing*{\chapter}{0pt}{10pt}{20pt}  % {左}{上}{下}{右}
+
+% % 可选：调整 part 标题格式（如果需要）
+% \titleformat{\part}[display]
+%   {\normalfont\centering\bfseries\Huge}
+%   {\partname\ \thepart}
+%   {20pt}
+%   {\Huge}
+% \titlespacing*{\part}{0pt}{30pt}{40pt}
+
+
+% 新建一个计数器来控制 interlude 的编号
+\newcounter{interludecounter}
+\setcounter{interludecounter}{0} 
+
+% 定义 \interlude，显示为 "间幕 序号 标题"
+\newcommand{\interlude}[1]{ 
+  \stepcounter{interludecounter} 
+  \chapter*{间幕 \theinterludecounter\\[25pt] #1} 
+  \addcontentsline{toc}{chapter}{间幕 \theinterludecounter\ #1} 
+  \markboth{Interlude}{间幕} 
+}
+
+% 定义 \introduction，显示为 "导言" 
+\newcommand{\introduction}[1]{ 
+  \chapter*{导言\\[25pt]#1} 
+  \addcontentsline{toc}{chapter}{导言\ #1} 
+  \markboth{Introduction}{导言} % 设置页眉
+}
+
+% 让所有引用命令失效，避免显示任何引用内容
+\renewcommand{\cite}[2][]{}
+
+\pagestyle{plain}
+\geometry{a4paper,scale=0.7}
+
+% 标题和作者
+\title{绝望土上的希冀花
+
+《魔法少女小圆》非官方批评研究}
+\author{著：Jed A. Blue \and 译：JoinNico}
+\begin{document}
+
+% 生成标题
+\maketitle
+\newpage
+
+% 生成目录
+\tableofcontents
+\newpage
+
+\frontmatter
+
+\include{./introduction}
+
+\mainmatter
+\part{电视动画}
+\include{./part1/chapter01_zh}
+\include{./part1/chapter02_zh}
+\include{./part1/chapter03_zh}
+\include{./part1/chapter04_zh}
+\include{./part1/chapter05_zh}
+\include{./part1/chapter06_zh}
+\include{./part1/chapter07_zh}
+\include{./part1/chapter08_zh}
+\include{./part1/chapter09_zh}
+\include{./part1/chapter10_zh}
+\include{./part1/chapter11_zh}
+\include{./part1/chapter12_zh}
+\include{./interlude1_zh}
+
+\part{外传漫画}
+\include{./part2/chapter13_zh}
+\include{./part2/chapter14_zh}
+\include{./part2/chapter15_zh}
+\include{./interlude2_zh}
+
+\part{叛逆电影}
+\include{./part3/chapter16_zh}
+\include{./part3/chapter17_zh}
+\include{./part3/chapter18_zh}
+\include{./part3/chapter19_zh}
+\include{./part3/chapter20_zh}
+\include{./part3/chapter21_zh}
+\include{./part3/chapter22_zh}
+
+\backmatter
+\include{./reference}
+
+
+
+\end{document}
