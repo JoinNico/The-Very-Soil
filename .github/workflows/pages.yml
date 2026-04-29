@@ -1,0 +1,93 @@
+name: Build and Deploy LaTeX Book
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Compile LaTeX book
+        uses: xu-cheng/latex-action@v2
+        with:
+          root_file: main.tex
+          latexmk_use_xelatex: true
+
+      - name: Prepare site
+        run: |
+          mkdir public
+          cp main.pdf public/book.pdf
+          cat > public/index.html <<'EOF'
+          <!DOCTYPE html>
+          <html lang="zh-CN">
+          <head>
+            <meta charset="UTF-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+            <title>My LaTeX Book</title>
+            <style>
+              body {
+                margin: 0;
+                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+                background: #f6f6f6;
+              }
+              header {
+                padding: 20px 32px;
+                background: #111;
+                color: white;
+              }
+              header h1 {
+                margin: 0;
+                font-size: 24px;
+              }
+              header a {
+                color: #9fd3ff;
+              }
+              iframe {
+                width: 100%;
+                height: calc(100vh - 80px);
+                border: none;
+              }
+            </style>
+          </head>
+          <body>
+            <header>
+              <h1>My LaTeX Book</h1>
+              <div><a href="book.pdf">Download PDF</a></div>
+            </header>
+            <iframe src="book.pdf"></iframe>
+          </body>
+          </html>
+          EOF
+
+      - name: Upload GitHub Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: public
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
