@@ -19,6 +19,18 @@
 \geometry{a4paper,scale=0.7}
 \setlength{\headheight}{15pt}
 
+\renewcommand{\contentsname}{目\hspace{2em}录}
+\renewcommand{\cfttoctitlefont}{\hfill\bfseries\LARGE}
+\renewcommand{\cftaftertoctitle}{\hfill}
+\setlength{\cftbeforetoctitleskip}{0pt}
+\setlength{\cftaftertoctitleskip}{24pt}
+\renewcommand{\cftpartleader}{\cftdotfill{\cftdotsep}}
+\renewcommand{\cftchapleader}{\cftdotfill{\cftdotsep}}
+\renewcommand{\cftparaleader}{\cftdotfill{\cftdotsep}}
+\renewcommand{\cftpartdotsep}{\cftdotsep}
+\renewcommand{\cftchapdotsep}{\cftdotsep}
+\renewcommand{\cftparadotsep}{\cftdotsep}
+
 \pagestyle{fancy}
 \fancyhf{}
 \fancyhead[CE]{\nouppercase{\leftmark}}
@@ -45,6 +57,23 @@
 }
 
 \makeatletter
+% Keep automatically inserted double-page blanks truly blank.
+\renewcommand{\cleardoublepage}{%
+  \clearpage
+  \if@twoside
+    \ifodd\c@page
+    \else
+      \hbox{}%
+      \thispagestyle{empty}%
+      \newpage
+      \if@twocolumn
+        \hbox{}%
+        \newpage
+      \fi
+    \fi
+  \fi
+}
+
 % 解决 url 超出纸面问题
 \def\UrlAlphabet{%
       \do\a\do\b\do\c\do\d\do\e\do\f\do\g\do\h\do\i\do\j%
