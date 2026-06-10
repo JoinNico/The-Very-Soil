@@ -12,6 +12,8 @@
 *.toc
 *.lof
 *.lot
+*.loc
+*.soc
 *.idx
 *.ilg
 *.ind
