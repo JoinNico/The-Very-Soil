@@ -1,12 +1,69 @@
+# LaTeX intermediate files
 *.aux
-*.log
-*.toc 
-*.out
-*.fdb*
+*.bbl
+*.bcf
+*.blg
+*.fdb_latexmk
 *.fls
-*.loc
-*.gz
-*.soc
-.idea
-.vscode
-perface.tex
+*.log
+*.out
+*.run.xml
+*.synctex.gz
+*.toc
+*.lof
+*.lot
+*.idx
+*.ilg
+*.ind
+*.ist
+*.nav
+*.snm
+*.vrb
+*.xdv
+
+# BibLaTeX / Biber
+*.bcf
+*.run.xml
+*.blg
+*.bbl
+
+# latexmk
+*.fdb_latexmk
+*.fls
+
+# editor / temporary files
+*.swp
+*.swo
+*~
+.DS_Store
+
+# VS Code
+.vscode/
+
+# TeXShop / TeXworks / other editor backups
+*.bak
+*.tmp
+
+# minted package cache
+_minted-*/
+*.pyg
+
+# arara
+*.lol
+
+# glossaries
+*.acn
+*.acr
+*.alg
+*.glg
+*.glo
+*.gls
+*.glsdefs
+
+# nomencl
+*.nlg
+*.nlo
+*.nls
+
+# generated PDF
+*.pdf
