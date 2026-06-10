@@ -5,17 +5,32 @@
 % 定义 \interlude，显示为 "间幕 序号 标题"
 \newcommand{\interlude}[1]{
   \stepcounter{interludecounter}
-  \chapter*{间幕 \Chinese{interludecounter}\\[25pt] #1}
+  \chapter*{间幕 \Chinese{interludecounter}\quad #1}
   \addcontentsline{toc}{chapter}{间幕 \Chinese{interludecounter}\ #1}
   \markboth{Interlude}{间幕}
 }
 
 % 定义 \introduction，显示为 "导言"
 \newcommand{\introduction}[1]{
-  \chapter*{导言\\[25pt]#1}
+  \chapter*{导言\quad #1}
   \addcontentsline{toc}{chapter}{导言\ #1}
   \markboth{Introduction}{导言}
 }
 
 % 让所有引用命令失效，避免显示任何引用内容
 \renewcommand{\cite}[2][]{}
+
+\newcommand{\chaptersubtitle}[1]{%
+  \begin{center}
+    \vspace{-1.5em}
+    {\large #1}
+    \vspace{2em}
+  \end{center}
+}
+
+\newcommand{\chapternote}[1]{%
+  \begin{center}
+    {\small #1}
+    \vspace{2em}
+  \end{center}
+}
