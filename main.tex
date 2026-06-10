@@ -54,13 +54,13 @@
 
 % 新建一个计数器来控制 interlude 的编号
 \newcounter{interludecounter}
-\setcounter{interludecounter}{0} 
+\setcounter{interludecounter}{0}
 
 % 定义 \interlude，显示为 "间幕 序号 标题"
 \newcommand{\interlude}[1]{ 
   \stepcounter{interludecounter} 
-  \chapter*{间幕 \theinterludecounter\\[25pt] #1} 
-  \addcontentsline{toc}{chapter}{间幕 \theinterludecounter\ #1} 
+  \chapter*{间幕 \Chinese{interludecounter}\\[25pt] #1} 
+  \addcontentsline{toc}{chapter}{间幕 \Chinese{interludecounter}\ #1} 
   \markboth{Interlude}{间幕} 
 }
 
