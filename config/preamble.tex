@@ -24,10 +24,10 @@
 \renewcommand{\cftaftertoctitle}{\hfill}
 \setlength{\cftbeforetoctitleskip}{0pt}
 \setlength{\cftaftertoctitleskip}{24pt}
-\renewcommand{\cftpartleader}{\cftdotfill{\cftdotsep}}
+\cftpagenumbersoff{part}
+\renewcommand{\cftpartleader}{}
 \renewcommand{\cftchapleader}{\cftdotfill{\cftdotsep}}
 \renewcommand{\cftparaleader}{\cftdotfill{\cftdotsep}}
-\renewcommand{\cftpartdotsep}{\cftdotsep}
 \renewcommand{\cftchapdotsep}{\cftdotsep}
 \renewcommand{\cftparadotsep}{\cftdotsep}
 
@@ -49,6 +49,10 @@
 }
 
 \ctexset{
+  part = {
+    break = \cleardoublepage,
+    pagestyle = empty
+  },
   chapter = {
     format = \centering\bfseries\LARGE,
     beforeskip = 0pt,
@@ -71,6 +75,22 @@
         \newpage
       \fi
     \fi
+  \fi
+}
+
+% A part divider is a full sheet: recto title page, blank verso page.
+\def\@endpart{%
+  \CTEX@setheadingskip \CTEX@part@afterskip
+  \ifodd \CTEX@part@fixskip \CTEX@fixheadingskip \fi
+  \vskip \CTEX@headingskip
+  \newpage
+  \if@twoside
+    \null
+    \thispagestyle{empty}%
+    \newpage
+  \fi
+  \if@tempswa
+    \twocolumn
   \fi
 }
 
