@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta
+      name="description"
+      content="《绝望之壤〈魔法少女小圆〉非官方批评研究》在线预览与 PDF 下载。"
+    >
+    <meta name="theme-color" content="#171412">
+    <title>绝望之壤</title>
+    <style>
+      :root {
+        color-scheme: light dark;
+        font-family:
+          "Noto Serif CJK SC", "Source Han Serif SC", "Songti SC", serif;
+        background: #eae5dc;
+        color: #28231f;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        min-height: 100%;
+        margin: 0;
+      }
+
+      body {
+        display: grid;
+        grid-template-rows: auto minmax(0, 1fr);
+        min-height: 100vh;
+        min-height: 100dvh;
+        background:
+          radial-gradient(circle at top left, rgb(255 255 255 / 72%), transparent 35rem),
+          #eae5dc;
+      }
+
+      header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 2rem;
+        padding: 1rem clamp(1rem, 4vw, 3rem);
+        border-bottom: 1px solid rgb(255 255 255 / 14%);
+        background: #171412;
+        color: #f7f1e7;
+        box-shadow: 0 0.35rem 1.25rem rgb(28 22 18 / 22%);
+      }
+
+      .book-heading {
+        min-width: 0;
+      }
+
+      h1 {
+        margin: 0;
+        font-size: clamp(1.15rem, 2.2vw, 1.65rem);
+        font-weight: 650;
+        letter-spacing: 0.08em;
+      }
+
+      .subtitle {
+        margin: 0.3rem 0 0;
+        color: #cfc5b8;
+        font-size: clamp(0.78rem, 1.5vw, 0.95rem);
+      }
+
+      nav {
+        display: flex;
+        flex: 0 0 auto;
+        gap: 0.65rem;
+      }
+
+      .button {
+        display: inline-flex;
+        min-height: 2.6rem;
+        align-items: center;
+        justify-content: center;
+        padding: 0.65rem 1rem;
+        border: 1px solid #a99783;
+        border-radius: 999px;
+        color: #f7f1e7;
+        font-family: system-ui, sans-serif;
+        font-size: 0.9rem;
+        font-weight: 600;
+        text-decoration: none;
+        transition:
+          background-color 150ms ease,
+          color 150ms ease;
+      }
+
+      .button:hover,
+      .button:focus-visible {
+        background: #f7f1e7;
+        color: #171412;
+        outline: none;
+      }
+
+      .button.primary {
+        border-color: #f7f1e7;
+        background: #f7f1e7;
+        color: #171412;
+      }
+
+      .button.primary:hover,
+      .button.primary:focus-visible {
+        background: #d9cbbb;
+      }
+
+      main {
+        min-height: 0;
+        padding: clamp(0.5rem, 2vw, 1.25rem);
+      }
+
+      object {
+        display: block;
+        width: 100%;
+        height: 100%;
+        min-height: 70vh;
+        min-height: 70dvh;
+        border: 0;
+        border-radius: 0.55rem;
+        background: #fff;
+        box-shadow: 0 0.6rem 2rem rgb(47 38 31 / 18%);
+      }
+
+      .fallback {
+        max-width: 36rem;
+        margin: 12vh auto;
+        padding: 2rem;
+        border-radius: 0.75rem;
+        background: #fff;
+        color: #28231f;
+        text-align: center;
+        box-shadow: 0 0.6rem 2rem rgb(47 38 31 / 18%);
+      }
+
+      .fallback a {
+        color: #6b3f28;
+      }
+
+      @media (max-width: 46rem) {
+        header {
+          align-items: stretch;
+          flex-direction: column;
+          gap: 0.85rem;
+        }
+
+        nav {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+        }
+
+        main {
+          padding: 0;
+        }
+
+        object {
+          min-height: 75vh;
+          min-height: 75dvh;
+          border-radius: 0;
+          box-shadow: none;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .button {
+          transition: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="book-heading">
+        <h1>绝望之壤</h1>
+        <p class="subtitle">《魔法少女小圆》非官方批评研究</p>
+      </div>
+      <nav aria-label="PDF 操作">
+        <a class="button" href="book.pdf" target="_blank" rel="noopener">新窗口阅读</a>
+        <a class="button primary" href="book.pdf" download>下载 PDF</a>
+      </nav>
+    </header>
+    <main>
+      <object data="book.pdf#view=FitH" type="application/pdf" aria-label="本书 PDF 在线预览">
+        <div class="fallback">
+          <p>当前浏览器无法直接显示 PDF。</p>
+          <p><a href="book.pdf">打开或下载《绝望之壤》</a></p>
+        </div>
+      </object>
+    </main>
+  </body>
+</html>
