@@ -69,3 +69,6 @@ _minted-*/
 
 # generated PDF
 *.pdf
+
+# GitHub Pages staging directory
+/public/
