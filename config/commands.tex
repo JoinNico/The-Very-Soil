@@ -5,9 +5,9 @@
 \newcommand{\interlude}[1]{%
   \stepcounter{interludecounter}%
   \renewcommand{\BookSpecialKicker}{INTERLUDE~\Roman{interludecounter}}%
-  \chapter*{间幕 \Chinese{interludecounter}\BookTitleSep #1}%
-  \addcontentsline{toc}{chapter}{间幕 \Chinese{interludecounter}\BookTitleSep #1}%
-  \markboth{间幕 \Chinese{interludecounter}\quad #1}{间幕 \Chinese{interludecounter}\quad #1}%
+  \chapter*{间奏 \Chinese{interludecounter}\BookTitleSep #1}%
+  \addcontentsline{toc}{chapter}{间奏 \Chinese{interludecounter}\BookTitleSep #1}%
+  \markboth{间奏 \Chinese{interludecounter}\quad #1}{间奏 \Chinese{interludecounter}\quad #1}%
   \renewcommand{\BookSpecialKicker}{}%
 }
 
@@ -42,11 +42,11 @@
     colback=BookPale,
     colframe=MadokaPink,
     boxrule=0pt,
-    borderline west={1.2pt}{0pt}{MadokaPink},
+    % borderline west={1.2pt}{0pt}{MadokaPink},
     left=7pt,right=7pt,top=6pt,bottom=6pt,
     before skip=4pt,after skip=14pt,
     fontupper=\fontsize{\BookOpeningNoteFontSize}{\BookOpeningNoteLineHeight}\selectfont,
-    title={题记／译者案},
+    title={题记},
     coltitle=white,
     fonttitle=\sffamily\bfseries
       \fontsize{\BookOpeningNoteLabelFontSize}{\BookOpeningNoteLabelLineHeight}\selectfont
