@@ -1,36 +1,116 @@
-% 新建一个计数器来控制 interlude 的编号
 \newcounter{interludecounter}
-\setcounter{interludecounter}{0}
+\newcommand{\BookSpecialKicker}{}
+\newcommand{\BookTitleSep}{\texorpdfstring{\quad}{\space}}
 
-% 定义 \interlude，显示为 "间幕 序号 标题"
-\newcommand{\interlude}[1]{
-  \stepcounter{interludecounter}
-  \chapter*{间幕 \Chinese{interludecounter}\quad #1}
-  \addcontentsline{toc}{chapter}{间幕 \Chinese{interludecounter}\ #1}
-  \markright{间幕 \Chinese{interludecounter}\quad #1}
+\newcommand{\interlude}[1]{%
+  \stepcounter{interludecounter}%
+  \renewcommand{\BookSpecialKicker}{INTERLUDE~\Roman{interludecounter}}%
+  \chapter*{间幕 \Chinese{interludecounter}\BookTitleSep #1}%
+  \addcontentsline{toc}{chapter}{间幕 \Chinese{interludecounter}\BookTitleSep #1}%
+  \markboth{间幕 \Chinese{interludecounter}\quad #1}{间幕 \Chinese{interludecounter}\quad #1}%
+  \renewcommand{\BookSpecialKicker}{}%
 }
 
-% 定义 \introduction，显示为 "导言"
-\newcommand{\introduction}[1]{
-  \chapter*{导言\quad #1}
-  \addcontentsline{toc}{chapter}{导言\ #1}
-  \markboth{导言\quad #1}{导言\quad #1}
+\newcommand{\introduction}[1]{%
+  \renewcommand{\BookSpecialKicker}{INTRODUCTION}%
+  \chapter*{导言\BookTitleSep #1}%
+  \addcontentsline{toc}{chapter}{导言\BookTitleSep #1}%
+  \markboth{导言\quad #1}{导言\quad #1}%
+  \renewcommand{\BookSpecialKicker}{}%
 }
 
-% 让所有引用命令失效，避免显示任何引用内容
-\renewcommand{\cite}[2][]{}
+\newcommand{\bookbackchapter}[2]{%
+  \renewcommand{\BookSpecialKicker}{#1}%
+  \chapter*{#2}%
+  \addcontentsline{toc}{chapter}{#2}%
+  \markboth{#2}{#2}%
+  \renewcommand{\BookSpecialKicker}{}%
+}
 
 \newcommand{\chaptersubtitle}[1]{%
-  \begin{center}
-    \vspace{-1.5em}
-    {\large #1}
-    \vspace{2em}
-  \end{center}
+  \begin{flushleft}
+    \vspace{-10pt}%
+    {\sffamily\fontsize{10pt}{14pt}\selectfont\color{BookGray}#1\par}%
+    \vspace{12pt}%
+  \end{flushleft}%
 }
 
+\newenvironment{chapteropeningnote}{%
+  \begin{tcolorbox}[
+    enhanced,
+    breakable,
+    colback=BookPale,
+    colframe=MadokaPink,
+    boxrule=0pt,
+    borderline west={1.2pt}{0pt}{MadokaPink},
+    left=7pt,right=7pt,top=6pt,bottom=6pt,
+    before skip=4pt,after skip=14pt,
+    fontupper=\fontsize{\BookOpeningNoteFontSize}{\BookOpeningNoteLineHeight}\selectfont,
+    title={题记／译者案},
+    coltitle=white,
+    fonttitle=\sffamily\bfseries
+      \fontsize{\BookOpeningNoteLabelFontSize}{\BookOpeningNoteLabelLineHeight}\selectfont
+  ]
+}{\end{tcolorbox}}
+
+% Backward-compatible wrapper; new long notes should use chapteropeningnote.
 \newcommand{\chapternote}[1]{%
+  \begin{chapteropeningnote}#1\end{chapteropeningnote}%
+}
+
+\newcommand{\translatornote}[1]{\footnote{\textbf{译注：}#1}}
+
+\newcommand{\bookpart}[1]{%
+  \cleardoublepage
+  \refstepcounter{part}%
+  \phantomsection
+  \addcontentsline{toc}{part}{第\Chinese{part}部分\BookTitleSep #1}%
+  \markboth{第\Chinese{part}部分\quad #1}{}%
+  \thispagestyle{empty}%
+  \begin{tikzpicture}[remember picture,overlay]
+    % Part pages are always recto: shift to the bound text-block centre.
+    \node[opacity=.94] at
+      ($(current page.center)+(\BookRectoTextCenterShift,17mm)$) {\BookPartMotif};
+    \draw[MadokaPink,line width=.5pt]
+      ($(current page.south west)+(14mm,20mm)$)--($(current page.south east)+(-14mm,20mm)$);
+  \end{tikzpicture}%
+  \vspace*{69mm}%
   \begin{center}
-    {\small #1}
-    \vspace{2em}
-  \end{center}
+    {\sffamily\bfseries\fontsize{9pt}{11pt}\selectfont\color{BookGray}%
+      PART~\Roman{part}\par}%
+    \vspace{5pt}%
+    {\sffamily\bfseries\fontsize{22pt}{28pt}\selectfont #1\par}%
+    \vspace{8pt}%
+    {\color{HomuraViolet}\runeecho{PART \Roman{part}}\par}%
+  \end{center}%
+  \clearpage
+  \thispagestyle{empty}\null\clearpage
+}
+
+% Future plate contract: exactly four single-page 131 x 182 mm bleed PDFs.
+\newcommand{\BookRequireSinglePagePlate}[1]{%
+  \IfFileExists{#1}{%
+    \ifnum\XeTeXpdfpagecount "#1"=1\relax\else
+      \PackageError{the-very-soil}{Plate #1 is not a single-page PDF}%
+        {Split the artwork into page-01.pdf through page-04.pdf.}%
+    \fi
+  }{%
+    \PackageError{the-very-soil}{Missing plate #1}%
+      {Each enabled Part plate unit must contain exactly four page PDFs.}%
+  }%
+}
+
+\newcommand{\includepartplates}[1]{%
+  \foreach \n in {01,02,03,04}{%
+    \BookRequireSinglePagePlate{assets/plates/#1/page-\n.pdf}%
+  }%
+  \foreach \n in {01,02,03,04}{%
+    \includepdf[
+      pages=1,
+      noautoscale=true,
+      trim=3mm 3mm 3mm 3mm,
+      clip,
+      pagecommand={\thispagestyle{empty}}
+    ]{assets/plates/#1/page-\n.pdf}%
+  }%
 }

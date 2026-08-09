@@ -1,0 +1,16 @@
+\addbibresource{bibliography/references.bib}
+
+\DeclareFieldFormat{labelnumberwidth}{\mkbibbrackets{#1}}
+\DeclareFieldFormat{url}{\url{#1}}
+\DeclareFieldFormat{title}{\mkbibemph{#1}}
+\DeclareFieldFormat[article,inbook,incollection,inreference,online]{title}{\mkbibquote{#1}}
+\renewcommand*{\bibfont}{\fontsize{8pt}{12pt}\selectfont}
+\setlength{\bibitemsep}{7pt}
+\AtBeginBibliography{%
+  \setlength{\emergencystretch}{2em}%
+  \tolerance=1600
+}
+
+\defbibheading{bookbibliography}[参考文献]{%
+  \bookbackchapter{BIBLIOGRAPHY}{#1}%
+}

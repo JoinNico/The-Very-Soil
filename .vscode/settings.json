@@ -1,15 +1,80 @@
 {
     "files.encoding": "utf8",
     "files.exclude": {
-        "*.aux": true,
-        "*.log":true,
-        "*.toc":true, 
-        "*.out":true,
-        "*.fdb*":true,
-        "*.fls":true
-        
+        "**/*.aux": true,
+        "**/*.log": true,
+        "**/*.toc": true,
+        "**/*.out": true,
+        "**/*.fdb*": true,
+        "**/*.fls": true,
+        "**/*.xdv": true,
+        "**/*.loc": true,
+        "**/*.soc": true,
+        "**/*.synctex.gz": true,
+        "**/*.bbl": true,
+        "**/*.bcf": true,
+        "**/*.blg": true,
+        "**/*.run.xml": true
     },
     "search.exclude": {
+        "build": true
+    },
 
-    }    
+    // ── LaTeX Workshop ───────────────────────────────────────────────
+    // This book is ctexbook + fontspec, so it MUST be compiled with XeLaTeX.
+    //
+    // The project's ./latexmkrc already encodes the whole build:
+    //   $pdf_mode = 5  → XeLaTeX
+    //   $out_dir/$aux_dir = 'build'  → all artefacts go to ./build
+    //   $bibtex_use = 2 → biber runs automatically
+    //
+    // The build that FAILED used the extension's DEFAULT recipe, which passes
+    // -pdf (forcing pdflatex) and -outdir/-auxdir. Those command-line flags
+    // OVERRIDE latexmkrc, so fontspec ran under pdflatex and aborted with
+    // "requires XeTeX or LuaTeX". (CI builds fine precisely because it just
+    // runs latexmk without those overrides — see .github/workflows/pages.yml.)
+    //
+    // Fix: the recipes below invoke latexmk with NO engine/output overrides,
+    // leaving latexmkrc as the single source of truth. We only add
+    // -synctex=1 so the editor's click-to-jump works.
+
+    "latex-workshop.latex.tools": [
+        {
+            // Screen edition: builds the auto-detected root file (main.tex).
+            "name": "latexmk",
+            "command": "latexmk",
+            "args": [
+                "-synctex=1",
+                "%DOC%"
+            ]
+        },
+        {
+            // Print edition: print.tex sets \BookProfile=print then \input's
+            // main.tex. %DIR% is the root file's directory (the repo root).
+            "name": "latexmk-print",
+            "command": "latexmk",
+            "args": [
+                "-synctex=1",
+                "%DIR%/print"
+            ]
+        }
+    ],
+
+    "latex-workshop.latex.recipes": [
+        {
+            "name": "latexmk — screen edition (main.tex)",
+            "tools": ["latexmk"]
+        },
+        {
+            "name": "latexmk — print edition (print.tex)",
+            "tools": ["latexmk-print"]
+        }
+    ],
+
+    // PDF + .synctex.gz land in ./build (per latexmkrc), so point the viewer
+    // and SyncTeX reverse-search there too. Must match $out_dir in latexmkrc.
+    "latex-workshop.latex.outDir": "%DIR%/build",
+
+    // Ctrl+Alt+B / build-on-save uses the first recipe (screen edition).
+    "latex-workshop.latex.recipe.default": "first"
 }

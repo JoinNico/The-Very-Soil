@@ -1,4 +1,5 @@
 # LaTeX intermediate files
+/build/
 *.aux
 *.bbl
 *.bcf
@@ -69,6 +70,11 @@ _minted-*/
 
 # generated PDF
 *.pdf
+<<<<<<< Updated upstream
+=======
+!assets/plates/**/*.pdf
+!sources/original-en/**/*.pdf
 
 # GitHub Pages staging directory
 /public/
+>>>>>>> Stashed changes
