@@ -40,9 +40,6 @@
 *~
 .DS_Store
 
-# VS Code
-.vscode/
-
 # TeXShop / TeXworks / other editor backups
 *.bak
 *.tmp
@@ -70,11 +67,8 @@ _minted-*/
 
 # generated PDF
 *.pdf
-<<<<<<< Updated upstream
-=======
 !assets/plates/**/*.pdf
 !sources/original-en/**/*.pdf
 
 # GitHub Pages staging directory
 /public/
->>>>>>> Stashed changes
