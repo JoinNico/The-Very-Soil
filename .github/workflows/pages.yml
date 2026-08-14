@@ -36,11 +36,11 @@ jobs:
       # - name: Verify PDF and cross-references
       #   shell: bash
       #   run: |
-      #     test -s main.pdf
+      #     test -s build/main.pdf
 
       #     if grep -En \
       #       'LaTeX Warning: (There were undefined references|Citation .* undefined|Reference .* undefined)' \
-      #       main.log; then
+      #       build/main.log; then
       #       echo '::error::The PDF contains unresolved references or citations.'
       #       exit 1
       #     fi
@@ -49,7 +49,7 @@ jobs:
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
         with:
           name: the-very-soil-${{ github.sha }}
-          path: main.pdf
+          path: build/main.pdf
           if-no-files-found: error
           retention-days: 14
 
@@ -58,7 +58,7 @@ jobs:
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
         with:
           name: latex-log-${{ github.sha }}
-          path: main.log
+          path: build/main.log
           if-no-files-found: ignore
           retention-days: 7
 
@@ -68,7 +68,7 @@ jobs:
         run: |
           mkdir -p public
           cp site/index.html public/index.html
-          cp main.pdf public/book.pdf
+          cp build/main.pdf public/book.pdf
 
       - name: Upload GitHub Pages artifact
         if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
