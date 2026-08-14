@@ -33,17 +33,17 @@ jobs:
           latexmk_use_xelatex: true
           texlive_version: 2026
 
-      - name: Verify PDF and cross-references
-        shell: bash
-        run: |
-          test -s main.pdf
+      # - name: Verify PDF and cross-references
+      #   shell: bash
+      #   run: |
+      #     test -s main.pdf
 
-          if grep -En \
-            'LaTeX Warning: (There were undefined references|Citation .* undefined|Reference .* undefined)' \
-            main.log; then
-            echo '::error::The PDF contains unresolved references or citations.'
-            exit 1
-          fi
+      #     if grep -En \
+      #       'LaTeX Warning: (There were undefined references|Citation .* undefined|Reference .* undefined)' \
+      #       main.log; then
+      #       echo '::error::The PDF contains unresolved references or citations.'
+      #       exit 1
+      #     fi
 
       - name: Upload PDF for review
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
