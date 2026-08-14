@@ -1,0 +1,206 @@
+% Vector layouts for Part divider pages.
+% Loaded by config/theme.tex after fonts, colors, and base motifs are defined.
+
+% A narrow four-point star used by the Part I boundary and clock face.
+% Draw it inside a scaled scope; its unscaled radius is 1 cm.
+\newcommand{\BookFourPointStar}{%
+    (0,1) -- (.16,.16) -- (1,0) -- (.16,-.16) --
+    (0,-1) -- (-.16,-.16) -- (-1,0) -- (-.16,.16) -- cycle;
+}
+
+\newcommand{\BookPartOnePage}[1]{%
+  \begin{tikzpicture}[remember picture,overlay,line cap=round,line join=round]
+    % Part pages are recto.  Their visual axis follows the bound text block,
+    % whose centre is shifted outwards from the physical paper centre.
+    \coordinate (PartCenter) at
+      ($(current page.center)+(\BookRectoTextCenterShift,0)$);
+    \coordinate (PartNorth) at (PartCenter |- current page.north);
+    \coordinate (PartSouth) at (PartCenter |- current page.south);
+    \coordinate (ClockCenter) at ($(PartCenter)+(0,-10mm)$);
+
+    % Keep the fore-edge inset at 4.5 mm, then mirror it around the recto
+    % visual axis.  With the current layout this leaves 11.5 mm at the spine.
+    \coordinate (PartFrameNE) at
+      ($(current page.north east)+(-4.5mm,-4.5mm)$);
+    \coordinate (PartFrameSE) at
+      ($(current page.south east)+(-4.5mm,4.5mm)$);
+    \coordinate (PartFrameTopCenter) at ($(PartNorth)+(0,-4.5mm)$);
+    \coordinate (PartFrameBottomCenter) at ($(PartSouth)+(0,4.5mm)$);
+    \coordinate (PartFrameNW) at ($(PartFrameTopCenter)!-1!(PartFrameNE)$);
+    \coordinate (PartFrameSW) at ($(PartFrameBottomCenter)!-1!(PartFrameSE)$);
+
+    % Hairline magical boundary, corner stars, and short dotted traces.
+    \draw[MadokaPink,opacity=.42,line width=.28pt,rounded corners=2mm]
+      (PartFrameNW) rectangle (PartFrameSE);
+    \coordinate (PartNEStar) at ($(current page.north east)+(-7mm,-7mm)$);
+    \coordinate (PartSEStar) at ($(current page.south east)+(-7mm,7mm)$);
+    \coordinate (PartTopStarCenter) at ($(PartNorth)+(0,-7mm)$);
+    \coordinate (PartBottomStarCenter) at ($(PartSouth)+(0,7mm)$);
+    \coordinate (PartNWStar) at ($(PartTopStarCenter)!-1!(PartNEStar)$);
+    \coordinate (PartSWStar) at ($(PartBottomStarCenter)!-1!(PartSEStar)$);
+    \foreach \corner in {PartNWStar,PartNEStar,PartSWStar,PartSEStar}{%
+      \begin{scope}[shift={(\corner)},scale=.135]
+        \path[fill=MadokaPink,fill opacity=.82] \BookFourPointStar
+      \end{scope}
+    }
+    \draw[MadokaPink,opacity=.56,line width=.3pt,densely dotted]
+      ($(PartNWStar)+(3mm,0)$)--($(PartNWStar)+(12mm,0)$)
+      ($(PartNWStar)+(0,-3mm)$)--($(PartNWStar)+(0,-12mm)$)
+      ($(PartNEStar)+(-3mm,0)$)--($(PartNEStar)+(-12mm,0)$)
+      ($(PartNEStar)+(0,-3mm)$)--($(PartNEStar)+(0,-12mm)$)
+      ($(PartSWStar)+(3mm,0)$)--($(PartSWStar)+(12mm,0)$)
+      ($(PartSWStar)+(0,3mm)$)--($(PartSWStar)+(0,12mm)$)
+      ($(PartSEStar)+(-3mm,0)$)--($(PartSEStar)+(-12mm,0)$)
+      ($(PartSEStar)+(0,3mm)$)--($(PartSEStar)+(0,12mm)$);
+
+    % Top emblem and hierarchy.
+    \coordinate (TopEmblem) at ($(PartNorth)+(0,-14mm)$);
+    \draw[BookGray,opacity=.52,line width=.28pt]
+      ($(TopEmblem)+(-36mm,0)$)--($(TopEmblem)+(-7mm,0)$)
+      ($(TopEmblem)+(7mm,0)$)--($(TopEmblem)+(36mm,0)$);
+    \foreach \x in {-37,37}{%
+      \begin{scope}[shift={($(TopEmblem)+(\x mm,0)$)},scale=.06]
+        \path[fill=MadokaPink] \BookFourPointStar
+      \end{scope}
+    }
+    \begin{scope}[shift={(TopEmblem)},scale=.63]
+      \HopeMotifPaths
+      \draw[HomuraViolet,opacity=.38,line width=.3pt,densely dotted] (0,0) circle (.86);
+    \end{scope}
+    \node[anchor=center,text=MadokaPink,
+      font=\rmfamily\fontsize{11pt}{12pt}\selectfont\addfontfeatures{LetterSpace=18}]
+      at ($(PartNorth)+(0,-28mm)$) {PART I};
+    \node[anchor=center,text=BookBlack,
+      font=\bookparttitlefont\fontsize{10.5pt}{12pt}\selectfont]
+      at ($(PartNorth)+(0,-36mm)$) {第一部分};
+    \begin{scope}[shift={($(PartNorth)+(0,-40.5mm)$)},scale=.055]
+      \path[fill=MadokaPink] \BookFourPointStar
+    \end{scope}
+    \node[anchor=center,text=BookBlack,
+      font=\bookparttitlefont\fontsize{30pt}{34pt}\selectfont]
+      at ($(PartNorth)+(0,-49mm)$) {#1};
+    \draw[MadokaPink,opacity=.72,line width=.42pt]
+      ($(PartNorth)+(-25mm,-58mm)$)--($(PartNorth)+(25mm,-58mm)$);
+    \node[anchor=center,text=MadokaPink,
+      font=\rmfamily\fontsize{6.3pt}{8pt}\selectfont\addfontfeatures{LetterSpace=22}]
+      at ($(PartNorth)+(0,-62.5mm)$) {TELEVISION ANIMATION};
+
+    % Side information bands remain deliberately lighter than the title.
+    \coordinate (PartRightBand) at ($(current page.east)+(-8.2mm,0)$);
+    \coordinate (PartLeftBand) at ($(PartCenter)!-1!(PartRightBand)$);
+    \begin{scope}[shift={($(PartLeftBand)+(0,-11mm)$)},rotate=270,transform shape]
+      \node[text=BookBlack,opacity=.78,
+        font=\rmfamily\fontsize{4.7pt}{6pt}\selectfont\addfontfeatures{LetterSpace=11}]
+        {THE VERY SOIL\quad\textcolor{MadokaPink}{\raisebox{.2ex}{\tiny\ensuremath{\diamond}}}\quad
+         LAW OF CYCLES\quad\textcolor{MadokaPink}{\raisebox{.2ex}{\tiny\ensuremath{\diamond}}}\quad
+         POSSIBILITIES\quad\textcolor{MadokaPink}{\raisebox{.2ex}{\tiny\ensuremath{\diamond}}}\quad REBELLION};
+    \end{scope}
+    \begin{scope}[shift={($(PartRightBand)+(0,11mm)$)},rotate=270,transform shape]
+      \node[text=BookBlack,opacity=.76,
+        font=\bookparttitlefont\fontsize{5pt}{6pt}\selectfont]
+        {符号逻辑\enspace/\enspace
+         \rmfamily\addfontfeatures{LetterSpace=10}SYMBOL LOGIC};
+      \draw[BookGray,opacity=.55,line width=.3pt] (24mm,0)--(31mm,0);
+      \node[anchor=west,text=HomuraViolet,opacity=.62,
+        font=\bookrunefont\fontsize{4.7pt}{6pt}\selectfont]
+        at (34mm,0) {TIME LOOP WISH ORDER};
+    \end{scope}
+    \foreach \side in {PartLeftBand,PartRightBand}{%
+      \foreach \y in {-59,59}{%
+        \begin{scope}[shift={($(\side)+(0,\y mm)$)},scale=.07]
+          \path[fill=MadokaPink,fill opacity=.8] \BookFourPointStar
+        \end{scope}
+      }
+    }
+
+    % Twelve-step closed time ring: guide circle, numbered ring, return arrow,
+    % and a small origin circle crossed by construction lines.
+    \draw[HomuraViolet,opacity=.42,line width=.3pt,densely dotted]
+      (ClockCenter) circle (25mm);
+    \draw[MadokaPink,opacity=.94,line width=.56pt]
+      (ClockCenter) circle (21.5mm);
+    \draw[HomuraViolet,opacity=.24,line width=.28pt,densely dotted]
+      ($(ClockCenter)+(-28mm,0)$)--($(ClockCenter)+(28mm,0)$)
+      ($(ClockCenter)+(0,-28mm)$)--($(ClockCenter)+(0,28mm)$);
+    \foreach \angle in {0,30,...,330}{%
+      \draw[MadokaPink,opacity=.72,line width=.35pt]
+        ($(ClockCenter)+(\angle:20.7mm)$)--($(ClockCenter)+(\angle:22.3mm)$);
+    }
+    \foreach \label/\angle in {
+      XII/90,I/60,II/30,III/0,IV/330,V/300,
+      VI/270,VII/240,VIII/210,IX/180,X/150,XI/120}{%
+      \node[text=MadokaPink,
+        font=\rmfamily\fontsize{6.2pt}{7pt}\selectfont]
+        at ($(ClockCenter)+(\angle:18.5mm)$) {\label};
+    }
+    \foreach \angle/\tone in {0/MadokaPink,90/HomuraViolet,180/MadokaPink,270/HomuraViolet}{%
+      \begin{scope}[shift={($(ClockCenter)+(\angle:21.5mm)$)},scale=.105]
+        \path[fill=\tone,fill opacity=.9] \BookFourPointStar
+      \end{scope}
+    }
+    \foreach \angle in {0,90,180,270}{%
+      \draw[HomuraViolet,opacity=.52,line width=.35pt,fill=white]
+        ($(ClockCenter)+(\angle:25mm)$) circle (.75mm);
+    }
+    \draw[MadokaPink,opacity=.8,line width=.52pt,
+      -{Stealth[length=2.2mm,width=1.45mm]}]
+      ($(ClockCenter)+(215:14.3mm)$)
+      arc[start angle=215,end angle=430,radius=14.3mm];
+    \draw[MadokaPink,opacity=.82,line width=.46pt]
+      (ClockCenter) circle (7.2mm);
+    \foreach \angle in {0,90,180,270}{%
+      \fill[MadokaPink,opacity=.72]
+        ($(ClockCenter)+(\angle:7.2mm)$) circle (.38mm);
+    }
+    \begin{scope}[shift={(ClockCenter)},scale=.18,opacity=.46]
+      \HopeMotifPaths
+    \end{scope}
+
+    % Caption, keyword layer, runes, and an unnumbered closing emblem.
+    \node[anchor=center,text=BookBlack,
+      font=\bookparttitlefont\fontsize{8.5pt}{11pt}\selectfont]
+      at ($(PartSouth)+(0,37mm)$) {闭合的时间\enspace/\enspace{}愿望与秩序};
+    \draw[MadokaPink,opacity=.68,line width=.35pt]
+      ($(PartSouth)+(-18mm,30.5mm)$)--($(PartSouth)+(-2.5mm,30.5mm)$)
+      ($(PartSouth)+(2.5mm,30.5mm)$)--($(PartSouth)+(18mm,30.5mm)$);
+    \begin{scope}[shift={($(PartSouth)+(0,30.5mm)$)},scale=.085]
+      \path[fill=MadokaPink] \BookFourPointStar
+    \end{scope}
+    \node[anchor=center,text=MadokaPink,
+      font=\rmfamily\fontsize{5.2pt}{6.5pt}\selectfont\addfontfeatures{LetterSpace=22}]
+      at ($(PartSouth)+(0,24.5mm)$) {WISH \enspace\textperiodcentered\enspace
+        ORDER \enspace\textperiodcentered\enspace CIRCULAR FATE};
+    \node[anchor=center,text=HomuraViolet,opacity=.56,
+      font=\bookrunefont\fontsize{5pt}{6pt}\selectfont\addfontfeatures{LetterSpace=8}]
+      at ($(PartSouth)+(0,18.5mm)$)
+      {THE CLOSED TIME OF WISHES AND ORDER};
+    \coordinate (BottomEmblem) at ($(PartSouth)+(0,10.5mm)$);
+    \draw[BookGray,opacity=.46,line width=.28pt]
+      ($(BottomEmblem)+(-16mm,0)$)--($(BottomEmblem)+(-5mm,0)$)
+      ($(BottomEmblem)+(5mm,0)$)--($(BottomEmblem)+(16mm,0)$);
+    \begin{scope}[shift={(BottomEmblem)},scale=.35]
+      \HopeMotifPaths
+      \draw[HomuraViolet,opacity=.38,line width=.3pt,densely dotted] (0,0) circle (.86);
+    \end{scope}
+  \end{tikzpicture}%
+  \null
+}
+
+\newcommand{\BookGenericPartPage}[1]{%
+  \begin{tikzpicture}[remember picture,overlay]
+    % Part pages are always recto: shift to the bound text-block centre.
+    \node[opacity=.94] at
+      ($(current page.center)+(\BookRectoTextCenterShift,17mm)$) {\BookPartMotif};
+    \draw[MadokaPink,line width=.5pt]
+      ($(current page.south west)+(14mm,20mm)$)--($(current page.south east)+(-14mm,20mm)$);
+  \end{tikzpicture}%
+  \vspace*{69mm}%
+  \begin{center}
+    {\sffamily\bfseries\fontsize{9pt}{11pt}\selectfont\color{BookGray}%
+      PART~\Roman{part}\par}%
+    \vspace{5pt}%
+    {\sffamily\bfseries\fontsize{22pt}{28pt}\selectfont #1\par}%
+    \vspace{8pt}%
+    {\color{HomuraViolet}\runeecho{PART \Roman{part}}\par}%
+  \end{center}%
+}

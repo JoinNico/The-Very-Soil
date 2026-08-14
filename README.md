@@ -1,4 +1,4 @@
-# The Very Soil 绝望土上的希冀花
+# The Very Soil 绝望即壤
 ## An Unauthorized Critical Study of Puella Magi Madoka Magica 《魔法少女小圆》非官方批评研究
 
 ### 缘起与愿景

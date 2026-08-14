@@ -65,9 +65,19 @@
   \kern5pt
 }
 
-\renewcommand{\contentsname}{目录}
-\renewcommand{\cfttoctitlefont}{\hfill\sffamily\bfseries\fontsize{18pt}{22pt}\selectfont}
-\renewcommand{\cftaftertoctitle}{\hfill}
+\newcommand{\BookContentsName}{%
+  \texorpdfstring{\makebox[\linewidth][c]{目\hspace{2em}录}}{目录}%
+}
+% polyglossia installs the English caption names at begin-document time, so
+% restore the Chinese TOC title after all package initialization has finished.
+\AddToHook{begindocument/end}{\renewcommand{\contentsname}{\BookContentsName}}
+\renewcommand{\cfttoctitlefont}{\sffamily\bfseries\fontsize{18pt}{22pt}\selectfont}
+\renewcommand{\cftaftertoctitle}{%
+  \par
+  \vspace{2pt}%
+  \noindent\makebox[\linewidth][c]{%
+    \sffamily\mdseries\fontsize{9pt}{12pt}\selectfont CONTENTS}%
+}
 \setlength{\cftbeforetoctitleskip}{0pt}
 \setlength{\cftaftertoctitleskip}{18pt}
 \setlength{\cftbeforepartskip}{12pt}
@@ -83,6 +93,18 @@
 \renewcommand{\cftchapfont}{\fontsize{9pt}{13pt}\selectfont}
 \renewcommand{\cftchappagefont}{\fontsize{9pt}{13pt}\selectfont}
 \renewcommand{\cftchapleader}{\cftdotfill{2.8}}
+% Stretch every chapter-like label across 5em, then leave a separate 1em gap
+% before its title. Keeping these dimensions separate makes the gap adjustable
+% without changing the aligned edges of the labels themselves.
+\newlength{\BookTOCLabelWidth}
+\newlength{\BookTOCLabelGap}
+\setlength{\BookTOCLabelWidth}{5em}
+\setlength{\BookTOCLabelGap}{1em}
+\setlength{\cftchapnumwidth}{%
+  \dimexpr\BookTOCLabelWidth+\BookTOCLabelGap\relax}
+\DeclareRobustCommand{\BookTOCLabel}[1]{%
+  \makebox[\BookTOCLabelWidth][s]{#1}%
+}
 
 \fancypagestyle{bookbody}{%
   \fancyhf{}
@@ -136,6 +158,18 @@
   }
 }
 
+% Numbered chapter TOC entries carry a "第N章" prefix. The heading itself
+% keeps the kicker style (name=/number= emptied above leave \CTEXthechapter
+% blank), so we bypass it and typeset the numeral straight from the counter.
+\makeatletter
+\renewcommand{\CTEX@chapter@tocline}[2]{%
+  \CTEXifname
+    {\protect\numberline{\protect\BookTOCLabel{第\Chinese{chapter}章}}}%
+    {}%
+  #2%
+}
+\makeatother
+
 \renewcommand{\chaptermark}[1]{%
   \markright{第\Chinese{chapter}章\quad #1}%
 }
@@ -144,7 +178,7 @@
   \hypersetup{
     hidelinks,
     unicode=true,
-    pdftitle={绝望土上的希冀花},
+    pdftitle={绝望即壤},
     pdfauthor={Jed A. Blue；JoinNico}
   }
 \else
@@ -154,7 +188,7 @@
     linkcolor=HomuraViolet,
     citecolor=HomuraViolet,
     urlcolor=MadokaPink,
-    pdftitle={绝望土上的希冀花},
+    pdftitle={绝望即壤},
     pdfauthor={Jed A. Blue；JoinNico}
   }
 \fi
