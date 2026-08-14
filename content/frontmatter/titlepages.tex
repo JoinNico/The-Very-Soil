@@ -1,0 +1,43 @@
+\begin{titlepage}
+  \thispagestyle{empty}
+  \begin{tikzpicture}[remember picture,overlay]
+    \node[opacity=.95] at ($(current page.north east)+(-17mm,-19mm)$) {\ConvergenceMotif[1.25]};
+    \draw[MadokaPink,line width=.7pt]
+      ($(current page.south west)+(14mm,18mm)$)--($(current page.south west)+(58mm,18mm)$);
+    \draw[HomuraViolet,line width=.7pt]
+      ($(current page.south west)+(58mm,18mm)$)--($(current page.south east)+(-14mm,18mm)$);
+  \end{tikzpicture}
+  \vspace*{42mm}
+  {\sffamily\bfseries\fontsize{22pt}{29pt}\selectfont
+    \BookTitle\par}
+  \vspace{6mm}
+  {\sffamily\fontsize{12pt}{18pt}\selectfont\color{BookGray}
+    \BookSubtitle\par}
+  \vspace{12mm}
+  {\color{HomuraViolet}\runeecho{THE VERY SOIL}\par}
+  \vfill
+  \begin{flushright}
+    {\fontsize{9pt}{14pt}\selectfont
+      著\quad\BookAuthor\par
+      译\quad\BookTranslator\par}
+  \end{flushright}
+\end{titlepage}
+
+\clearpage
+\thispagestyle{empty}
+\vspace*{\fill}
+{\fontsize{8pt}{12pt}\selectfont
+  \textbf{\BookTitle}\par
+  \BookSubtitle\par
+  \vspace{8pt}
+  作者：\BookAuthor\par
+  译者：\BookTranslator\par
+  版本：\BookEdition\par
+  输出：\ifbookprint 印刷版\else 屏幕阅读版\fi\par
+  \vspace{8pt}
+  本翻译作品采用 CC BY-NC-SA 4.0 许可发布；字体与外部素材遵循各自许可文件。\par
+  本书为非官方评论研究，与原作权利方无隶属或授权关系。\par
+  \vspace{8pt}
+  排版系统：XeLaTeX / ctex / biblatex\par
+}
+\clearpage

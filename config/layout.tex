@@ -1,0 +1,194 @@
+% 全书主要排版参数；修改以下数值即可统一调整对应元素。
+\newcommand{\BookBodyFontSize}{8pt}                 % 正文的字体大小
+\newcommand{\BookBodyLineHeight}{12pt}              % 正文的基线间距（行距）
+\newcommand{\BookFootnoteFontSize}{6pt}             % 脚注正文的字体大小
+\newcommand{\BookFootnoteLineHeight}{8pt}          % 单个多行脚注内部的基线间距
+\newcommand{\BookFootnoteNumberWidth}{1.15em}        % 脚注编号栏的固定宽度
+\newcommand{\BookFootnoteNumberGap}{.35em}           % 脚注编号与脚注正文之间的水平距离
+\newcommand{\BookFootnoteSeparation}{8pt}            % 相邻两个脚注之间的垂直距离
+\newcommand{\BookFootnoteBlockGap}{7pt plus 1pt minus .5pt} % 正文与页面底部脚注区之间的弹性距离
+\newcommand{\BookChapterTitleFontSize}{16pt}         % 章标题的字体大小
+\newcommand{\BookChapterTitleLineHeight}{21pt}       % 多行章标题的基线间距
+\newcommand{\BookOpeningNoteFontSize}{6pt}           % 题记／译者案正文的字体大小
+\newcommand{\BookOpeningNoteLineHeight}{8pt}        % 题记／译者案正文的基线间距
+\newcommand{\BookOpeningNoteLabelFontSize}{8pt}      % “题记／译者案”标签的字体大小
+\newcommand{\BookOpeningNoteLabelLineHeight}{10pt}   % “题记／译者案”标签的基线间距
+\newcommand{\BookRectoTextCenterShift}{3.5mm}        % 右页视觉中心相对纸张中心向外侧偏移的距离
+
+\geometry{
+  paperwidth=125mm,
+  paperheight=176mm,
+  inner=17mm,
+  outer=13mm,
+  bindingoffset=3mm,
+  top=15mm,
+  bottom=18mm,
+  headheight=4.5mm,
+  headsep=4mm,
+  footskip=9mm
+}
+
+\AtBeginDocument{%
+  \fontsize{\BookBodyFontSize}{\BookBodyLineHeight}\selectfont
+  \setlength{\parindent}{2em}%
+  \setlength{\parskip}{0pt}%
+  \clubpenalty=10000
+  \widowpenalty=10000
+  \displaywidowpenalty=10000
+}
+
+\renewcommand{\footnotelayout}{%
+  \fontsize{\BookFootnoteFontSize}{\BookFootnoteLineHeight}\selectfont
+  \setlength{\parindent}{0pt}%
+  \setlength{\parskip}{0pt}%
+}
+\setlength{\footnotesep}{\BookFootnoteSeparation}
+\setlength{\skip\footins}{\BookFootnoteBlockGap}
+% A fixed, right-aligned number column keeps one- and two-digit notes aligned.
+\makeatletter
+\renewcommand{\@makefntext}[1]{%
+  % Our custom number column replaces footmisc's \@makefntext, so invoke
+  % \footnotelayout explicitly; otherwise LaTeX keeps the class default
+  % \footnotesize and the BookFootnote* controls above appear ineffective.
+  \footnotelayout
+  \noindent
+  \hangindent=\dimexpr\BookFootnoteNumberWidth+\BookFootnoteNumberGap\relax
+  \hangafter=1
+  \makebox[\BookFootnoteNumberWidth][r]{\@makefnmark}%
+  \hspace{\BookFootnoteNumberGap}%
+  #1%
+}
+\makeatother
+\renewcommand{\footnoterule}{%
+  \kern-3pt
+  {\color{BookGray}\hrule width .28\textwidth height .35pt}%
+  \kern5pt
+}
+
+\newcommand{\BookContentsName}{%
+  \texorpdfstring{\makebox[\linewidth][c]{目\hspace{2em}录}}{目录}%
+}
+% polyglossia installs the English caption names at begin-document time, so
+% restore the Chinese TOC title after all package initialization has finished.
+\AddToHook{begindocument/end}{\renewcommand{\contentsname}{\BookContentsName}}
+\renewcommand{\cfttoctitlefont}{\sffamily\bfseries\fontsize{18pt}{22pt}\selectfont}
+\renewcommand{\cftaftertoctitle}{%
+  \par
+  \vspace{2pt}%
+  \noindent\makebox[\linewidth][c]{%
+    \sffamily\mdseries\fontsize{9pt}{12pt}\selectfont CONTENTS}%
+}
+\setlength{\cftbeforetoctitleskip}{0pt}
+\setlength{\cftaftertoctitleskip}{18pt}
+\setlength{\cftbeforepartskip}{12pt}
+\setlength{\cftbeforechapskip}{3pt}
+\cftpagenumbersoff{part}
+% Preserve the centered Part entries from the user's in-progress TOC edit.
+\renewcommand{\cftpartfont}{\hfil\sffamily\large\bfseries\color{HomuraViolet}}
+\renewcommand{\cftpartfillnum}[1]{%
+  \rightskip=0pt
+  \parfillskip=0pt plus 1fil
+  \par
+}
+\renewcommand{\cftchapfont}{\fontsize{9pt}{13pt}\selectfont}
+\renewcommand{\cftchappagefont}{\fontsize{9pt}{13pt}\selectfont}
+\renewcommand{\cftchapleader}{\cftdotfill{2.8}}
+% Stretch every chapter-like label across 5em, then leave a separate 1em gap
+% before its title. Keeping these dimensions separate makes the gap adjustable
+% without changing the aligned edges of the labels themselves.
+\newlength{\BookTOCLabelWidth}
+\newlength{\BookTOCLabelGap}
+\setlength{\BookTOCLabelWidth}{5em}
+\setlength{\BookTOCLabelGap}{1em}
+\setlength{\cftchapnumwidth}{%
+  \dimexpr\BookTOCLabelWidth+\BookTOCLabelGap\relax}
+\DeclareRobustCommand{\BookTOCLabel}[1]{%
+  \makebox[\BookTOCLabelWidth][s]{#1}%
+}
+
+\fancypagestyle{bookbody}{%
+  \fancyhf{}
+  \fancyhead[LE]{\footnotesize\sffamily\color{BookGray}\BookHeaderMotif\quad\nouppercase{\leftmark}}
+  \fancyhead[RO]{\footnotesize\sffamily\color{BookGray}\nouppercase{\rightmark}\quad\BookHeaderMotif}
+  \fancyfoot[LE,RO]{\sffamily\small\thepage}
+  \renewcommand{\headrulewidth}{0pt}
+}
+\fancypagestyle{chapteropening}{%
+  \fancyhf{}
+  \renewcommand{\headrulewidth}{0pt}
+}
+\pagestyle{bookbody}
+
+\newcommand{\BookChapterKicker}{%
+  \ifdefempty{\BookSpecialKicker}{%
+    CHAPTER~\ifnum\value{chapter}<10 0\fi\arabic{chapter}%
+  }{\BookSpecialKicker}%
+}
+\newcommand{\BookChapterFormat}{%
+  \thispagestyle{chapteropening}%
+  \raggedright
+  {\sffamily\bfseries\fontsize{8.5pt}{10pt}\selectfont\color{HomuraViolet}%
+    \BookChapterKicker\hfill
+    {\color{MadokaPink}\runeecho{THE VERY SOIL}}\par}%
+  \vspace{5pt}%
+  {\color{MadokaPink}\rule{12mm}{1.2pt}\hspace{2mm}%
+   \color{HomuraViolet}\rule{20mm}{.4pt}\par}%
+  \vspace{8pt}%
+  \sffamily\bfseries
+  \fontsize{\BookChapterTitleFontSize}{\BookChapterTitleLineHeight}\selectfont
+  \color{BookBlack}%
+}
+
+\ctexset{
+  part = {pagestyle=empty},
+  chapter = {
+    format=\BookChapterFormat,
+    name={},
+    number={},
+    beforeskip=0pt,
+    afterskip=18pt,
+    afterindent=true,
+    pagestyle=chapteropening
+  },
+  paragraph = {
+    format=\sffamily\bfseries\color{HomuraViolet},
+    beforeskip=8pt,
+    afterskip=3pt,
+    runin=false
+  }
+}
+
+% Numbered chapter TOC entries carry a "第N章" prefix. The heading itself
+% keeps the kicker style (name=/number= emptied above leave \CTEXthechapter
+% blank), so we bypass it and typeset the numeral straight from the counter.
+\makeatletter
+\renewcommand{\CTEX@chapter@tocline}[2]{%
+  \CTEXifname
+    {\protect\numberline{\protect\BookTOCLabel{第\Chinese{chapter}章}}}%
+    {}%
+  #2%
+}
+\makeatother
+
+\renewcommand{\chaptermark}[1]{%
+  \markright{第\Chinese{chapter}章\quad #1}%
+}
+
+\ifbookprint
+  \hypersetup{
+    hidelinks,
+    unicode=true,
+    pdftitle={绝望即壤},
+    pdfauthor={Jed A. Blue；JoinNico}
+  }
+\else
+  \hypersetup{
+    unicode=true,
+    colorlinks=true,
+    linkcolor=HomuraViolet,
+    citecolor=HomuraViolet,
+    urlcolor=MadokaPink,
+    pdftitle={绝望即壤},
+    pdfauthor={Jed A. Blue；JoinNico}
+  }
+\fi

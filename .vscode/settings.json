@@ -1,15 +1,72 @@
 {
     "files.encoding": "utf8",
     "files.exclude": {
-        "*.aux": true,
-        "*.log":true,
-        "*.toc":true, 
-        "*.out":true,
-        "*.fdb*":true,
-        "*.fls":true
-        
+        "**/*.aux": true,
+        "**/*.log": true,
+        "**/*.toc": true,
+        "**/*.out": true,
+        "**/*.fdb*": true,
+        "**/*.fls": true,
+        "**/*.xdv": true,
+        "**/*.loc": true,
+        "**/*.soc": true,
+        "**/*.synctex.gz": true,
+        "**/*.bbl": true,
+        "**/*.bcf": true,
+        "**/*.blg": true,
+        "**/*.run.xml": true
     },
     "search.exclude": {
+        "build": true
+    },
 
-    }    
+    /* 
+     * This book is ctexbook + fontspec, so it MUST be compiled with XeLaTeX.
+     *
+     * The project's ./latexmkrc already encodes the whole build:
+     *      $pdf_mode = 5  → XeLaTeX
+     *      $out_dir/$aux_dir = 'build'  → all artefacts go to ./build
+     *      $bibtex_use = 2 → biber runs automatically
+     */
+
+    "latex-workshop.latex.tools": [
+        {
+            // Screen edition
+            "name": "latexmk",
+            "command": "latexmk",
+            "args": [
+                "-synctex=1",
+                "%DOC%"
+            ]
+        },
+        {
+            // Print edition
+            "name": "latexmk-print",
+            "command": "latexmk",
+            "args": [
+                "-synctex=1",
+                "%DIR%/print"
+            ]
+        }
+    ],
+
+    "latex-workshop.latex.recipes": [
+        {
+            "name": "latexmk — screen edition (main.tex)",
+            "tools": ["latexmk"]
+        },
+        {
+            "name": "latexmk — print edition (print.tex)",
+            "tools": ["latexmk-print"]
+        }
+    ],
+
+    /* 
+     * PDF + .synctex.gz land in ./build (per latexmkrc), so point the viewer
+     * and SyncTeX reverse-search there too. Must match $out_dir in latexmkrc.
+     */
+    "latex-workshop.latex.outDir": "%DIR%/build",
+
+    // build-on-save uses the first recipe (screen edition).
+    "latex-workshop.latex.recipe.default": "first"
 }

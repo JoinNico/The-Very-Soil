@@ -1,4 +1,5 @@
 # LaTeX intermediate files
+/build/
 *.aux
 *.bbl
 *.bcf
@@ -39,9 +40,6 @@
 *~
 .DS_Store
 
-# VS Code
-.vscode/
-
 # TeXShop / TeXworks / other editor backups
 *.bak
 *.tmp
@@ -69,6 +67,8 @@ _minted-*/
 
 # generated PDF
 *.pdf
+!assets/plates/**/*.pdf
+!sources/original-en/**/*.pdf
 
 # GitHub Pages staging directory
 /public/

@@ -1,0 +1,87 @@
+% Reproducible project-local fonts.
+\setmainfont{LibertinusSerif-Regular.otf}[
+  Path=assets/fonts/Libertinus/,
+  BoldFont=LibertinusSerif-Bold.otf,
+  ItalicFont=LibertinusSerif-Italic.otf,
+  BoldItalicFont=LibertinusSerif-BoldItalic.otf,
+  Ligatures=TeX
+]
+\newfontfamily\greekfont{LibertinusSerif-Regular.otf}[
+  Path=assets/fonts/Libertinus/,
+  BoldFont=LibertinusSerif-Bold.otf,
+  ItalicFont=LibertinusSerif-Italic.otf,
+  BoldItalicFont=LibertinusSerif-BoldItalic.otf,
+  Script=Greek,
+  Ligatures=TeX
+]
+\setsansfont{LibertinusSans-Regular.otf}[
+  Path=assets/fonts/Libertinus/,
+  BoldFont=LibertinusSans-Bold.otf,
+  Ligatures=TeX
+]
+
+\setCJKmainfont{NotoSerifSC-VF.ttf}[
+  Path=assets/fonts/Noto/,
+  RawFeature={axis={wght=400}},
+  BoldFont=NotoSerifSC-VF.ttf,
+  BoldFeatures={RawFeature={axis={wght=700}}},
+  ItalicFont=NotoSerifSC-VF.ttf,
+  ItalicFeatures={FakeSlant=0.15},
+  BoldItalicFont=NotoSerifSC-VF.ttf,
+  BoldItalicFeatures={RawFeature={axis={wght=700}},FakeSlant=0.15}
+]
+\newCJKfontfamily\bookparttitlefont{NotoSerifSC-VF.ttf}[
+  Path=assets/fonts/Noto/,
+  RawFeature={axis={wght=300}}
+]
+\setCJKsansfont{NotoSansSC-VF.ttf}[
+  Path=assets/fonts/Noto/,
+  RawFeature={axis={wght=400}},
+  BoldFont=NotoSansSC-VF.ttf,
+  BoldFeatures={RawFeature={axis={wght=700}}}
+]
+\setCJKmonofont{NotoSansSC-VF.ttf}[
+  Path=assets/fonts/Noto/,
+  RawFeature={axis={wght=400}}
+]
+
+% MadokaRunes is enabled only when both the font and its redistribution
+% license have deliberately been added to assets/fonts/MadokaRunes/.
+\newif\ifbookrunes
+\IfFileExists{assets/fonts/MadokaRunes/MADOKARUNES-2.0.TTF}{%
+  \IfFileExists{assets/fonts/MadokaRunes/LICENSE.txt}{%
+    \bookrunestrue
+    \newfontfamily\bookrunefont{MADOKARUNES-2.0.TTF}[
+      Path=assets/fonts/MadokaRunes/,
+      BoldFont=MADOKARUNES-2.0.TTF,
+      ItalicFont=MADOKARUNES-2.0.TTF,
+      BoldItalicFont=MADOKARUNES-2.0.TTF
+    ]
+  }{\bookrunesfalse}%
+}{\bookrunesfalse}
+
+\newcommand{\runeecho}[1]{%
+  \ifbookrunes
+    {\bookrunefont\mdseries\upshape #1}%
+  \else
+    {\sffamily\addfontfeatures{LetterSpace=18}\MakeUppercase{#1}}%
+  \fi
+}
+
+\ifbookprint
+  \definecolor{BookBlack}{cmyk}{0,0,0,1}
+  \definecolor{MadokaPink}{cmyk}{0,0.70,0.20,0}
+  \definecolor{HomuraViolet}{cmyk}{0.55,0.70,0,0.15}
+  \definecolor{BookGray}{cmyk}{0,0,0,0.55}
+  \definecolor{BookPale}{cmyk}{0,0.06,0.02,0}
+\else
+  \definecolor{BookBlack}{HTML}{18151C}
+  \definecolor{MadokaPink}{HTML}{E84D8A}
+  \definecolor{HomuraViolet}{HTML}{6F4AA8}
+  \definecolor{BookGray}{HTML}{716B75}
+  \definecolor{BookPale}{HTML}{FFF4F8}
+\fi
+
+\color{BookBlack}
+\input{assets/motifs/book-motifs}
+\input{assets/motifs/part-pages}

@@ -1,0 +1,69 @@
+% Deterministic vector motifs used throughout the interior.
+\newcommand{\HopeMotifPaths}{%
+    \draw[MadokaPink,line width=.55pt] (0,0) circle (.62);
+    \foreach \a in {0,72,...,288}{
+      \begin{scope}[rotate=\a]
+        \path[fill=MadokaPink,fill opacity=.16,draw=MadokaPink,line width=.35pt]
+          (0,.16) .. controls (.18,.30) and (.23,.56) .. (0,.78)
+          .. controls (-.23,.56) and (-.18,.30) .. cycle;
+      \end{scope}
+    }
+    \draw[MadokaPink,line width=.38pt] (-.82,-.28)
+      .. controls (-.24,-.70) and (.34,-.66) .. (.88,-.18);
+}
+
+\newcommand{\HopeMotif}[1][1]{%
+  \begin{tikzpicture}[scale=#1,line cap=round,line join=round]
+    \HopeMotifPaths
+  \end{tikzpicture}%
+}
+
+\newcommand{\DespairMotifPaths}{%
+    \draw[HomuraViolet,line width=.55pt] (0,0) circle (.70);
+    \foreach \a in {0,30,...,330}{
+      \draw[HomuraViolet,line width=.35pt] (\a:.76)--(\a:.92);
+    }
+    \path[draw=HomuraViolet,fill=HomuraViolet,fill opacity=.10,line width=.4pt]
+      (0,.55)--(.43,.08)--(.22,-.55)--(-.32,-.48)--(-.52,.12)--cycle;
+    \draw[HomuraViolet,line width=.45pt]
+      (-.10,.55)--(.02,.18)--(-.18,-.06)--(.12,-.24)--(-.02,-.56);
+}
+
+\newcommand{\DespairMotif}[1][1]{%
+  \begin{tikzpicture}[scale=#1,line cap=round,line join=round]
+    \DespairMotifPaths
+  \end{tikzpicture}%
+}
+
+\newcommand{\ConvergenceMotif}[1][1]{%
+  \begin{tikzpicture}[scale=#1,line cap=round,line join=round]
+    \begin{scope}[shift={(-.38,0)},scale=.82,opacity=.88]\HopeMotifPaths\end{scope}
+    \begin{scope}[shift={(.38,0)},scale=.78,opacity=.88]\DespairMotifPaths\end{scope}
+    \draw[BookBlack,opacity=.35,line width=.3pt]
+      (-1.05,-.68)..controls(-.35,-.90)and(.35,-.90)..(1.05,-.68);
+  \end{tikzpicture}%
+}
+
+\newcommand{\BookHeaderMotif}{%
+  \ifcase\value{part}\relax
+    \HopeMotif[.18]%
+  \or
+    \HopeMotif[.18]%
+  \or
+    \ConvergenceMotif[.16]%
+  \else
+    \DespairMotif[.18]%
+  \fi
+}
+
+\newcommand{\BookPartMotif}{%
+  \ifcase\value{part}\relax
+    \HopeMotif[2.5]%
+  \or
+    \HopeMotif[2.5]%
+  \or
+    \ConvergenceMotif[2.1]%
+  \else
+    \DespairMotif[2.4]%
+  \fi
+}

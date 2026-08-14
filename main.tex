@@ -1,29 +1,36 @@
-\documentclass[openany, 12pt]{ctexbook}
+\providecommand{\BookProfile}{screen}
+\def\BookPrintProfile{print}
+\newif\ifbookprint
+\ifx\BookProfile\BookPrintProfile
+  \bookprinttrue
+\else
+  \bookprintfalse
+\fi
+
+\documentclass[fontset=none,openany,10pt,twoside]{ctexbook}
 
 \input{config/preamble}
-\input{config/commands}
 
-\title{绝望土上的希冀花
-
-《魔法少女小圆》非官方批评研究}
-\author{著：Jed A. Blue \and 译：JoinNico}
+\newcommand{\BookTitle}{绝望即壤}
+\newcommand{\BookSubtitle}{《魔法少女小圆》非官方批评研究}
+\newcommand{\BookAuthor}{Jed A. Blue}
+\newcommand{\BookTranslator}{JoinNico}
+\newcommand{\BookEdition}{开放校订版}
 
 \begin{document}
 
-\maketitle
-
-\tableofcontents
-
 \frontmatter
-
-\include{frontmatter/introduction}
+\input{content/frontmatter/titlepages}
+\pdfbookmark[0]{目录}{book-toc}
+\tableofcontents
+\input{content/frontmatter/introduction}
 
 \mainmatter
-\input{parts/part01}
-\input{parts/part02}
-\input{parts/part03}
+\input{content/parts/part01/part}
+\input{content/parts/part02/part}
+\input{content/parts/part03/part}
 
 \backmatter
-\include{backmatter/reference}
+\input{content/backmatter/reference}
 
 \end{document}

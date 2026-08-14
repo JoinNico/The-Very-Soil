@@ -1,4 +1,4 @@
-# The Very Soil 绝望土上的希冀花
+# The Very Soil 绝望即壤
 ## An Unauthorized Critical Study of Puella Magi Madoka Magica 《魔法少女小圆》非官方批评研究
 
 ### 缘起与愿景
@@ -38,3 +38,43 @@
 [![CC BY-NC-SA 4.0](https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc-sa/4.0/)
 
 本翻译作品采用 [知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议](http://creativecommons.org/licenses/by-nc-sa/4.0/) 进行许可。
+
+### 内页排版与构建
+
+本仓库只设计 ISO B6（125 × 176 mm）内页，不包含封面、书脊和封底。正文采用双面版芯，正文为 Noto Serif SC 8 pt / 13 pt，标题与导航为 Noto Sans SC，西文为 Libertinus Serif。字体文件及许可均保存在 `assets/fonts/`，本地与 CI 使用同一份文件。
+
+正文、脚注、章标题和题记的全局字号集中定义在 `config/layout.tex` 顶部。脚注编号栏、编号后间隙、脚注间距也分别使用独立变量，调整时不需要修改正文文件。
+
+需要 XeLaTeX、latexmk 和 Biber。默认构建屏幕阅读版，印刷版通过独立入口复用同一正文：
+
+```powershell
+latexmk -xelatex main.tex
+latexmk -xelatex print.tex
+```
+
+输出分别为 `build/main.pdf` 和 `build/print.pdf`。屏幕版保留粉紫色链接、书签和可点击目录；印刷版隐藏链接视觉。两版必须具有相同分页，所有临时文件也统一写入 `build/`。
+
+10 页诊断样张可用以下命令构建：
+
+```powershell
+latexmk -xelatex proof/proof.tex
+```
+
+主要目录按职责划分：
+
+```text
+config/                 LaTeX 依赖、主题、版式、命令与文献设置
+content/                frontmatter、parts、interludes、backmatter
+assets/fonts/           项目字体与独立许可
+assets/motifs/          TikZ 矢量母题
+assets/plates/          未来三个 Part 的四页彩插
+bibliography/           references.bib
+sources/original-en/    仅供翻译参考的英文原稿，不参与构建
+sources/research/       截图等非出版研究素材
+proof/                  10 页版式诊断样张
+build/                  所有构建产物，不纳入版本控制
+```
+
+长章首题记使用 `chapteropeningnote` 环境，短译注使用 `\translatornote{...}`。文献引用由 `biblatex + biber` 生成行内数字编号，不要手写 `Ibid.` 或文献序号。
+
+彩插到齐前，正式正文不调用图版接口。每个 Part 启用时使用 `\includepartplates{part01}`（依次类推）；对应目录必须包含 `page-01.pdf` 至 `page-04.pdf`，且每个文件只能有一页。母版尺寸为 131 × 182 mm，四边含 3 mm 出血，关键内容应距裁切线至少 8 mm。接口会裁去出血后置入 B6 成品页，并在缺页或多页时终止构建。
