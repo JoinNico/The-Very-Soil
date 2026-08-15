@@ -185,22 +185,3 @@
   \end{tikzpicture}%
   \null
 }
-
-\newcommand{\BookGenericPartPage}[1]{%
-  \begin{tikzpicture}[remember picture,overlay]
-    % Part pages are always recto: shift to the bound text-block centre.
-    \node[opacity=.94] at
-      ($(current page.center)+(\BookRectoTextCenterShift,17mm)$) {\BookPartMotif};
-    \draw[MadokaPink,line width=.5pt]
-      ($(current page.south west)+(14mm,20mm)$)--($(current page.south east)+(-14mm,20mm)$);
-  \end{tikzpicture}%
-  \vspace*{69mm}%
-  \begin{center}
-    {\sffamily\bfseries\fontsize{9pt}{11pt}\selectfont\color{BookGray}%
-      PART~\Roman{part}\par}%
-    \vspace{5pt}%
-    {\sffamily\bfseries\fontsize{22pt}{28pt}\selectfont #1\par}%
-    \vspace{8pt}%
-    {\color{HomuraViolet}\runeecho{PART \Roman{part}}\par}%
-  \end{center}%
-}

@@ -1,5 +1,6 @@
 # LaTeX intermediate files
 /build/
+/sources/
 *.aux
 *.bbl
 *.bcf
@@ -23,6 +24,7 @@
 *.snm
 *.vrb
 *.xdv
+*.dvi
 
 # BibLaTeX / Biber
 *.bcf
@@ -68,7 +70,6 @@ _minted-*/
 # generated PDF
 *.pdf
 !assets/plates/**/*.pdf
-!sources/original-en/**/*.pdf
 
 # GitHub Pages staging directory
 /public/

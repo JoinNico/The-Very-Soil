@@ -35,12 +35,18 @@
   \end{tikzpicture}%
 }
 
-\newcommand{\ConvergenceMotif}[1][1]{%
-  \begin{tikzpicture}[scale=#1,line cap=round,line join=round]
+% Raw paths (no tikzpicture wrapper) so Part pages can compose Convergence
+% inside their own overlay tikzpicture, like \HopeMotifPaths and \DespairMotifPaths.
+\newcommand{\ConvergenceMotifPaths}{%
     \begin{scope}[shift={(-.38,0)},scale=.82,opacity=.88]\HopeMotifPaths\end{scope}
     \begin{scope}[shift={(.38,0)},scale=.78,opacity=.88]\DespairMotifPaths\end{scope}
     \draw[BookBlack,opacity=.35,line width=.3pt]
       (-1.05,-.68)..controls(-.35,-.90)and(.35,-.90)..(1.05,-.68);
+}
+
+\newcommand{\ConvergenceMotif}[1][1]{%
+  \begin{tikzpicture}[scale=#1,line cap=round,line join=round]
+    \ConvergenceMotifPaths
   \end{tikzpicture}%
 }
 
