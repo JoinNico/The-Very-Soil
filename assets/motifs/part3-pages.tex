@@ -1,0 +1,427 @@
+% Vector layout for the Part III divider page.
+% Loaded by config/theme.tex after book-motifs and part1-pages.  The shared
+% \BookFourPointStar is defined in part1-pages.tex, which loads first.
+%
+% This layout mirrors the Part I page furniture, but breaks its closed clock
+% into a contested field: Madoka-pink arcs retain the old geometric order,
+% Homura-violet fractures escape through the gaps, black feathers and runes
+% invade the dial, and a RibbonRed bow crosses the whole construction.
+
+% A compact black feather assembled from a curved rachis and many independent
+% barbs.  Leaving white between the strokes gives it a fibrous silhouette at
+% print size instead of the solid, leaf-like outline of a filled path.
+% Draw inside a shifted/rotated scope; the unscaled feather is about 18 mm tall.
+\newcommand{\BookPartThreeFeather}{%
+  \begin{scope}[xscale=.50,yscale=1.22]
+    % The shaft remains visible all the way through the vane and bends gently.
+    \draw[BookBlack,opacity=.98,line width=.62pt]
+      (-.11,-.88) .. controls (-.02,-.51) and (-.03,.37) .. (.04,.99);
+    % Principal barbs: asymmetric curves, denser at mid-vane and tapered at
+    % both ends.  Each is a separate stroke, so the page shows through them.
+    \draw[BookBlack,opacity=.96,line width=.38pt]
+      (-.02,-.35)..controls(-.09,-.27)and(-.15,-.20)..(-.19,-.13)
+      (-.02,-.28)..controls(-.13,-.16)and(-.24,-.08)..(-.30,-.01)
+      (-.01,-.20)..controls(-.16,-.08)and(-.31,.01)..(-.39,.08)
+      (-.01,-.10)..controls(-.19,.02)and(-.37,.10)..(-.46,.19)
+      (0,.01)..controls(-.21,.13)and(-.40,.21)..(-.50,.31)
+      (0,.13)..controls(-.21,.25)and(-.40,.33)..(-.51,.43)
+      (.01,.26)..controls(-.19,.38)and(-.37,.46)..(-.47,.55)
+      (.02,.39)..controls(-.17,.51)and(-.32,.59)..(-.41,.67)
+      (.02,.52)..controls(-.13,.64)and(-.26,.72)..(-.34,.78)
+      (.03,.64)..controls(-.10,.75)and(-.19,.82)..(-.25,.87)
+      (.03,.75)..controls(-.06,.84)and(-.12,.90)..(-.16,.93)
+      (.03,.84)..controls(-.03,.91)and(-.06,.95)..(-.08,.97)
+      (-.01,-.32)..controls(.08,-.23)and(.15,-.17)..(.20,-.09)
+      (-.01,-.24)..controls(.13,-.13)and(.24,-.05)..(.31,.03)
+      (0,-.15)..controls(.17,-.03)and(.32,.06)..(.41,.14)
+      (0,-.04)..controls(.20,.08)and(.38,.17)..(.48,.25)
+      (.01,.08)..controls(.21,.20)and(.40,.29)..(.51,.37)
+      (.01,.21)..controls(.21,.33)and(.39,.42)..(.49,.50)
+      (.02,.34)..controls(.19,.46)and(.34,.55)..(.43,.62)
+      (.02,.47)..controls(.16,.59)and(.29,.67)..(.36,.73)
+      (.03,.59)..controls(.12,.70)and(.22,.78)..(.28,.82)
+      (.03,.70)..controls(.09,.80)and(.16,.86)..(.20,.89)
+      (.03,.80)..controls(.05,.88)and(.09,.92)..(.11,.95);
+    % Finer interstitial hairs loosen the contour and keep the vane from
+    % collapsing into a single graphic mass when printed.
+    \draw[BookBlack,opacity=.72,line width=.20pt]
+      (-.02,-.31)..controls(-.10,-.20)and(-.20,-.12)..(-.25,-.05)
+      (-.01,-.15)..controls(-.18,-.01)and(-.34,.08)..(-.43,.14)
+      (0,.07)..controls(-.22,.19)and(-.42,.27)..(-.52,.36)
+      (.01,.20)..controls(-.21,.33)and(-.39,.42)..(-.49,.50)
+      (.02,.33)..controls(-.18,.46)and(-.34,.54)..(-.44,.62)
+      (.02,.46)..controls(-.15,.59)and(-.29,.67)..(-.37,.73)
+      (.03,.58)..controls(-.12,.70)and(-.22,.77)..(-.29,.82)
+      (-.01,-.28)..controls(.12,-.17)and(.23,-.09)..(.28,-.02)
+      (0,-.10)..controls(.19,.03)and(.35,.12)..(.45,.20)
+      (.01,.14)..controls(.22,.27)and(.40,.36)..(.51,.44)
+      (.02,.27)..controls(.20,.40)and(.37,.49)..(.46,.57)
+      (.02,.40)..controls(.18,.53)and(.32,.62)..(.39,.68)
+      (.03,.53)..controls(.14,.65)and(.25,.73)..(.32,.78);
+  \end{scope}
+}
+
+% Layered ribbon stroke: a dark red edge, the theme red body, and a narrow
+% glint.  Each use supplies one complete TikZ path.
+\newcommand{\BookPartThreeRibbonPath}[1]{%
+  \draw[BookBlack,opacity=.13,line width=5.9pt,line cap=round,
+    transform canvas={xshift=.30mm,yshift=-.30mm}] #1;
+  \draw[RibbonRed!68!BookBlack,line width=5.15pt,line cap=round] #1;
+  \draw[RibbonRed,line width=4.15pt,line cap=round] #1;
+  \draw[RibbonRed!24!white,opacity=.60,line width=.72pt,line cap=round] #1;
+  \draw[white,opacity=.26,line width=.22pt,line cap=round] #1;
+}
+
+\newcommand{\BookPartThreePage}[1]{%
+  \begin{tikzpicture}[remember picture,overlay,line cap=round,line join=round]
+    % Part pages are recto.  Their visual axis follows the bound text block,
+    % whose centre is shifted outwards from the physical paper centre.
+    \coordinate (PartCenter) at
+      ($(current page.center)+(\BookRectoTextCenterShift,0)$);
+    \coordinate (PartNorth) at (PartCenter |- current page.north);
+    \coordinate (PartSouth) at (PartCenter |- current page.south);
+    \coordinate (CenterMotif) at ($(PartCenter)+(0,-10mm)$);
+
+    % Keep the fore-edge inset at 4.5 mm, then mirror it around the recto
+    % visual axis.  With the current layout this leaves 11.5 mm at the spine.
+    \coordinate (PartFrameNE) at
+      ($(current page.north east)+(-4.5mm,-4.5mm)$);
+    \coordinate (PartFrameSE) at
+      ($(current page.south east)+(-4.5mm,4.5mm)$);
+    \coordinate (PartFrameTopCenter) at ($(PartNorth)+(0,-4.5mm)$);
+    \coordinate (PartFrameBottomCenter) at ($(PartSouth)+(0,4.5mm)$);
+    \coordinate (PartFrameNW) at ($(PartFrameTopCenter)!-1!(PartFrameNE)$);
+    \coordinate (PartFrameSW) at ($(PartFrameBottomCenter)!-1!(PartFrameSE)$);
+
+    % Hairline magical boundary, corner stars, and short dotted traces.
+    \draw[HomuraViolet,opacity=.44,line width=.28pt,rounded corners=2mm]
+      (PartFrameNW) rectangle (PartFrameSE);
+    \coordinate (PartNEStar) at ($(current page.north east)+(-7mm,-7mm)$);
+    \coordinate (PartSEStar) at ($(current page.south east)+(-7mm,7mm)$);
+    \coordinate (PartTopStarCenter) at ($(PartNorth)+(0,-7mm)$);
+    \coordinate (PartBottomStarCenter) at ($(PartSouth)+(0,7mm)$);
+    \coordinate (PartNWStar) at ($(PartTopStarCenter)!-1!(PartNEStar)$);
+    \coordinate (PartSWStar) at ($(PartBottomStarCenter)!-1!(PartSEStar)$);
+    \foreach \corner in {PartNWStar,PartNEStar,PartSWStar,PartSEStar}{%
+      \begin{scope}[shift={(\corner)},scale=.135]
+        \path[fill=MadokaPink,fill opacity=.82] \BookFourPointStar
+      \end{scope}
+    }
+    \draw[MadokaPink,opacity=.56,line width=.3pt,densely dotted]
+      ($(PartNWStar)+(3mm,0)$)--($(PartNWStar)+(12mm,0)$)
+      ($(PartNWStar)+(0,-3mm)$)--($(PartNWStar)+(0,-12mm)$)
+      ($(PartNEStar)+(-3mm,0)$)--($(PartNEStar)+(-12mm,0)$)
+      ($(PartNEStar)+(0,-3mm)$)--($(PartNEStar)+(0,-12mm)$)
+      ($(PartSWStar)+(3mm,0)$)--($(PartSWStar)+(12mm,0)$)
+      ($(PartSWStar)+(0,3mm)$)--($(PartSWStar)+(0,12mm)$)
+      ($(PartSEStar)+(-3mm,0)$)--($(PartSEStar)+(-12mm,0)$)
+      ($(PartSEStar)+(0,3mm)$)--($(PartSEStar)+(0,12mm)$);
+
+    % Top emblem and hierarchy.
+    \coordinate (TopEmblem) at ($(PartNorth)+(0,-14mm)$);
+    \draw[BookGray,opacity=.52,line width=.28pt]
+      ($(TopEmblem)+(-36mm,0)$)--($(TopEmblem)+(-7mm,0)$)
+      ($(TopEmblem)+(7mm,0)$)--($(TopEmblem)+(36mm,0)$);
+    \foreach \x in {-37,37}{%
+      \begin{scope}[shift={($(TopEmblem)+(\x mm,0)$)},scale=.06]
+        \path[fill=MadokaPink] \BookFourPointStar
+      \end{scope}
+    }
+    \begin{scope}[shift={(TopEmblem)},scale=.63]
+      \DespairMotifPaths
+      \draw[HomuraViolet,opacity=.38,line width=.3pt,densely dotted] (0,0) circle (.86);
+    \end{scope}
+    \node[anchor=center,text=MadokaPink,
+      font=\rmfamily\fontsize{11pt}{12pt}\selectfont\addfontfeatures{LetterSpace=18}]
+      at ($(PartNorth)+(0,-28mm)$) {PART III};
+    \node[anchor=center,text=BookBlack,
+      font=\bookparttitlefont\fontsize{10.5pt}{12pt}\selectfont]
+      at ($(PartNorth)+(0,-36mm)$) {第三部分};
+    \begin{scope}[shift={($(PartNorth)+(0,-40.5mm)$)},scale=.055]
+      \path[fill=MadokaPink] \BookFourPointStar
+    \end{scope}
+    \node[anchor=center,text=BookBlack,
+      font=\bookparttitlefont\fontsize{30pt}{34pt}\selectfont]
+      at ($(PartNorth)+(0,-49mm)$) {#1};
+    \draw[RibbonRed,opacity=.82,line width=.42pt]
+      ($(PartNorth)+(-25mm,-58mm)$)--($(PartNorth)+(25mm,-58mm)$);
+    \node[anchor=center,text=RibbonRed,
+      font=\rmfamily\fontsize{6.3pt}{8pt}\selectfont\addfontfeatures{LetterSpace=22}]
+      at ($(PartNorth)+(0,-62.5mm)$) {REBELLION FILM};
+
+    % Side information bands remain deliberately lighter than the title.
+    \coordinate (PartRightBand) at ($(current page.east)+(-8.2mm,0)$);
+    \coordinate (PartLeftBand) at ($(PartCenter)!-1!(PartRightBand)$);
+    \begin{scope}[shift={($(PartLeftBand)+(0,-11mm)$)},rotate=270,transform shape]
+      \node[text=BookBlack,opacity=.78,
+        font=\rmfamily\fontsize{4.7pt}{6pt}\selectfont\addfontfeatures{LetterSpace=11}]
+        {THE VERY SOIL\quad\textcolor{MadokaPink}{\raisebox{.2ex}{\tiny\ensuremath{\diamond}}}\quad
+         LAW OF CYCLES\quad\textcolor{MadokaPink}{\raisebox{.2ex}{\tiny\ensuremath{\diamond}}}\quad
+         POSSIBILITIES\quad\textcolor{MadokaPink}{\raisebox{.2ex}{\tiny\ensuremath{\diamond}}}\quad REBELLION};
+    \end{scope}
+    \begin{scope}[shift={($(PartRightBand)+(0,11mm)$)},rotate=270,transform shape]
+      \node[text=BookBlack,opacity=.76,
+        font=\bookparttitlefont\fontsize{5pt}{6pt}\selectfont]
+        {符号逻辑\enspace/\enspace
+         \rmfamily\addfontfeatures{LetterSpace=10}SYMBOL LOGIC};
+      \draw[BookGray,opacity=.55,line width=.3pt] (24mm,0)--(31mm,0);
+      \node[anchor=west,text=HomuraViolet,opacity=.62,
+        font=\fontsize{4.7pt}{6pt}\selectfont]
+        at (34mm,0) {\runeecho{BROKEN CIRCLE FALSE SALVATION}};
+    \end{scope}
+    \foreach \side in {PartLeftBand,PartRightBand}{%
+      \foreach \y in {-59,59}{%
+        \begin{scope}[shift={($(\side)+(0,\y mm)$)},scale=.07]
+          \path[fill=MadokaPink,fill opacity=.8] \BookFourPointStar
+        \end{scope}
+      }
+    }
+
+    % ── Central motif: the Part I clock after rupture ─────────────────
+    \begin{scope}[shift={(CenterMotif)}]
+      % The old construction survives as a pale, strictly ordered ghost.
+      \foreach \angle in {0,30,...,330}{%
+        \draw[HomuraViolet,opacity=.18,line width=.25pt,densely dotted]
+          (\angle:7.4mm)--(\angle:22.4mm);
+      }
+      \draw[HomuraViolet,opacity=.28,line width=.28pt,densely dotted]
+        (-34mm,0)--(34mm,0) (0,-34mm)--(0,34mm);
+      \draw[HomuraViolet,opacity=.23,line width=.28pt,densely dotted]
+        (0,0) circle (8.2mm) (0,0) circle (22.6mm);
+      \foreach \angle in {0,45,...,315}{%
+        \fill[HomuraViolet,opacity=.43] (\angle:8.2mm) circle (.34mm);
+      }
+
+      % Three concentric rings retain Part I's clock language, but every layer
+      % breaks at a slightly different place so the voids widen like tears.
+      \foreach \from/\to in {58/113,121/171,181/223,259/298,326/408}{%
+        \draw[MadokaPink,opacity=.92,line width=.68pt,line cap=butt]
+          (\from:30mm) arc[start angle=\from,end angle=\to,radius=30mm];
+      }
+      \foreach \from/\to in {62/109,117/167,185/218,264/294,331/404}{%
+        \draw[MadokaPink,opacity=.16,line width=2.8pt,line cap=butt]
+          (\from:27.3mm) arc[start angle=\from,end angle=\to,radius=27.3mm];
+        \draw[MadokaPink,opacity=.88,line width=.52pt,line cap=butt]
+          (\from:27.3mm) arc[start angle=\from,end angle=\to,radius=27.3mm];
+      }
+      \foreach \from/\to in {66/106,115/163,188/215,268/290,335/400}{%
+        \draw[MadokaPink,opacity=.78,line width=.46pt,line cap=butt]
+          (\from:23.2mm) arc[start angle=\from,end angle=\to,radius=23.2mm];
+      }
+
+      % Jagged cut faces bind the three concentric layers into one fractured
+      % edge.  Alternating tooth directions keep them from reading as radial
+      % dividers or construction lines.
+      \foreach \angle in {58,121,181,259,326}{%
+        \draw[MadokaPink,opacity=.88,line width=.46pt]
+          (\angle:22.7mm)--({\angle+2.2}:24.6mm)--
+          ({\angle-1.3}:26.7mm)--({\angle+1.7}:28.8mm)--
+          (\angle:30.7mm);
+      }
+      \foreach \angle in {113,171,223,298,408}{%
+        \draw[MadokaPink,opacity=.88,line width=.46pt]
+          (\angle:22.7mm)--({\angle-2.0}:24.8mm)--
+          ({\angle+1.5}:26.9mm)--({\angle-1.8}:28.9mm)--
+          (\angle:30.7mm);
+      }
+      % Exactly one hour mark for each Roman numeral.
+      \foreach \angle in {0,60,90,120,150,180,210,270,330}{%
+        \draw[MadokaPink,opacity=.70,line width=.34pt]
+          (\angle:26.0mm)--(\angle:29.0mm);
+      }
+      \foreach \angle in {30,240,300}{%
+        \draw[HomuraViolet,opacity=.58,line width=.34pt]
+          (\angle:26.0mm)--(\angle:29.0mm);
+      }
+      \foreach \label/\angle in {
+        XII/90,I/60,III/0,IV/330,VI/270,VIII/210,IX/180,X/150,XI/120}{%
+        \node[text=MadokaPink,font=\rmfamily\fontsize{6pt}{7pt}\selectfont]
+          at (\angle:24.9mm) {\label};
+      }
+      \node[text=HomuraViolet,opacity=.58,rotate=-13,
+        font=\rmfamily\fontsize{5.7pt}{7pt}\selectfont] at (30:26.2mm) {II};
+      \node[text=HomuraViolet,opacity=.55,rotate=9,
+        font=\rmfamily\fontsize{5.7pt}{7pt}\selectfont] at (300:25.5mm) {V};
+      \node[text=HomuraViolet,opacity=.53,rotate=-16,
+        font=\rmfamily\fontsize{5.7pt}{7pt}\selectfont] at (240:26.2mm) {VII};
+      \foreach \angle/\tone in {0/MadokaPink,90/HomuraViolet,180/MadokaPink,270/HomuraViolet}{%
+        \begin{scope}[shift={(\angle:30mm)},scale=.10]
+          \path[fill=\tone,fill opacity=.88] \BookFourPointStar
+        \end{scope}
+      }
+      \foreach \angle in {0,90,180,270}{%
+        \draw[HomuraViolet,opacity=.50,line width=.32pt,fill=white]
+          (\angle:33.7mm) circle (.72mm);
+      }
+
+      % Homura-violet fractures escape from the gaps.  Secondary hairlines
+      % branch off at unequal intervals so they feel grown, not diagrammed.
+      \draw[HomuraViolet,opacity=.94,line width=.62pt]
+        (19mm,17mm)--(22mm,20mm)--(21mm,24mm)--(27mm,27mm)--
+        (29mm,32mm)--(34mm,35mm);
+      % The dominant tear does not stop at the rim: it travels through the
+      % ordered dial and reaches the centre seal.
+      \draw[HomuraViolet,opacity=.96,line width=.68pt]
+        (19mm,17mm)--(16mm,14mm)--(17mm,10mm)--(12mm,8mm)--
+        (13mm,4mm)--(7mm,3mm)--(8mm,-1mm)--(3mm,-2mm)--(0,0);
+      \draw[HomuraViolet,opacity=.76,line width=.32pt]
+        (22mm,20mm)--(26mm,19mm)--(29mm,21mm)
+        (21mm,24mm)--(18mm,28mm)--(19mm,31mm)
+        (29mm,32mm)--(33mm,31mm)--(36mm,33mm)
+        (16mm,14mm)--(12mm,14mm)--(10mm,12mm)
+        (17mm,10mm)--(20mm,7mm)--(21mm,4mm)
+        (12mm,8mm)--(9mm,9mm)--(7mm,7mm)
+        (13mm,4mm)--(15mm,1mm)
+        (8mm,-1mm)--(6mm,-5mm);
+      \draw[HomuraViolet,opacity=.94,line width=.62pt]
+        (-15mm,-21mm)--(-18mm,-25mm)--(-17mm,-29mm)--
+        (-22mm,-32mm)--(-23mm,-37mm)--(-29mm,-41mm);
+      \draw[HomuraViolet,opacity=.90,line width=.56pt]
+        (-15mm,-21mm)--(-13mm,-18mm)--(-14mm,-14mm)--
+        (-9mm,-11mm)--(-10mm,-7mm)--(-5mm,-4mm)--(0,0);
+      \draw[HomuraViolet,opacity=.74,line width=.31pt]
+        (-18mm,-25mm)--(-23mm,-24mm)--(-26mm,-27mm)
+        (-17mm,-29mm)--(-13mm,-32mm)--(-12mm,-35mm)
+        (-23mm,-37mm)--(-20mm,-41mm)
+        (-13mm,-18mm)--(-9mm,-17mm)--(-7mm,-14mm)
+        (-14mm,-14mm)--(-17mm,-11mm)
+        (-10mm,-7mm)--(-12mm,-3mm);
+      \draw[HomuraViolet,opacity=.92,line width=.58pt]
+        (16mm,-18mm)--(20mm,-22mm)--(19mm,-27mm)--
+        (25mm,-29mm)--(27mm,-34mm)--(34mm,-37mm);
+      \draw[HomuraViolet,opacity=.86,line width=.50pt]
+        (16mm,-18mm)--(13mm,-15mm)--(14mm,-11mm)--
+        (9mm,-9mm)--(8mm,-5mm)--(3mm,-2mm);
+      \draw[HomuraViolet,opacity=.70,line width=.30pt]
+        (20mm,-22mm)--(25mm,-21mm)--(28mm,-23mm)
+        (19mm,-27mm)--(15mm,-30mm)--(15mm,-34mm)
+        (27mm,-34mm)--(31mm,-32mm)
+        (13mm,-15mm)--(9mm,-16mm)--(7mm,-14mm)
+        (14mm,-11mm)--(18mm,-8mm)
+        (8mm,-5mm)--(10mm,-2mm);
+      \draw[HomuraViolet,opacity=.84,line width=.48pt]
+        (-27mm,7mm)--(-31mm,8mm)--(-34mm,12mm)--(-40mm,13mm);
+      \draw[HomuraViolet,opacity=.62,line width=.28pt]
+        (-34mm,12mm)--(-35mm,17mm) (-31mm,8mm)--(-35mm,5mm);
+
+      % Tiny violet star-points cling to the fracture tips.
+      \foreach \x/\y in {34/35,19/31,36/33,-29/-41,-12/-35,34/-37,
+                           28/-23,-40/13,-35/17}{%
+        \begin{scope}[shift={(\x mm,\y mm)},scale=.055]
+          \path[fill=HomuraViolet,fill opacity=.82] \BookFourPointStar
+        \end{scope}
+      }
+
+      % Asymmetric black invasion: feathers, ink crumbs, and short fragments
+      % of witch script cross both the pristine grid and the broken ring.
+      \begin{scope}[shift={(-34mm,19mm)},rotate=-28,scale=.72]
+        \BookPartThreeFeather
+      \end{scope}
+      \begin{scope}[shift={(36mm,5mm)},rotate=35,scale=.58]
+        \BookPartThreeFeather
+      \end{scope}
+      \begin{scope}[shift={(-31mm,-33mm)},rotate=214,scale=.52]
+        \BookPartThreeFeather
+      \end{scope}
+      \begin{scope}[shift={(29mm,-35mm)},rotate=152,scale=.68]
+        \BookPartThreeFeather
+      \end{scope}
+      \foreach \x/\y/\r in {-37/4/.58,-32/10/.38,-24/15/.48,-28/-20/.34,
+                              31/16/.45,36/-8/.34,23/-33/.50,9/27/.30}{%
+        \fill[BookBlack,opacity=.86] (\x mm,\y mm) circle (\r mm);
+      }
+      \foreach \x/\y/\rot in {-30/1/18,-25/-27/-12,31/12/42,34/-18/-30}{%
+        \begin{scope}[shift={(\x mm,\y mm)},rotate=\rot,scale=.065]
+          \path[fill=BookBlack,fill opacity=.84] \BookFourPointStar
+        \end{scope}
+      }
+      \node[text=BookBlack,opacity=.83,rotate=18,anchor=center,
+        font=\fontsize{4.3pt}{5pt}\selectfont] at (-26mm,24mm)
+        {\runeecho{HOMULILLY}};
+      \node[text=BookBlack,opacity=.78,rotate=-67,anchor=center,
+        font=\fontsize{4pt}{5pt}\selectfont] at (-33mm,-4mm)
+        {\runeecho{FORT DA}};
+      \node[text=BookBlack,opacity=.82,rotate=-16,anchor=center,
+        font=\fontsize{4.1pt}{5pt}\selectfont] at (22mm,25mm)
+        {\runeecho{NO MORE THAN A MEMORY}};
+      \node[text=BookBlack,opacity=.80,rotate=63,anchor=center,
+        font=\fontsize{4pt}{5pt}\selectfont] at (32mm,-4mm)
+        {\runeecho{FALSE SALVATION}};
+      \node[text=BookBlack,opacity=.76,rotate=10,anchor=center,
+        font=\fontsize{3.9pt}{5pt}\selectfont] at (-14mm,-30mm)
+        {\runeecho{LAW OF CYCLES}};
+
+      % A small centre seal keeps one last remnant of geometric order.
+      \draw[MadokaPink,opacity=.86,line width=.48pt] (0,0) circle (3.2mm);
+      \draw[HomuraViolet,opacity=.60,line width=.30pt]
+        (-4.8mm,0)--(4.8mm,0) (0,-4.8mm)--(0,4.8mm);
+      \begin{scope}[scale=.17,opacity=.56]
+        \DespairMotifPaths
+      \end{scope}
+
+      % Foreground ribbon: the long horizontal strand passes through a compact
+      % bow below centre; two loose tails point toward the broken lower arcs.
+      \BookPartThreeRibbonPath{(-45mm,-15mm)
+        .. controls (-39mm,-7mm) and (-31mm,-8mm) .. (-24mm,-14mm)
+        .. controls (-16mm,-22mm) and (-8mm,-18mm) .. (1mm,-16mm)}
+      \BookPartThreeRibbonPath{(2mm,-16mm)
+        .. controls (10mm,-9mm) and (15mm,-21mm) .. (24mm,-15mm)
+        .. controls (33mm,-9mm) and (37mm,-2mm) .. (45mm,-8mm)}
+      \BookPartThreeRibbonPath{(1mm,-16mm)
+        .. controls (-5mm,-9mm) and (-13mm,-8mm) .. (-12mm,-14mm)
+        .. controls (-11mm,-20mm) and (-3mm,-20mm) .. (1mm,-16mm)}
+      \BookPartThreeRibbonPath{(2mm,-16mm)
+        .. controls (7mm,-23mm) and (14mm,-24mm) .. (13mm,-18mm)
+        .. controls (12mm,-13mm) and (6mm,-12mm) .. (2mm,-16mm)}
+      \BookPartThreeRibbonPath{(0mm,-18mm)
+        .. controls (-5mm,-25mm) and (-12mm,-31mm) .. (-16mm,-40mm)}
+      \BookPartThreeRibbonPath{(3mm,-18mm)
+        .. controls (8mm,-25mm) and (12mm,-31mm) .. (17mm,-38mm)}
+      % Local transverse shadows explain which folds pass beneath the knot.
+      \draw[RibbonRed!58!BookBlack,opacity=.72,line width=.68pt]
+        (-3.4mm,-17.4mm)..controls(-2.8mm,-16.8mm)and(-2.4mm,-16.5mm)..(-1.7mm,-16.2mm)
+        (4.2mm,-16.1mm)..controls(4.7mm,-16.5mm)and(5.1mm,-17.0mm)..(5.4mm,-17.6mm);
+      \path[fill=BookBlack,fill opacity=.16]
+        (-.8mm,-17.7mm)--(.3mm,-20.6mm)--(4.2mm,-18.4mm)--
+        (3.5mm,-15.1mm)--(.5mm,-14.7mm)--cycle;
+      \path[fill=RibbonRed,draw=RibbonRed!76!BookBlack,line width=.45pt]
+        (-1.1mm,-17.4mm)--(.2mm,-20.1mm)--(3.8mm,-18.1mm)--
+        (3.1mm,-14.9mm)--(.4mm,-14.5mm)--cycle;
+      \path[fill=RibbonRed!66!BookBlack,fill opacity=.42]
+        (-1.1mm,-17.4mm)--(.2mm,-20.1mm)--(.8mm,-17.2mm)--cycle;
+      \path[fill=RibbonRed!24!white,fill opacity=.38]
+        (.8mm,-17.2mm)--(3.1mm,-14.9mm)--(2.8mm,-17.4mm)--cycle;
+      \draw[white,opacity=.38,line width=.38pt]
+        (-.2mm,-17.0mm)..controls(.9mm,-16.6mm)and(1.9mm,-16.7mm)..(2.9mm,-17.1mm);
+    \end{scope}
+
+    % Caption, keyword layer, runes, and an unnumbered closing emblem.
+    \node[anchor=center,text=BookBlack,
+      font=\bookparttitlefont\fontsize{8.5pt}{11pt}\selectfont]
+      at ($(PartSouth)+(0,37mm)$) {撕裂・执念・重构};
+    \draw[RibbonRed,opacity=.72,line width=.35pt]
+      ($(PartSouth)+(-18mm,30.5mm)$)--($(PartSouth)+(-2.5mm,30.5mm)$)
+      ($(PartSouth)+(2.5mm,30.5mm)$)--($(PartSouth)+(18mm,30.5mm)$);
+    \begin{scope}[shift={($(PartSouth)+(0,30.5mm)$)},scale=.085]
+      \path[fill=RibbonRed] \BookFourPointStar
+    \end{scope}
+    \node[anchor=center,text=RibbonRed,
+      font=\rmfamily\fontsize{4.8pt}{6.5pt}\selectfont\addfontfeatures{LetterSpace=16}]
+      at ($(PartSouth)+(0,24.5mm)$)
+      {RUPTURE \enspace\textperiodcentered\enspace REBELLION
+       \enspace\textperiodcentered\enspace RECONSTRUCTION};
+    \node[anchor=center,text=HomuraViolet,opacity=.56,
+      font=\fontsize{5pt}{6pt}\selectfont\addfontfeatures{LetterSpace=8}]
+      at ($(PartSouth)+(0,18.5mm)$)
+      {\runeecho{THE CIRCLE BREAKS AND BECOMES A CHOICE}};
+    \coordinate (BottomEmblem) at ($(PartSouth)+(0,10.5mm)$);
+    \draw[BookGray,opacity=.46,line width=.28pt]
+      ($(BottomEmblem)+(-16mm,0)$)--($(BottomEmblem)+(-5mm,0)$)
+      ($(BottomEmblem)+(5mm,0)$)--($(BottomEmblem)+(16mm,0)$);
+    \begin{scope}[shift={(BottomEmblem)},scale=.35]
+      \DespairMotifPaths
+      \draw[HomuraViolet,opacity=.38,line width=.3pt,densely dotted] (0,0) circle (.86);
+    \end{scope}
+  \end{tikzpicture}%
+  \null
+}

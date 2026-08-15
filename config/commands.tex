@@ -70,10 +70,17 @@
   \addcontentsline{toc}{part}{第\Chinese{part}部分\BookTitleSep #1}%
   \markboth{第\Chinese{part}部分\quad #1}{}%
   \thispagestyle{empty}%
-  \ifnum\value{part}=1\relax
+  \ifcase\value{part}%
+    % part counter is 0 only before the first \bookpart call; unreachable here.
+  \or
     \BookPartOnePage{#1}%
+  \or
+    \BookPartTwoPage{#1}%
+  \or
+    \BookPartThreePage{#1}%
   \else
-    \BookGenericPartPage{#1}%
+    \PackageError{the-very-soil}{No part page layout defined for part \arabic{part}}%
+      {Add a BookPartFourPage command and a new case here.}%
   \fi
   \clearpage
   \thispagestyle{empty}\null\clearpage
