@@ -9,6 +9,12 @@
 \newcommand{\BookFootnoteBlockGap}{7pt plus 1pt minus .5pt}   % 正文与页面底部脚注区之间的弹性距离
 \newcommand{\BookChapterTitleFontSize}{16pt}                  % 章标题的字体大小
 \newcommand{\BookChapterTitleLineHeight}{21pt}                % 多行章标题的基线间距
+\newcommand{\BookChapterNumberFontSize}{30pt}                 % 章／间奏编号的字体大小
+\newcommand{\BookChapterNumberLineHeight}{32pt}               % 章／间奏编号的基线间距
+\newcommand{\BookSimpleLabelOrnamentGap}{2pt}                 % 无编号英文题签与星饰的距离
+\newcommand{\BookSimpleOrnamentTitleGap}{5pt}                 % 无编号星饰与中文标题的距离
+\newcommand{\BookChapterSubtitleBeforeSkip}{-10pt}            % 章标题与副标题间距微调
+\newcommand{\BookChapterSubtitleAfterSkip}{4mm}               % 副标题到题记／正文的固定距离
 \newcommand{\BookOpeningNoteFontSize}{6pt}                    % 题记／译者案正文的字体大小
 \newcommand{\BookOpeningNoteLineHeight}{8pt}                  % 题记／译者案正文的基线间距
 \newcommand{\BookOpeningNoteLabelFontSize}{8pt}               % “题记／译者案”标签的字体大小
@@ -119,24 +125,83 @@
 }
 \pagestyle{bookbody}
 
-\newcommand{\BookChapterKicker}{%
-  \ifdefempty{\BookSpecialKicker}{%
-    CHAPTER~\ifnum\value{chapter}<10 0\fi\arabic{chapter}%
-  }{\BookSpecialKicker}%
+% Chapter openings are centered in the live text block, rather than on the
+% physical sheet. This is important on the asymmetric print geometry above:
+% \linewidth automatically follows the inner/outer margins on recto and verso.
+\newcommand{\BookChapterLabel}{%
+  \ifdefempty{\BookSpecialKicker}{CHAPTER}{\BookSpecialKicker}%
 }
-\newcommand{\BookChapterFormat}{%
-  \thispagestyle{chapteropening}%
-  \raggedright
-  {\sffamily\bfseries\fontsize{8.5pt}{10pt}\selectfont\color{HomuraViolet}%
-    \BookChapterKicker\hfill
-    {\color{MadokaPink}\runeecho{THE VERY SOIL}}\par}%
-  \vspace{5pt}%
-  {\color{MadokaPink}\rule{12mm}{1.2pt}\hspace{2mm}%
-   \color{HomuraViolet}\rule{20mm}{.4pt}\par}%
+\newcommand{\BookChapterNumber}{%
+  \ifdefempty{\BookSpecialNumber}{%
+    \ifnum\value{chapter}<10 0\fi\arabic{chapter}%
+  }{\BookSpecialNumber}%
+}
+
+\newcommand{\BookChapterNumberOrnament}[1]{%
+  \makebox[\linewidth][c]{%
+    \begin{tikzpicture}[x=1mm,y=1mm,baseline=(number.base)]
+      \node[
+        inner sep=0pt,
+        text=MadokaPink,
+        font=\rmfamily\mdseries\fontsize{\BookChapterNumberFontSize}{\BookChapterNumberLineHeight}\selectfont
+      ] (number) at (0,0) {#1};
+      \draw[HomuraViolet!62,line width=.34pt] (-39,0)--(-13,0);
+      \draw[HomuraViolet!62,line width=.34pt] (13,0)--(39,0);
+      \draw[HomuraViolet!30,line width=.25pt] (-34,-1.8)--(-18,-1.8);
+      \draw[HomuraViolet!30,line width=.25pt] (18,-1.8)--(34,-1.8);
+      \fill[MadokaPink] (-10,0) circle (.45);
+      \fill[MadokaPink] (10,0) circle (.45);
+      \node[text=MadokaPink,font=\fontsize{9pt}{9pt}\selectfont] at (-42,0) {\raisebox{.05ex}{\ensuremath{\star}}};
+      \node[text=MadokaPink,font=\fontsize{9pt}{9pt}\selectfont] at (42,0) {\raisebox{.05ex}{\ensuremath{\star}}};
+    \end{tikzpicture}%
+  }%
+}
+
+\newcommand{\BookSmallHeadingOrnament}{%
+  \makebox[\linewidth][c]{%
+    \begin{tikzpicture}[x=1mm,y=1mm,baseline]
+      \draw[HomuraViolet!40,line width=.3pt] (-13,0)--(-2.8,0);
+      \draw[HomuraViolet!40,line width=.3pt] (2.8,0)--(13,0);
+      \fill[MadokaPink] (-1.6,0) circle (.35);
+      \fill[MadokaPink] (1.6,0) circle (.35);
+      \node[text=HomuraViolet,font=\fontsize{7pt}{7pt}\selectfont] at (0,0) {\raisebox{.05ex}{\ensuremath{\star}}};
+    \end{tikzpicture}%
+  }%
+}
+
+\newcommand{\BookNumberedChapterFormat}{%
+  \centering
+  {\color{HomuraViolet!52}\runeecho{puella magi madoka magica}\par}%
   \vspace{8pt}%
-  \sffamily\bfseries
+  {\sffamily\mdseries\fontsize{8pt}{10pt}\selectfont\color{BookBlack}%
+    \addfontfeatures{LetterSpace=18}\BookChapterLabel\par}%
+  \vspace{7pt}%
+  \BookChapterNumberOrnament{\BookChapterNumber}\par
+  \vspace{13pt}%
+  \bookparttitlefont\mdseries
   \fontsize{\BookChapterTitleFontSize}{\BookChapterTitleLineHeight}\selectfont
   \color{BookBlack}%
+}
+
+\newcommand{\BookSimpleChapterFormat}{%
+  \centering
+  {\sffamily\bfseries\fontsize{7.5pt}{9pt}\selectfont\color{HomuraViolet}%
+    \addfontfeatures{LetterSpace=14}\BookChapterLabel\par}%
+  \vspace{\BookSimpleLabelOrnamentGap}%
+  \BookSmallHeadingOrnament\par
+  \vspace{\BookSimpleOrnamentTitleGap}%
+  \bookparttitlefont\mdseries
+  \fontsize{\BookChapterTitleFontSize}{\BookChapterTitleLineHeight}\selectfont
+  \color{BookBlack}%
+}
+
+\newcommand{\BookChapterFormat}{%
+  \thispagestyle{chapteropening}%
+  \ifbooksimplechapter
+    \BookSimpleChapterFormat
+  \else
+    \BookNumberedChapterFormat
+  \fi
 }
 
 \ctexset{
@@ -145,6 +210,7 @@
     format=\BookChapterFormat,
     name={},
     number={},
+    aftername={},
     beforeskip=0pt,
     afterskip=18pt,
     afterindent=true,
