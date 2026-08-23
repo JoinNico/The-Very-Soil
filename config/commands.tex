@@ -85,6 +85,9 @@
   \cleardoublepage
   \refstepcounter{part}%
   \phantomsection
+  \ifnum\value{part}=2\relax
+    \addtocontents{toc}{\protect\BookTOCUseHomura}%
+  \fi
   \addcontentsline{toc}{part}{第\Chinese{part}部分\BookTitleSep #1}%
   \markboth{第\Chinese{part}部分\quad #1}{}%
   \thispagestyle{empty}%

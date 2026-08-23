@@ -77,28 +77,65 @@
 % polyglossia installs the English caption names at begin-document time, so
 % restore the Chinese TOC title after all package initialization has finished.
 \AddToHook{begindocument/end}{\renewcommand{\contentsname}{\BookContentsName}}
-\renewcommand{\cfttoctitlefont}{\sffamily\bfseries\fontsize{18pt}{22pt}\selectfont}
+\newcommand{\BookTOCAccentColor}{MadokaPink}
+\newcommand{\BookTOCUseMadoka}{%
+  \renewcommand{\BookTOCAccentColor}{MadokaPink}%
+}
+\newcommand{\BookTOCUseHomura}{%
+  \renewcommand{\BookTOCAccentColor}{HomuraViolet}%
+}
+\pretocmd{\tableofcontents}{\BookTOCUseMadoka}{}{}
+\apptocmd{\tableofcontents}{\BookTOCUseHomura}{}{}
+% Use a plain mark in running heads: \contentsname contains a full-width box
+% for the title page and would otherwise push the mark into the page centre.
+\renewcommand{\cftmarktoc}{\markboth{目录}{目录}}
+\renewcommand{\cfttoctitlefont}{%
+  \sffamily\bfseries\color{HomuraViolet}\fontsize{18pt}{22pt}\selectfont}
 \renewcommand{\cftaftertoctitle}{%
   \par
   \vspace{2pt}%
   \noindent\makebox[\linewidth][c]{%
-    \sffamily\mdseries\fontsize{9pt}{12pt}\selectfont CONTENTS}%
+    \sffamily\mdseries\color{MadokaPink}%
+    \fontsize{8pt}{10pt}\selectfont\addfontfeatures{LetterSpace=20}CONTENTS}%
+  \par
+  \vspace{7pt}%
+  \noindent\makebox[\linewidth][c]{%
+    \begin{tikzpicture}[baseline=-.2ex]
+      \draw[BookGray,opacity=.46,line width=.28pt]
+        (-20mm,0)--(-2.6mm,0) (2.6mm,0)--(20mm,0);
+      \begin{scope}[scale=.055]
+        \path[fill=MadokaPink,fill opacity=.9] \BookFourPointStar
+      \end{scope}
+    \end{tikzpicture}}%
 }
 \setlength{\cftbeforetoctitleskip}{0pt}
-\setlength{\cftaftertoctitleskip}{18pt}
-\setlength{\cftbeforepartskip}{12pt}
-\setlength{\cftbeforechapskip}{3pt}
+\setlength{\cftaftertoctitleskip}{14pt}
+\setlength{\cftbeforepartskip}{11pt}
+\setlength{\cftbeforechapskip}{2.6pt}
 \cftpagenumbersoff{part}
 % Preserve the centered Part entries from the user's in-progress TOC edit.
-\renewcommand{\cftpartfont}{\hfil\sffamily\large\bfseries\color{HomuraViolet}}
+\renewcommand{\cftpartfont}{%
+  \hfil\sffamily\bfseries\color{\BookTOCAccentColor}%
+  \fontsize{12.5pt}{15pt}\selectfont}
 \renewcommand{\cftpartfillnum}[1]{%
   \rightskip=0pt
   \parfillskip=0pt plus 1fil
   \par
 }
-\renewcommand{\cftchapfont}{\fontsize{9pt}{13pt}\selectfont}
-\renewcommand{\cftchappagefont}{\fontsize{9pt}{13pt}\selectfont}
-\renewcommand{\cftchapleader}{\cftdotfill{2.8}}
+\renewcommand{\cftchapfont}{%
+  \mdseries\color{BookBlack}\fontsize{9pt}{12.6pt}\selectfont}
+\makeatletter
+\DeclareRobustCommand{\BookTOCPageColor}{%
+  \color{\BookTOCAccentColor}%
+  % Page numbers are links on screen; give the link the same local accent.
+  \ifbookprint\else\edef\@linkcolor{\BookTOCAccentColor}\fi
+}
+\makeatother
+\renewcommand{\cftchappagefont}{%
+  \sffamily\mdseries\BookTOCPageColor
+  \fontsize{8.5pt}{12.6pt}\selectfont}
+\renewcommand{\cftchapleader}{%
+  {\color{BookGray!55}\cftdotfill{3.2}}}
 % Stretch every chapter-like label across 5em, then leave a separate 1em gap
 % before its title. Keeping these dimensions separate makes the gap adjustable
 % without changing the aligned edges of the labels themselves.
@@ -109,7 +146,7 @@
 \setlength{\cftchapnumwidth}{%
   \dimexpr\BookTOCLabelWidth+\BookTOCLabelGap\relax}
 \DeclareRobustCommand{\BookTOCLabel}[1]{%
-  \makebox[\BookTOCLabelWidth][s]{#1}%
+  \textcolor{\BookTOCAccentColor}{\makebox[\BookTOCLabelWidth][s]{#1}}%
 }
 
 \fancypagestyle{bookbody}{%
@@ -243,6 +280,7 @@
 \ifbookprint
   \hypersetup{
     hidelinks,
+    linktoc=page,
     unicode=true,
     pdftitle={绝望即壤},
     pdfauthor={Jen A. Blue；JoinNico}
@@ -251,6 +289,7 @@
   \hypersetup{
     unicode=true,
     colorlinks=true,
+    linktoc=page,
     linkcolor=HomuraViolet,
     citecolor=HomuraViolet,
     urlcolor=MadokaPink,
