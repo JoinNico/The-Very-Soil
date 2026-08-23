@@ -1,75 +1,232 @@
-% Deterministic vector motifs used throughout the interior.
-\newcommand{\HopeMotifPaths}{%
-    \draw[MadokaPink,line width=.55pt] (0,0) circle (.62);
-    \foreach \a in {0,72,...,288}{
-      \begin{scope}[rotate=\a]
-        \path[fill=MadokaPink,fill opacity=.16,draw=MadokaPink,line width=.35pt]
-          (0,.16) .. controls (.18,.30) and (.23,.56) .. (0,.78)
-          .. controls (-.23,.56) and (-.18,.30) .. cycle;
-      \end{scope}
-    }
-    \draw[MadokaPink,line width=.38pt] (-.82,-.28)
-      .. controls (-.24,-.70) and (.34,-.66) .. (.88,-.18);
+% Deterministic vector soul-gem motifs used throughout the interior.
+%
+% The first silhouette combines Madoka's flame, oval cage, lotus setting,
+% and pedestal. It is parameterised by colour so Part II can quote the same
+% form in Homura violet. The second silhouette is the compact, winged crown
+% of Devil Homura's gem. Raw path commands deliberately have no tikzpicture
+% wrapper: divider pages can place them inside their own overlay pictures.
+
+% Madoka's tall soul gem, with an explicit colour argument.
+% Normalised bounds: approximately x = +/- .76, y = -1.30 .. 1.30.
+\newcommand{\MadokaSoulGemPathsIn}[1]{%
+  % The great oval cage: two rails and four small binding beads.
+  \draw[draw=#1,line width=.52pt]
+    (-.12,.58)
+      .. controls (-.48,.40) and (-.72,-.05) .. (-.68,-.55)
+      .. controls (-.66,-.73) and (-.59,-.83) .. (-.50,-.91);
+  \draw[draw=#1,line width=.52pt]
+    (.12,.58)
+      .. controls (.48,.40) and (.72,-.05) .. (.68,-.55)
+      .. controls (.66,-.73) and (.59,-.83) .. (.50,-.91);
+  \draw[draw=#1,line width=.28pt,opacity=.82]
+    (-.06,.50)
+      .. controls (-.36,.28) and (-.52,-.13) .. (-.43,-.52)
+      .. controls (-.39,-.69) and (-.30,-.79) .. (-.21,-.84);
+  \draw[draw=#1,line width=.28pt,opacity=.82]
+    (.06,.50)
+      .. controls (.36,.28) and (.52,-.13) .. (.43,-.52)
+      .. controls (.39,-.69) and (.30,-.79) .. (.21,-.84);
+  \foreach \x/\y in {-.48/.24,.48/.24,-.68/-.36,.68/-.36}{%
+    \path[fill=white,draw=#1,line width=.32pt] (\x,\y) circle (.047);
+  }
+
+  % Flame-shaped crown and the small joint beneath it.
+  \path[top color=#1!4!white,bottom color=#1!16!white,
+        draw=#1,line width=.48pt]
+    (0,1.30)
+      .. controls (.075,1.12) and (.16,1.01) .. (.16,.88)
+      .. controls (.16,.74) and (.095,.66) .. (0,.63)
+      .. controls (-.095,.66) and (-.16,.74) .. (-.16,.88)
+      .. controls (-.16,1.01) and (-.075,1.12) .. cycle;
+  \draw[draw=#1,line width=.27pt,opacity=.88]
+    (0,1.16)
+      .. controls (.045,1.04) and (.095,.96) .. (.095,.87)
+      .. controls (.095,.78) and (.055,.73) .. (0,.71)
+      .. controls (-.055,.73) and (-.095,.78) .. (-.095,.87)
+      .. controls (-.095,.96) and (-.045,1.04) .. cycle;
+  \path[top color=white,bottom color=#1!18!white,
+        draw=#1,line width=.34pt] (0,.56) circle (.064);
+
+  % Lotus-like cradle: its outside sweep reads as a pair of protective wings.
+  \path[fill=#1!5!white,draw=#1,line width=.48pt]
+    (-.50,-.63)
+      .. controls (-.61,-.65) and (-.72,-.57) .. (-.76,-.53)
+      .. controls (-.66,-.73) and (-.59,-.90) .. (-.38,-.99)
+      .. controls (-.20,-1.07) and (.20,-1.07) .. (.38,-.99)
+      .. controls (.59,-.90) and (.66,-.73) .. (.76,-.53)
+      .. controls (.72,-.57) and (.61,-.65) .. (.50,-.63)
+      .. controls (.41,-.61) and (.36,-.54) .. (.30,-.47)
+      .. controls (.23,-.62) and (.13,-.72) .. (0,-.77)
+      .. controls (-.13,-.72) and (-.23,-.62) .. (-.30,-.47)
+      .. controls (-.36,-.54) and (-.41,-.61) .. cycle;
+  \draw[draw=#1,line width=.28pt,opacity=.88]
+    (-.70,-.57)
+      .. controls (-.55,-.62) and (-.47,-.75) .. (-.44,-.89);
+  \draw[draw=#1,line width=.28pt,opacity=.88]
+    (.70,-.57)
+      .. controls (.55,-.62) and (.47,-.75) .. (.44,-.89);
+  \path[fill=white,draw=#1,line width=.30pt]
+    (-.49,-.81) circle (.034) (.49,-.81) circle (.034);
+
+  % The heart-cut stone in the lower medallion.
+  \path[top color=white,bottom color=#1!20!white,
+        draw=#1,line width=.44pt]
+    (0,-.58) ellipse [x radius=.205,y radius=.285];
+  \draw[draw=#1,line width=.25pt,opacity=.86]
+    (0,-.43) -- (.105,-.58)
+      .. controls (.10,-.70) and (.055,-.77) .. (0,-.81)
+      .. controls (-.055,-.77) and (-.10,-.70) .. (-.105,-.58) -- cycle;
+  \draw[draw=#1,line width=.22pt,opacity=.72]
+    (0,-.81) -- (0,-.60);
+
+  % Pedestal, reduced to three quiet architectural strokes for small sizes.
+  \path[fill=#1!4!white,draw=#1,line width=.42pt,rounded corners=.018cm]
+    (-.29,-1.00)
+      .. controls (-.25,-1.07) and (-.25,-1.15) .. (-.30,-1.21)
+      .. controls (-.19,-1.25) and (.19,-1.25) .. (.30,-1.21)
+      .. controls (.25,-1.15) and (.25,-1.07) .. (.29,-1.00) -- cycle;
+  \draw[draw=#1,line width=.36pt]
+    (-.30,-.99) .. controls (-.19,-1.03) and (.19,-1.03) .. (.30,-.99);
+  \draw[draw=#1,line width=.42pt]
+    (-.31,-1.21) .. controls (-.20,-1.28) and (.20,-1.28) .. (.31,-1.21);
 }
 
-\newcommand{\HopeMotif}[1][1]{%
-  \begin{tikzpicture}[scale=#1,line cap=round,line join=round]
-    \HopeMotifPaths
+\newcommand{\MadokaSoulGemPaths}{%
+  \MadokaSoulGemPathsIn{MadokaPink}%
+}
+
+% Part II intentionally keeps Madoka's silhouette, recoloured as requested.
+\newcommand{\HomuraSoulGemPaths}{%
+  \MadokaSoulGemPathsIn{HomuraViolet}%
+}
+
+% Devil Homura's squat crown-shaped soul gem.
+% Normalised bounds: approximately x = +/- .88, y = -.92 .. 1.02.
+\newcommand{\DevilHomuraSoulGemPaths}{%
+  % Floating orb and its small crown socket.
+  \path[top color=white,bottom color=HomuraViolet!48!white,
+        draw=HomuraViolet,line width=.52pt]
+    (0,.86) circle (.155);
+  \path[fill=white,draw=HomuraViolet,line width=.42pt]
+    (-.15,.64) -- (-.11,.59) -- (-.10,.50)
+    -- (.10,.50) -- (.11,.59) -- (.15,.64) -- cycle;
+
+  % The upper shell opens into two broad, bat-like shoulders.
+  \path[top color=HomuraViolet!9!white,bottom color=HomuraViolet!24!white,
+        draw=HomuraViolet,line width=.54pt]
+    (-.10,.56)
+      .. controls (-.25,.66) and (-.56,.67) .. (-.76,.49)
+      .. controls (-.83,.42) and (-.87,.32) .. (-.88,.20)
+      .. controls (-.69,.23) and (-.52,.22) .. (-.38,.15)
+      .. controls (-.34,.31) and (-.27,.43) .. (-.10,.44) -- cycle;
+  \path[top color=HomuraViolet!9!white,bottom color=HomuraViolet!24!white,
+        draw=HomuraViolet,line width=.54pt]
+    (.10,.56)
+      .. controls (.25,.66) and (.56,.67) .. (.76,.49)
+      .. controls (.83,.42) and (.87,.32) .. (.88,.20)
+      .. controls (.69,.23) and (.52,.22) .. (.38,.15)
+      .. controls (.34,.31) and (.27,.43) .. (.10,.44) -- cycle;
+
+  % White lower shell and the neck of the pedestal.
+  \path[fill=white,draw=HomuraViolet,line width=.54pt]
+    (-.38,.15)
+      .. controls (-.55,.10) and (-.66,-.04) .. (-.60,-.23)
+      .. controls (-.57,-.34) and (-.46,-.39) .. (-.34,-.42)
+      .. controls (-.26,-.48) and (-.25,-.62) .. (-.34,-.70)
+      .. controls (-.18,-.75) and (.18,-.75) .. (.34,-.70)
+      .. controls (.25,-.62) and (.26,-.48) .. (.34,-.42)
+      .. controls (.46,-.39) and (.57,-.34) .. (.60,-.23)
+      .. controls (.66,-.04) and (.55,.10) .. (.38,.15)
+      .. controls (.24,.20) and (.18,.26) .. (.14,.35)
+      .. controls (.06,.32) and (-.06,.32) .. (-.14,.35)
+      .. controls (-.18,.26) and (-.24,.20) .. cycle;
+
+  % Faceted central stone: soft fill, hard outline, pointed lower edge.
+  \path[top color=HomuraViolet!9!white,bottom color=HomuraViolet!32!white,
+        draw=HomuraViolet,line width=.50pt]
+    (0,.33)
+      .. controls (.13,.34) and (.24,.31) .. (.31,.25)
+      -- (.36,.04) -- (.25,-.15)
+      .. controls (.21,-.30) and (.12,-.37) .. (0,-.43)
+      .. controls (-.12,-.37) and (-.21,-.30) .. (-.25,-.15)
+      -- (-.36,.04) -- (-.31,.25)
+      .. controls (-.24,.31) and (-.13,.34) .. cycle;
+  \draw[draw=HomuraViolet,line width=.22pt,opacity=.55]
+    (-.31,.25) -- (0,.18) -- (.31,.25)
+    (0,.18) -- (0,-.43);
+
+  % Low, flared base with a double edge, echoing the reference pedestal.
+  \path[fill=HomuraViolet!5!white,draw=HomuraViolet,line width=.46pt]
+    (-.34,-.70)
+      .. controls (-.39,-.76) and (-.46,-.80) .. (-.49,-.83)
+      -- (-.48,-.90)
+      .. controls (-.24,-.96) and (.24,-.96) .. (.48,-.90)
+      -- (.49,-.83)
+      .. controls (.46,-.80) and (.39,-.76) .. (.34,-.70)
+      .. controls (.16,-.75) and (-.16,-.75) .. cycle;
+  \draw[draw=HomuraViolet,line width=.27pt,opacity=.82]
+    (-.47,-.85) .. controls (-.23,-.91) and (.23,-.91) .. (.47,-.85);
+}
+
+\newcommand{\MadokaSoulGem}[1][1]{%
+  \begin{tikzpicture}[scale=#1,baseline=-.55ex,line cap=round,line join=round]
+    \MadokaSoulGemPaths
   \end{tikzpicture}%
 }
 
-\newcommand{\DespairMotifPaths}{%
-    \draw[HomuraViolet,line width=.55pt] (0,0) circle (.70);
-    \foreach \a in {0,30,...,330}{
-      \draw[HomuraViolet,line width=.35pt] (\a:.76)--(\a:.92);
-    }
-    \path[draw=HomuraViolet,fill=HomuraViolet,fill opacity=.10,line width=.4pt]
-      (0,.55)--(.43,.08)--(.22,-.55)--(-.32,-.48)--(-.52,.12)--cycle;
-    \draw[HomuraViolet,line width=.45pt]
-      (-.10,.55)--(.02,.18)--(-.18,-.06)--(.12,-.24)--(-.02,-.56);
-}
-
-\newcommand{\DespairMotif}[1][1]{%
-  \begin{tikzpicture}[scale=#1,line cap=round,line join=round]
-    \DespairMotifPaths
+\newcommand{\HomuraSoulGem}[1][1]{%
+  \begin{tikzpicture}[scale=#1,baseline=-.55ex,line cap=round,line join=round]
+    \HomuraSoulGemPaths
   \end{tikzpicture}%
 }
 
-% Raw paths (no tikzpicture wrapper) so Part pages can compose Convergence
-% inside their own overlay tikzpicture, like \HopeMotifPaths and \DespairMotifPaths.
-\newcommand{\ConvergenceMotifPaths}{%
-    \begin{scope}[shift={(-.38,0)},scale=.82,opacity=.88]\HopeMotifPaths\end{scope}
-    \begin{scope}[shift={(.38,0)},scale=.78,opacity=.88]\DespairMotifPaths\end{scope}
-    \draw[BookBlack,opacity=.35,line width=.3pt]
-      (-1.05,-.68)..controls(-.35,-.90)and(.35,-.90)..(1.05,-.68);
-}
-
-\newcommand{\ConvergenceMotif}[1][1]{%
-  \begin{tikzpicture}[scale=#1,line cap=round,line join=round]
-    \ConvergenceMotifPaths
+\newcommand{\DevilHomuraSoulGem}[1][1]{%
+  \begin{tikzpicture}[scale=#1,baseline=-.55ex,line cap=round,line join=round]
+    \DevilHomuraSoulGemPaths
   \end{tikzpicture}%
 }
 
+% A paired mark for the frontmatter: hope at left, rebellion at right.
+\newcommand{\SoulGemPairPaths}{%
+  \begin{scope}[shift={(-.42,0)},scale=.56]
+    \MadokaSoulGemPaths
+  \end{scope}
+  \begin{scope}[shift={(.43,-.02)},scale=.60]
+    \DevilHomuraSoulGemPaths
+  \end{scope}
+  \draw[BookBlack,opacity=.26,line width=.28pt]
+    (-.92,-.73) .. controls (-.30,-.88) and (.32,-.88) .. (.96,-.73);
+}
+
+\newcommand{\SoulGemPair}[1][1]{%
+  \begin{tikzpicture}[scale=#1,baseline=-.55ex,line cap=round,line join=round]
+    \SoulGemPairPaths
+  \end{tikzpicture}%
+}
+
+% Running heads follow the active Part counter. Frontmatter defaults to
+% Madoka pink; Part II changes only the first silhouette's colour; Part III
+% switches to Devil Homura's crown.
 \newcommand{\BookHeaderMotif}{%
   \ifcase\value{part}\relax
-    \HopeMotif[.18]%
+    \smash{\MadokaSoulGem[.18]}%
   \or
-    \HopeMotif[.18]%
+    \smash{\MadokaSoulGem[.18]}%
   \or
-    \ConvergenceMotif[.16]%
+    \smash{\HomuraSoulGem[.18]}%
   \else
-    \DespairMotif[.18]%
+    \smash{\DevilHomuraSoulGem[.20]}%
   \fi
 }
 
 \newcommand{\BookPartMotif}{%
   \ifcase\value{part}\relax
-    \HopeMotif[2.5]%
+    \MadokaSoulGem[1.55]%
   \or
-    \HopeMotif[2.5]%
+    \MadokaSoulGem[1.55]%
   \or
-    \ConvergenceMotif[2.1]%
+    \HomuraSoulGem[1.55]%
   \else
-    \DespairMotif[2.4]%
+    \DevilHomuraSoulGem[1.75]%
   \fi
 }
