@@ -73,7 +73,6 @@
     }
     \begin{scope}[shift={(TopEmblem)},scale=.63]
       \HomuraSoulGemPaths
-      \draw[HomuraViolet,opacity=.38,line width=.3pt,densely dotted] (0,0) circle (.86);
     \end{scope}
     \node[anchor=center,text=MadokaPink,
       font=\rmfamily\fontsize{11pt}{12pt}\selectfont\addfontfeatures{LetterSpace=18}]
@@ -93,24 +92,22 @@
       font=\rmfamily\fontsize{6.3pt}{8pt}\selectfont\addfontfeatures{LetterSpace=22}]
       at ($(PartNorth)+(0,-62.5mm)$) {SIDE STORY MANGA};
 
-    % Narrow side notes: a Chinese branching maxim at the spine side and the
-    % Part II conceptual triad at the fore edge.
+    % Mirrored side bands: plain Latin at the spine and its witch-script
+    % transliteration at the fore edge.
     \coordinate (PartRightBand) at ($(current page.east)+(-8.2mm,0)$);
     \coordinate (PartLeftBand) at ($(PartCenter)!-1!(PartRightBand)$);
-    \begin{scope}[shift={($(PartLeftBand)+(0,-11mm)$)},rotate=270,transform shape]
-      \node[text=BookBlack,opacity=.76,
-        font=\bookparttitlefont\fontsize{5pt}{6pt}\selectfont]
-        {每一种分岔，都是另一个可能的开始\enspace
-         \textcolor{MadokaPink}{\raisebox{.2ex}{\tiny\ensuremath{\diamond}}}\enspace
-         \textcolor{HomuraViolet}{\runeecho{ANOTHER BEGINNING}}};
-    \end{scope}
-    \begin{scope}[shift={($(PartRightBand)+(0,11mm)$)},rotate=270,transform shape]
+    \begin{scope}[shift={(PartLeftBand)},rotate=270,transform shape]
       \node[text=BookBlack,opacity=.78,
         font=\rmfamily\fontsize{4.7pt}{6pt}\selectfont\addfontfeatures{LetterSpace=11}]
-        {LAW OF CYCLES\quad
-         \textcolor{MadokaPink}{\raisebox{.2ex}{\tiny\ensuremath{\diamond}}}\quad
-         POSSIBILITIES\quad
-         \textcolor{MadokaPink}{\raisebox{.2ex}{\tiny\ensuremath{\diamond}}}\quad
+        {LAW OF CYCLES\quad\textcolor{MadokaPink}{\raisebox{.2ex}{\tiny\ensuremath{\diamond}}}\quad
+         POSSIBILITIES\quad\textcolor{MadokaPink}{\raisebox{.2ex}{\tiny\ensuremath{\diamond}}}\quad
+         REBELLION};
+    \end{scope}
+    \begin{scope}[shift={(PartRightBand)},rotate=270,transform shape]
+      \node[text=BookBlack,opacity=.78,
+        font=\bookrunefont\fontsize{4.7pt}{6pt}\selectfont\addfontfeatures{LetterSpace=11}]
+        {LAW OF CYCLES\quad\textcolor{MadokaPink}{\raisebox{.2ex}{\tiny\ensuremath{\diamond}}}\quad
+         POSSIBILITIES\quad\textcolor{MadokaPink}{\raisebox{.2ex}{\tiny\ensuremath{\diamond}}}\quad
          REBELLION};
     \end{scope}
     \foreach \side in {PartLeftBand,PartRightBand}{%
@@ -319,10 +316,7 @@
     % minute ticks, a return arrow, and a small origin ring.  Its outer circle
     % stays closed even while eight independent timelines leave it.
     \begin{scope}[shift={(CenterMotif)}]
-      \draw[HomuraViolet,opacity=.42,line width=.3pt,densely dotted]
-        (0,0) circle (17.3mm);
       \draw[HomuraViolet,opacity=.92,line width=.7pt] (0,0) circle (15.6mm);
-      \draw[HomuraViolet,opacity=.66,line width=.38pt] (0,0) circle (14.4mm);
       \draw[MadokaPink,opacity=.88,line width=.56pt] (0,0) circle (12.9mm);
       \foreach \a in {0,30,...,330}{%
         \draw[HomuraViolet,opacity=.72,line width=.35pt]
@@ -346,7 +340,7 @@
         \node[part junction,minimum size=1.4mm]
           at (\angle:17.3mm) {};
       }
-      \draw[MadokaPink,opacity=.78,line width=.48pt,
+      \draw[HomuraViolet,opacity=.78,line width=.48pt,
         -{Stealth[length=1.7mm,width=1.05mm]}]
         (215:8.6mm) arc[start angle=215,end angle=430,radius=8.6mm];
       \draw[MadokaPink,opacity=.76,line width=.42pt] (0,0) circle (4.8mm);
@@ -371,20 +365,17 @@
     \node[anchor=center,text=MadokaPink,
       font=\rmfamily\fontsize{4.7pt}{6pt}\selectfont\addfontfeatures{LetterSpace=13}]
       at ($(PartSouth)+(0,24.5mm)$)
-      {SIDE STORY MANGA\enspace/\enspace BRANCHING WORLDS
-       \enspace\textperiodcentered\enspace NARRATIVE
-       \enspace\textperiodcentered\enspace COLLAGE};
+      {BRANCHING POSSIBLE WORLDS};
     \node[anchor=center,text=HomuraViolet,opacity=.56,
-      font=\fontsize{4.7pt}{6pt}\selectfont]
+      font=\bookrunefont\fontsize{4.7pt}{6pt}\selectfont\addfontfeatures{LetterSpace=8}]
       at ($(PartSouth)+(0,18.5mm)$)
-      {\runeecho{SIDE STORY MANGA BRANCHING WORLDS}};
+      {BRANCHING POSSIBLE WORLDS};
     \coordinate (BottomEmblem) at ($(PartSouth)+(0,10.5mm)$);
     \draw[BookGray,opacity=.46,line width=.28pt]
       ($(BottomEmblem)+(-16mm,0)$)--($(BottomEmblem)+(-5mm,0)$)
       ($(BottomEmblem)+(5mm,0)$)--($(BottomEmblem)+(16mm,0)$);
     \begin{scope}[shift={(BottomEmblem)},scale=.35]
       \HomuraSoulGemPaths
-      \draw[HomuraViolet,opacity=.38,line width=.3pt,densely dotted] (0,0) circle (.86);
     \end{scope}
   \end{tikzpicture}%
   \null
