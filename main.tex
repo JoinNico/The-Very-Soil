@@ -15,12 +15,19 @@
 \newcommand{\BookSubtitle}{《魔法少女小圆》非官方批评研究}
 \newcommand{\BookAuthor}{Jen A. Blue}
 \newcommand{\BookTranslator}{JoinNico}
-\newcommand{\BookEdition}{第一版}
+\newcommand{\BookEdition}{2026年8月第一版}
+\newcommand{\BookPrinting}{2026年9月第一次印刷}
+\newcommand{\BookFormat}{B6（125 mm $\times$ 176 mm）}
 
 \begin{document}
 
 \frontmatter
+\hypersetup{pageanchor=false}
 \input{content/frontmatter/titlepages}
+% The title and copyright leaves are intentionally unnumbered; the table of
+% contents is the first visible frontmatter page and therefore begins at i.
+\pagenumbering{roman}
+\hypersetup{pageanchor=true}
 \pdfbookmark[0]{目录}{book-toc}
 \tableofcontents
 \input{content/frontmatter/translator-preface}
