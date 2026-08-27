@@ -1,43 +1,156 @@
 \begin{titlepage}
   \thispagestyle{empty}
   \begin{tikzpicture}[remember picture,overlay]
-    \node[opacity=.95] at ($(current page.north east)+(-17mm,-19mm)$) {\ConvergenceMotif[1.25]};
+    % A quiet double halo gathers the two soul gems into one crest while
+    % preserving the pink/violet duality used throughout the book.
+    \draw[MadokaPink,opacity=.12,line width=.35pt]
+      ($(current page.north)+(-8mm,-42mm)$) circle (18mm);
+    \draw[HomuraViolet,opacity=.12,line width=.35pt]
+      ($(current page.north)+(8mm,-42mm)$) circle (18mm);
+    \node[opacity=.98] at ($(current page.north)+(0,-42mm)$)
+      {\SoulGemPair[1.82]};
+
+    \node[
+      text=BookGray,
+      font=\sffamily\fontsize{6.8pt}{8pt}\selectfont
+    ] at ($(current page.north)+(0,-15mm)$)
+      {\addfontfeatures{LetterSpace=25}THE VERY SOIL};
+    \draw[BookGray,opacity=.42,line width=.28pt]
+      ($(current page.north)+(-39mm,-20mm)$)--($(current page.north)+(-8mm,-20mm)$)
+      ($(current page.north)+(8mm,-20mm)$)--($(current page.north)+(39mm,-20mm)$);
+    \fill[MadokaPink]
+      ($(current page.north)+(-2.2mm,-20mm)$) circle (.45mm);
+    \fill[HomuraViolet]
+      ($(current page.north)+(2.2mm,-20mm)$) circle (.45mm);
+
+    \node[
+      text=BookBlack,
+      align=center,
+      font=\bookparttitlefont\fontsize{27pt}{32pt}\selectfont
+    ] at ($(current page.north)+(0,-78mm)$)
+      {\addfontfeatures{LetterSpace=10}\BookTitle};
+    \draw[MadokaPink,line width=.65pt]
+      ($(current page.north)+(-26mm,-89mm)$)--($(current page.north)+(-2mm,-89mm)$);
+    \draw[HomuraViolet,line width=.65pt]
+      ($(current page.north)+(2mm,-89mm)$)--($(current page.north)+(26mm,-89mm)$);
+    \node[
+      text=BookGray,
+      align=center,
+      text width=88mm,
+      font=\sffamily\fontsize{9.6pt}{14pt}\selectfont
+    ] at ($(current page.north)+(0,-101mm)$)
+      {\BookSubtitle};
+    \node[
+      text=HomuraViolet,
+      opacity=.72,
+      font=\fontsize{7.2pt}{9pt}\selectfont
+    ] at ($(current page.north)+(0,-114mm)$)
+      {\runeecho{THE VERY SOIL}};
+
+    % The credits share one baseline and read as a deliberate colophon,
+    % rather than two loose lines pushed into the lower-right corner.
+    \draw[BookGray,opacity=.35,line width=.28pt]
+      ($(current page.south)+(-40mm,38mm)$)--($(current page.south)+(40mm,38mm)$);
+    \draw[BookGray,opacity=.32,line width=.28pt]
+      ($(current page.south)+(0,34mm)$)--($(current page.south)+(0,18mm)$);
+    \node[
+      anchor=north,
+      text=MadokaPink,
+      font=\sffamily\bfseries\fontsize{6.5pt}{8pt}\selectfont
+    ] at ($(current page.south)+(-22mm,33mm)$)
+      {\addfontfeatures{LetterSpace=10}作者 / AUTHOR};
+    \node[
+      anchor=north,
+      text=BookBlack,
+      font=\rmfamily\fontsize{10.5pt}{13pt}\selectfont
+    ] at ($(current page.south)+(-22mm,26mm)$)
+      {\BookAuthor};
+    \node[
+      anchor=north,
+      text=HomuraViolet,
+      font=\sffamily\bfseries\fontsize{6.5pt}{8pt}\selectfont
+    ] at ($(current page.south)+(22mm,33mm)$)
+      {\addfontfeatures{LetterSpace=10}译者 / TRANSLATOR};
+    \node[
+      anchor=north,
+      text=BookBlack,
+      font=\rmfamily\fontsize{10.5pt}{13pt}\selectfont
+    ] at ($(current page.south)+(22mm,26mm)$)
+      {\BookTranslator};
     \draw[MadokaPink,line width=.7pt]
-      ($(current page.south west)+(14mm,18mm)$)--($(current page.south west)+(58mm,18mm)$);
+      ($(current page.south west)+(14mm,10mm)$)--($(current page.south)+(0,10mm)$);
     \draw[HomuraViolet,line width=.7pt]
-      ($(current page.south west)+(58mm,18mm)$)--($(current page.south east)+(-14mm,18mm)$);
+      ($(current page.south)+(0,10mm)$)--($(current page.south east)+(-14mm,10mm)$);
   \end{tikzpicture}
-  \vspace*{42mm}
-  {\sffamily\bfseries\fontsize{22pt}{29pt}\selectfont
-    \BookTitle\par}
-  \vspace{6mm}
-  {\sffamily\fontsize{12pt}{18pt}\selectfont\color{BookGray}
-    \BookSubtitle\par}
-  \vspace{12mm}
-  {\color{HomuraViolet}\runeecho{THE VERY SOIL}\par}
-  \vfill
-  \begin{flushright}
-    {\fontsize{9pt}{14pt}\selectfont
-      著\quad\BookAuthor\par
-      译\quad\BookTranslator\par}
-  \end{flushright}
+  \null
 \end{titlepage}
 
 \clearpage
 \thispagestyle{empty}
-\vspace*{\fill}
-{\fontsize{8pt}{12pt}\selectfont
-  \textbf{\BookTitle}\par
-  \BookSubtitle\par
+\begingroup
+  % The copyright leaf is deliberately monochrome. Hierarchy comes from
+  % type size, weight, rules, and spacing rather than the book's accent inks.
+  \color{black}
+  \setlength{\parindent}{0pt}
+  \setlength{\parskip}{0pt}
+  \vspace*{\fill}
+
+  {\bookparttitlefont\mdseries\fontsize{14pt}{17pt}\selectfont
+    \BookTitle\par}
+  \vspace{1.5pt}
+  {\sffamily\fontsize{7.6pt}{10pt}\selectfont
+    \BookSubtitle\par}
+
+  \vspace{7pt}
+  \hrule height .45pt
+  \vspace{6pt}
+
+  {\fontsize{7.3pt}{10.3pt}\selectfont
+    \begin{tabular}{@{}l@{\hspace{1em}}l@{}}
+      作者： & \BookAuthor \\
+      译者： & \BookTranslator \\
+      版次： & 2026 年 8 月第 1 版 \\
+      印次： & 2026 年 9 月第 1 次印刷 \\
+      开本： & B6（125 mm × 176 mm）
+    \end{tabular}\par}
+
+  \vspace{6.5pt}
+  {\fontsize{7.1pt}{10pt}\selectfont
+    本中文译本经原著作者许可翻译并发行。\par}
+
   \vspace{8pt}
-  作者：\BookAuthor\par
-  译者：\BookTranslator\par
-  版本：\BookEdition\par
-  输出：\ifbookprint 印刷版\else 屏幕阅读版\fi\par
-  \vspace{8pt}
-  本翻译作品采用 CC BY-NC-SA 4.0 许可发布；字体与外部素材遵循各自许可文件。\par
-  本书为非官方评论研究，与原作权利方无隶属或授权关系。\par
-  \vspace{8pt}
-  排版系统：XeLaTeX / ctex / biblatex\par
-}
+  {\sffamily\bfseries\fontsize{6.8pt}{8.5pt}\selectfont
+    英文原版版权信息\par}
+  \vspace{2.5pt}
+  \hrule height .3pt
+  \vspace{4.5pt}
+
+  {\rmfamily\fontsize{6.8pt}{8.8pt}\selectfont
+    \textbf{The Very Soil}\par
+    \textit{An Unauthorized Critical Study of Puella Magi Madoka Magica}\par
+    Copyright © 2014--2015 by Jed A. Blue\par
+    Published by Eohippus Press\par
+    All rights reserved.\par}
+  \vspace{2.5pt}
+  {\sffamily\fontsize{5.7pt}{7.5pt}\selectfont
+    英文原版以 Jed A. Blue 之名出版。\par}
+
+  \vspace{6pt}
+  \hrule height .3pt
+  \vspace{5.5pt}
+
+  {\fontsize{6.25pt}{8.9pt}\selectfont
+    中文译文及本版版式设计 © 2026 JoinNico。除法律另有规定外，保留所有权利。未经相应权利人许可，不得复制、转载、发行、改编或用于商业用途。\par
+    \vspace{3.2pt}
+    《魔法少女小圆》及其相关概念与衍生作品的著作权及其他权利归 Magica Quartet、各创作者及相关权利人所有。英文原著声明，其对相关内容的使用以评论与研究为目的，并依据合理使用原则进行。\par
+    \vspace{3.2pt}
+    本书为非官方评论研究，未获 Magica Quartet 及《魔法少女小圆》其他相关权利方的官方认可或委托，与其不存在隶属关系。“非官方”仅说明本书与上述作品权利方的关系。\par
+    \vspace{3.2pt}
+    本书所用字体及其他第三方素材的权利归各自权利人所有，并依相应许可条款或适用法律使用。\par}
+
+  \vspace{6pt}
+  {\fontsize{5.8pt}{7.5pt}\selectfont
+    排版系统：{\fontspec{Latin Modern Roman}\LaTeX}\par}
+  \vspace*{2mm}
+\endgroup
 \clearpage

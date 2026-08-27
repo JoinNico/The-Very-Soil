@@ -20,29 +20,26 @@
   Ligatures=TeX
 ]
 
-\setCJKmainfont{NotoSerifSC-VF.ttf}[
+% XeTeX in TeX Live 2022 cannot select an OpenType variable-font axis.
+% Use fixed instances so \mdseries and \bfseries select real 400/700 glyphs.
+\setCJKmainfont{NotoSerifSC-Regular.ttf}[
   Path=assets/fonts/Noto/,
-  RawFeature={axis={wght=400}},
-  BoldFont=NotoSerifSC-VF.ttf,
-  BoldFeatures={RawFeature={axis={wght=700}}},
-  ItalicFont=NotoSerifSC-VF.ttf,
+  BoldFont=NotoSerifSC-Bold.ttf,
+  ItalicFont=NotoSerifSC-Regular.ttf,
   ItalicFeatures={FakeSlant=0.15},
-  BoldItalicFont=NotoSerifSC-VF.ttf,
-  BoldItalicFeatures={RawFeature={axis={wght=700}},FakeSlant=0.15}
+  BoldItalicFont=NotoSerifSC-Bold.ttf,
+  BoldItalicFeatures={FakeSlant=0.15}
 ]
-\newCJKfontfamily\bookparttitlefont{NotoSerifSC-VF.ttf}[
-  Path=assets/fonts/Noto/,
-  RawFeature={axis={wght=300}}
+\newCJKfontfamily\bookparttitlefont{NotoSerifSC-Light.ttf}[
+  Path=assets/fonts/Noto/
 ]
-\setCJKsansfont{NotoSansSC-VF.ttf}[
+\setCJKsansfont{NotoSansSC-Regular.ttf}[
   Path=assets/fonts/Noto/,
-  RawFeature={axis={wght=400}},
-  BoldFont=NotoSansSC-VF.ttf,
-  BoldFeatures={RawFeature={axis={wght=700}}}
+  BoldFont=NotoSansSC-Bold.ttf
 ]
-\setCJKmonofont{NotoSansSC-VF.ttf}[
+\setCJKmonofont{NotoSansSC-Regular.ttf}[
   Path=assets/fonts/Noto/,
-  RawFeature={axis={wght=400}}
+  BoldFont=NotoSansSC-Bold.ttf
 ]
 
 % MadokaRunes is enabled only when both the font and its redistribution
@@ -72,16 +69,20 @@
   \definecolor{BookBlack}{cmyk}{0,0,0,1}
   \definecolor{MadokaPink}{cmyk}{0,0.70,0.20,0}
   \definecolor{HomuraViolet}{cmyk}{0.55,0.70,0,0.15}
+  \definecolor{RibbonRed}{cmyk}{0,0.73,0.63,0.20}
   \definecolor{BookGray}{cmyk}{0,0,0,0.55}
   \definecolor{BookPale}{cmyk}{0,0.06,0.02,0}
 \else
   \definecolor{BookBlack}{HTML}{18151C}
   \definecolor{MadokaPink}{HTML}{E84D8A}
   \definecolor{HomuraViolet}{HTML}{6F4AA8}
+  \definecolor{RibbonRed}{HTML}{CA384B}
   \definecolor{BookGray}{HTML}{716B75}
   \definecolor{BookPale}{HTML}{FFF4F8}
 \fi
 
 \color{BookBlack}
 \input{assets/motifs/book-motifs}
-\input{assets/motifs/part-pages}
+\input{assets/motifs/part1-pages}
+\input{assets/motifs/part2-pages}
+\input{assets/motifs/part3-pages}

@@ -1,40 +1,58 @@
 \newcounter{interludecounter}
 \newcommand{\BookSpecialKicker}{}
+\newcommand{\BookSpecialNumber}{}
+\newif\ifbooksimplechapter
+\booksimplechapterfalse
 \newcommand{\BookTitleSep}{\texorpdfstring{\quad}{\space}}
 
 \newcommand{\interlude}[1]{%
   \stepcounter{interludecounter}%
-  \renewcommand{\BookSpecialKicker}{INTERLUDE~\Roman{interludecounter}}%
-  \chapter*{间奏 \Chinese{interludecounter}\BookTitleSep #1}%
+  \booksimplechapterfalse
+  \renewcommand{\BookSpecialKicker}{INTERLUDE}%
+  \edef\BookSpecialNumber{\ifnum\value{interludecounter}<10 0\fi\arabic{interludecounter}}%
+  \chapter*{#1}%
   \addcontentsline{toc}{chapter}{%
     \protect\numberline{\protect\BookTOCLabel{间奏\Chinese{interludecounter}}}#1}%
   \markboth{间奏 \Chinese{interludecounter}\quad #1}{间奏 \Chinese{interludecounter}\quad #1}%
   \renewcommand{\BookSpecialKicker}{}%
+  \renewcommand{\BookSpecialNumber}{}%
 }
 
 \newcommand{\introduction}[1]{%
+  \booksimplechaptertrue
   \renewcommand{\BookSpecialKicker}{INTRODUCTION}%
-  \chapter*{导言\BookTitleSep #1}%
+  \chapter*{#1}%
   \addcontentsline{toc}{chapter}{%
     \protect\numberline{\protect\BookTOCLabel{导言}}#1}%
   \markboth{导言\quad #1}{导言\quad #1}%
   \renewcommand{\BookSpecialKicker}{}%
+  \booksimplechapterfalse
 }
 
-\newcommand{\bookbackchapter}[2]{%
-  \renewcommand{\BookSpecialKicker}{#1}%
-  \chapter*{#2}%
-  \addcontentsline{toc}{chapter}{#2}%
-  \markboth{#2}{#2}%
+\newcommand{\bookbackchapter}[3][]{%
+  \booksimplechaptertrue
+  \renewcommand{\BookSpecialKicker}{#2}%
+  \chapter*{#3}%
+  \ifstrempty{#1}{%
+    \addcontentsline{toc}{chapter}{#3}%
+  }{%
+    \addcontentsline{toc}{chapter}{%
+      \protect\texorpdfstring{%
+        \protect\numberline{\protect\BookTOCLabel{#1}}%
+      }{#1}}%
+  }%
+  \markboth{#3}{#3}%
   \renewcommand{\BookSpecialKicker}{}%
+  \booksimplechapterfalse
 }
 
 \newcommand{\chaptersubtitle}[1]{%
-  \begin{flushleft}
-    \vspace{-10pt}%
-    {\sffamily\fontsize{10pt}{14pt}\selectfont\color{BookGray}#1\par}%
-    \vspace{12pt}%
-  \end{flushleft}%
+  \par
+  \vspace{\BookChapterSubtitleBeforeSkip}%
+  \noindent\makebox[\linewidth][c]{%
+    \sffamily\fontsize{10pt}{14pt}\selectfont\color{BookGray}#1}%
+  \par
+  \vspace{\BookChapterSubtitleAfterSkip}%
 }
 
 \newenvironment{chapteropeningnote}{%
@@ -46,7 +64,7 @@
     boxrule=0pt,
     % borderline west={1.2pt}{0pt}{MadokaPink},
     left=7pt,right=7pt,top=6pt,bottom=6pt,
-    before skip=4pt,after skip=14pt,
+    before skip=0pt,after skip=14pt,
     fontupper=\fontsize{\BookOpeningNoteFontSize}{\BookOpeningNoteLineHeight}\selectfont,
     title={题记},
     coltitle=white,
@@ -67,13 +85,23 @@
   \cleardoublepage
   \refstepcounter{part}%
   \phantomsection
+  \ifnum\value{part}=2\relax
+    \addtocontents{toc}{\protect\BookTOCUseHomura}%
+  \fi
   \addcontentsline{toc}{part}{第\Chinese{part}部分\BookTitleSep #1}%
   \markboth{第\Chinese{part}部分\quad #1}{}%
   \thispagestyle{empty}%
-  \ifnum\value{part}=1\relax
+  \ifcase\value{part}%
+    % part counter is 0 only before the first \bookpart call; unreachable here.
+  \or
     \BookPartOnePage{#1}%
+  \or
+    \BookPartTwoPage{#1}%
+  \or
+    \BookPartThreePage{#1}%
   \else
-    \BookGenericPartPage{#1}%
+    \PackageError{the-very-soil}{No part page layout defined for part \arabic{part}}%
+      {Add a BookPartFourPage command and a new case here.}%
   \fi
   \clearpage
   \thispagestyle{empty}\null\clearpage
