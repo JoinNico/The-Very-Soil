@@ -79,6 +79,10 @@
 }
 
 \newcommand{\translatornote}[1]{\footnote{\textbf{译注：}#1}}
+% Short Hebrew insertions in LTR Chinese. Avoid polyglossia's hebrew language
+% (it loads bidi and would reverse the whole book).
+\newcommand{\texthebrew}[1]{{\bookhebrewfont #1}}
+\newcommand{\textdevanagari}[1]{{\bookdevanagarifont #1}}
 
 
 \newcommand{\bookpart}[1]{%

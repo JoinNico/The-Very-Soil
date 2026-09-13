@@ -1,6 +1,6 @@
 # Bundled fonts
 
-- `Noto/`: Noto Serif SC and Noto Sans SC, licensed under the SIL Open Font License 1.1. The `*-VF.ttf` files are the upstream variable fonts; the fixed Light/Regular/Bold files are project-local instances generated from them for XeTeX compatibility.
+- `Noto/`: Noto Serif SC, Noto Sans SC, Noto Serif Hebrew, and Noto Serif Devanagari, licensed under the SIL Open Font License 1.1. The CJK `*-VF.ttf` files are the upstream variable fonts; the fixed Light/Regular/Bold CJK files are project-local instances generated from them for XeTeX compatibility. Hebrew and Devanagari use the upstream hinted static Regular/Bold files.
 - `Libertinus/`: Libertinus Serif and Sans, licensed under the SIL Open Font License 1.1.
 - `MadokaRunes/`: decorative rune font used only for short visual echoes. See its local project-use notice.
 
