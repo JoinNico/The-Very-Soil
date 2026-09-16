@@ -31,6 +31,7 @@
 
 \newcommand{\bookbackchapter}[3][]{%
   \booksimplechaptertrue
+  \setcounter{footnote}{0}%
   \renewcommand{\BookSpecialKicker}{#2}%
   \chapter*{#3}%
   \ifstrempty{#1}{%
