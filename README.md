@@ -54,12 +54,6 @@ latexmk -xelatex print.tex
 
 输出分别为 `build/main.pdf` 和 `build/print.pdf`。屏幕版保留粉紫色链接、书签和可点击目录；印刷版隐藏链接视觉。两版必须具有相同分页，所有临时文件也统一写入 `build/`。
 
-10 页诊断样张可用以下命令构建：
-
-```powershell
-latexmk -xelatex proof/proof.tex
-```
-
 主要目录按职责划分：
 
 ```text
