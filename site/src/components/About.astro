@@ -1,0 +1,205 @@
+---
+import Motifs from './Motifs.astro';
+---
+
+<section class='about' id='about' aria-labelledby='about-title'>
+  <Motifs name='seed' class='about-seed' />
+  <div class='about-inner'>
+    <div class='interlude' aria-label='引文'>
+      <blockquote lang='en'>
+        <p>
+          “Perhaps hopelessness is the very soil that nourishes human hope; perhaps one could never find
+          sense in life without first experiencing its absurdity.”
+        </p>
+        <footer>— Václav Havel</footer>
+      </blockquote>
+    </div>
+
+    <div class='about-content'>
+      <header class='section-heading'>
+        <h2 id='about-title'>01 / ABOUT</h2>
+      </header>
+
+      <div class='about-copy'>
+        <p class='lead'>
+          <span lang='en'>The Very Soil</span> 是美国动画评论家 Jen A. Blue 于 2015 年 3 月出版的《魔法少女小圆》批评研究。全书从电视动画出发，延伸至《和美☆魔法少女》《魔法少女织莉子》《The Different Story》三部外传漫画，并最终在《叛逆的物语》中收束。
+        </p>
+        <p>
+          Jen A. Blue 的文字不断往返于作品内外：一个镜头、一句台词、一种画风的突然侵入，都可能与魔法少女题材、《浮士德》、佛教、戏剧传统或其他文化文本发生联系。她尤其关注符号如何在不同语境中改变意义，以及作品如何借用、拆解并重新组织既有的形式与传统。
+        </p>
+        <ul aria-label='本书采用的批评视角'>
+          <li>文本精读</li>
+          <li>后现代主义</li>
+          <li>女性主义</li>
+          <li>佛教</li>
+          <li>纸芝居</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .about {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    color: var(--book-pale);
+    background: var(--book-black);
+  }
+
+  .about::before {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    background:
+      radial-gradient(circle at 12% 16%, color-mix(in srgb, var(--madoka-pink) 15%, transparent), transparent 28%),
+      radial-gradient(circle at 88% 78%, color-mix(in srgb, var(--homura-violet) 18%, transparent), transparent 30%),
+      radial-gradient(circle at 52% 105%, color-mix(in srgb, var(--sayaka-blue) 9%, transparent), transparent 34%);
+  }
+
+  .about-inner {
+    width: min(100% - 2rem, 76rem);
+    margin-inline: auto;
+    padding-block: clamp(4rem, 8vw, 7rem) clamp(6rem, 11vw, 10.5rem);
+  }
+
+  .interlude {
+    padding-block: clamp(2.5rem, 5vw, 4rem);
+    border-block: 1px solid rgb(255 244 248 / 0.18);
+  }
+
+  blockquote {
+    max-width: 54rem;
+    margin: 0 auto;
+  }
+
+  blockquote p {
+    margin: 0;
+    color: rgb(255 244 248 / 0.78);
+    font-family: var(--font-display);
+    font-size: clamp(1.05rem, 2vw, 1.4rem);
+    font-style: italic;
+    line-height: 1.75;
+    text-align: center;
+    text-wrap: balance;
+  }
+
+  blockquote footer {
+    margin-top: 1.25rem;
+    color: rgb(255 244 248 / 0.5);
+    font-size: 0.76rem;
+    letter-spacing: 0.12em;
+    text-align: right;
+  }
+
+  .about-content {
+    display: grid;
+    grid-template-columns: minmax(10rem, 0.5fr) minmax(0, 1.5fr);
+    gap: clamp(2rem, 8vw, 8rem);
+    align-items: start;
+    padding-top: clamp(4rem, 8vw, 7rem);
+  }
+
+  .section-heading h2 {
+    margin: 0.35rem 0 0;
+    color: var(--madoka-pink);
+    font-family: var(--font-sans, sans-serif);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    line-height: 1.5;
+  }
+
+  .about-copy {
+    max-width: 45rem;
+  }
+
+  .about-copy p {
+    margin: 0;
+    color: rgb(255 244 248 / 0.7);
+    font-family: var(--font-serif, serif);
+    font-size: clamp(0.98rem, 1.55vw, 1.08rem);
+    line-height: 2;
+    text-align: justify;
+  }
+
+  .about-copy .lead {
+    color: var(--book-pale);
+    font-size: clamp(1.08rem, 1.85vw, 1.28rem);
+  }
+
+  .about-copy p + p {
+    margin-top: 1.5rem;
+  }
+
+  ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.65rem;
+    margin: 2.5rem 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  li {
+    padding: 0.55rem 0.85rem;
+    border: 1px solid rgb(255 244 248 / 0.24);
+    color: rgb(255 244 248 / 0.78);
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+  }
+
+  li:nth-child(1) {
+    border-color: color-mix(in srgb, var(--madoka-pink) 58%, transparent);
+  }
+
+  li:nth-child(2) {
+    border-color: color-mix(in srgb, var(--homura-violet) 68%, transparent);
+  }
+
+  li:nth-child(3) {
+    border-color: color-mix(in srgb, var(--sayaka-blue) 68%, transparent);
+  }
+
+  li:nth-child(4) {
+    border-color: color-mix(in srgb, var(--mami-gold) 72%, transparent);
+  }
+
+  li:nth-child(5) {
+    border-color: color-mix(in srgb, var(--kyoko-red) 68%, transparent);
+  }
+
+  :global(.about-seed) {
+    position: absolute;
+    z-index: -1;
+    right: -2.5rem;
+    bottom: -5rem;
+    width: clamp(16rem, 32vw, 30rem);
+    color: var(--homura-violet);
+    opacity: 0.1;
+    transform: rotate(12deg);
+  }
+
+  @media (max-width: 48rem) {
+    .about-content {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    .about-copy p {
+      text-align: left;
+    }
+  }
+
+  @media (max-width: 35rem) {
+    .about-inner {
+      width: min(100% - 1.25rem, 76rem);
+    }
+
+    blockquote p {
+      text-align: left;
+    }
+  }
+</style>

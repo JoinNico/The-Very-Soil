@@ -1,0 +1,11 @@
+MadokaRunes 2.0 project-use notice
+
+The project maintainer has confirmed that permission to use and distribute
+MADOKARUNES-2.0.TTF with The Very Soil project has been obtained.
+
+This notice applies only to the bundled font file. Licensing terms for the
+website or book do not automatically relicense the font itself.
+
+Font family: MadokaRunes
+Font version: 2.0
+MD5: a34bd82eaf6250c042b824eb33b38e2e

@@ -1,0 +1,150 @@
+---
+import { book } from '../data/site';
+---
+
+<header class='site-header' id='top'>
+  <div class='header-inner'>
+    <a class='wordmark' href='#top' aria-label={`${book.title}，返回页首`}>
+      <span class='wordmark-mark' aria-hidden='true'>T<span>V</span>S</span>
+      <span class='wordmark-copy'>
+        <strong>{book.eyebrow}</strong>
+        <small>{book.title}</small>
+      </span>
+    </a>
+
+    <nav aria-label='主导航'>
+      <a href='#about'>关于本书</a>
+      <a href='#parts'>章节结构</a>
+      <a href='#physical-edition'>实体版</a>
+      <a href='#availability'>购买信息</a>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: relative;
+    z-index: 20;
+    border-bottom: 1px solid color-mix(in srgb, var(--book-black) 16%, transparent);
+    background: color-mix(in srgb, var(--book-pale) 92%, transparent);
+    backdrop-filter: blur(14px);
+  }
+
+  .header-inner {
+    width: min(100% - 2rem, 76rem);
+    min-height: 5rem;
+    margin-inline: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+  }
+
+  .wordmark {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    min-width: max-content;
+    color: var(--book-black);
+    text-decoration: none;
+  }
+
+  .wordmark-mark {
+    width: 2.25rem;
+    aspect-ratio: 1;
+    display: grid;
+    place-items: center;
+    border: 1px solid currentColor;
+    font-family: var(--font-display);
+    font-size: 0.78rem;
+    letter-spacing: 0.04em;
+  }
+
+  .wordmark-mark span {
+    color: var(--madoka-pink);
+  }
+
+  .wordmark-copy {
+    display: grid;
+    gap: 0.08rem;
+  }
+
+  .wordmark-copy strong {
+    font-size: 0.78rem;
+    font-weight: 650;
+    letter-spacing: 0.16em;
+  }
+
+  .wordmark-copy small {
+    color: var(--book-gray);
+    font-family: var(--font-serif, serif);
+    font-size: 0.78rem;
+  }
+
+  nav {
+    display: flex;
+    align-items: center;
+    gap: clamp(1rem, 3vw, 2.25rem);
+  }
+
+  nav a {
+    position: relative;
+    color: var(--book-black);
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-decoration: none;
+  }
+
+  nav a::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    bottom: -0.4rem;
+    left: 0;
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      var(--madoka-pink),
+      var(--homura-violet),
+      var(--sayaka-blue),
+      var(--mami-gold),
+      var(--kyoko-red)
+    );
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 180ms ease;
+  }
+
+  nav a:hover::after,
+  nav a:focus-visible::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+
+  a:focus-visible {
+    outline: 2px solid var(--homura-violet);
+    outline-offset: 4px;
+  }
+
+  @media (max-width: 42rem) {
+    .header-inner {
+      min-height: 4.5rem;
+    }
+
+    .wordmark-copy small,
+    nav a:not(:last-child) {
+      display: none;
+    }
+
+    nav a {
+      padding: 0.5rem 0;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    nav a::after {
+      transition: none;
+    }
+  }
+</style>

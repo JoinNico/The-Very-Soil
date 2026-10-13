@@ -1,0 +1,393 @@
+---
+import { book, links, release } from '../data/site';
+import { publicPath } from '../utils/publicPath';
+import Motifs from './Motifs.astro';
+
+const hasBook = Boolean(links.bookPdf);
+const hasInterestForm = Boolean(release.interestFormUrl);
+const coverSrc = publicPath('images/cover.jpg');
+---
+
+<section class='hero' id='hero' aria-labelledby='hero-title'>
+  <Motifs name='time-rings' class='hero-clock' />
+  <Motifs name='ribbon' class='hero-ribbon' />
+
+  <div class='hero-inner'>
+    <div class='hero-copy'>
+      <p class='eyebrow'><span aria-hidden='true'></span>{book.eyebrow}</p>
+      <h1 id='hero-title'>{book.title}</h1>
+      <p class='english-title' lang='en'>{book.englishSubtitle}</p>
+      <p class='subtitle'>{book.subtitle}</p>
+
+      <dl class='credits' aria-label='作者与译者'>
+        <div>
+          <dt>作者 / Author</dt>
+          <dd>{book.author}</dd>
+        </div>
+        <div>
+          <dt>中文翻译 / Translator</dt>
+          <dd>{book.translator}</dd>
+        </div>
+      </dl>
+
+      <div class='hero-actions' aria-label='本书操作'>
+        {
+          hasBook ? (
+            <a class='button button-primary' href={links.bookPdf} target='_blank' rel='noreferrer'>
+              <span>阅读全文</span>
+              <svg viewBox='0 0 20 20' aria-hidden='true'>
+                <path d='M5 15 15 5M7 5h8v8' />
+              </svg>
+            </a>
+          ) : (
+            <span class='button button-primary button-disabled' aria-disabled='true'>全文制作中</span>
+          )
+        }
+        {
+          hasInterestForm ? (
+            <a class='button button-secondary' href={release.interestFormUrl} target='_blank' rel='noreferrer'>
+              填写购买意向
+            </a>
+          ) : (
+            <span class='button button-secondary button-disabled' aria-disabled='true'>购买意向登记待开放</span>
+          )
+        }
+      </div>
+
+      <dl class='edition-meta' aria-label='版本信息'>
+        <div><dt>开本</dt><dd>{book.format}</dd></div>
+        <div><dt>页数</dt><dd>{book.pages} pages</dd></div>
+        <div><dt>版本</dt><dd>{book.edition}</dd></div>
+        <div><dt>年份</dt><dd>{book.editionYear}</dd></div>
+      </dl>
+    </div>
+
+    <div class='hero-book'>
+      <a class='book-container' href='#physical-edition' aria-label={`查看《${book.title}》实体版信息`}>
+        <div class='book'>
+          <img src={coverSrc} alt={`《${book.title}》封面`} loading='eager' decoding='async' draggable='false' />
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    color: var(--book-black);
+    background:
+      radial-gradient(circle at 88% 18%, color-mix(in srgb, var(--mami-gold) 8%, transparent), transparent 28%),
+      radial-gradient(circle at 12% 82%, color-mix(in srgb, var(--sayaka-blue) 6%, transparent), transparent 30%),
+      linear-gradient(110deg, transparent 55%, color-mix(in srgb, var(--madoka-pink) 5.5%, transparent)),
+      var(--book-pale);
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    opacity: 0.4;
+    background-image: radial-gradient(color-mix(in srgb, var(--homura-violet) 14%, transparent) 0.65px, transparent 0.65px);
+    background-size: 9px 9px;
+    mask-image: linear-gradient(90deg, black, transparent 65%);
+  }
+
+  .hero-inner {
+    width: min(100% - 2rem, 76rem);
+    min-height: calc(100svh - 5rem);
+    margin-inline: auto;
+    padding-block: clamp(4rem, 8vw, 7.5rem) clamp(5rem, 8vw, 7rem);
+    display: grid;
+    grid-template-columns: minmax(0, 1.05fr) minmax(18rem, 0.75fr);
+    align-items: center;
+    gap: clamp(2.5rem, 7vw, 7rem);
+  }
+
+  .hero-copy {
+    position: relative;
+    z-index: 2;
+  }
+
+  .eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    margin: 0 0 1.25rem;
+    color: var(--book-gray);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+  }
+
+  .eyebrow span {
+    width: 2.7rem;
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      var(--madoka-pink),
+      var(--homura-violet),
+      var(--sayaka-blue),
+      var(--mami-gold),
+      var(--kyoko-red)
+    );
+  }
+
+  h1 {
+    max-width: 8em;
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: clamp(4rem, 9.4vw, 8.2rem);
+    font-weight: 650;
+    letter-spacing: 0.035em;
+    line-height: 0.98;
+    text-wrap: balance;
+  }
+
+  .english-title {
+    max-width: 34rem;
+    margin: 1.4rem 0 0;
+    color: var(--homura-violet);
+    font-size: clamp(0.72rem, 1vw, 0.82rem);
+    font-weight: 650;
+    letter-spacing: 0.14em;
+    line-height: 1.6;
+    text-transform: uppercase;
+  }
+
+  .subtitle {
+    max-width: 36rem;
+    margin: 0.8rem 0 0;
+    color: var(--book-gray);
+    font-family: var(--font-serif, serif);
+    font-size: clamp(1.05rem, 2vw, 1.35rem);
+    line-height: 1.7;
+  }
+
+  .credits {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    max-width: 33rem;
+    margin: clamp(2rem, 5vw, 3.25rem) 0 0;
+    border-block: 1px solid var(--rule-faint);
+  }
+
+  .credits div {
+    padding: 0.95rem 0;
+  }
+
+  .credits div + div {
+    border-left: 1px solid var(--rule-faint);
+    padding-left: clamp(1rem, 3vw, 2rem);
+  }
+
+  dt {
+    margin: 0 0 0.35rem;
+    color: var(--book-gray);
+    font-size: 0.72rem;
+    font-weight: 650;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  dd {
+    margin: 0;
+    font-family: var(--font-serif, serif);
+  }
+
+  .credits dd {
+    font-size: 1.02rem;
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 2rem;
+  }
+
+  .button {
+    min-height: 3.25rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    padding: 0.85rem 1.35rem;
+    border: 1px solid var(--book-black);
+    font-size: 0.82rem;
+    font-weight: 650;
+    letter-spacing: 0.05em;
+    text-decoration: none;
+    transition: color 180ms ease, background 180ms ease, border-color 180ms ease, transform 180ms ease;
+  }
+
+  .button svg {
+    width: 1rem;
+    fill: none;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 1.5;
+  }
+
+  .button-primary {
+    color: var(--book-pale);
+    background: var(--book-black);
+  }
+
+  .button-secondary {
+    color: var(--book-black);
+    background: transparent;
+  }
+
+  .button:not(.button-disabled):hover {
+    color: var(--book-pale);
+    background: var(--homura-violet);
+    border-color: var(--homura-violet);
+    transform: translateY(-2px);
+  }
+
+  .button:focus-visible {
+    outline: 2px solid var(--madoka-pink);
+    outline-offset: 3px;
+  }
+
+  .button-disabled {
+    cursor: not-allowed;
+    opacity: 0.55;
+  }
+
+  .edition-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.9rem 1.5rem;
+    margin: 2rem 0 0;
+  }
+
+  .edition-meta div {
+    display: flex;
+    gap: 0.4rem;
+    align-items: baseline;
+  }
+
+  .edition-meta dt,
+  .edition-meta dd {
+    font-size: 0.74rem;
+  }
+
+  .edition-meta dd {
+    color: var(--book-gray);
+    font-family: var(--font-sans, sans-serif);
+  }
+
+  .hero-book {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+  }
+
+  .hero-book .book-container {
+    width: clamp(13rem, 28vw, 19rem);
+  }
+
+  .hero-book .book {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 300 / 480;
+  }
+
+  .hero-book .book > :first-child {
+    width: 100%;
+    height: 100%;
+  }
+
+  .hero-book .book::before {
+    left: auto;
+    right: 0;
+    width: 48px;
+    height: 99%;
+    top: 0.5%;
+    transform: translateX(20px) rotateY(90deg);
+  }
+
+  .hero-book .book::after {
+    width: 100%;
+    height: 100%;
+  }
+
+  :global(.hero-clock),
+  :global(.hero-ribbon) {
+    position: absolute;
+    z-index: -1;
+    pointer-events: none;
+  }
+
+  :global(.hero-clock) {
+    top: 7%;
+    right: -4.5rem;
+    width: clamp(17rem, 35vw, 34rem);
+    color: var(--homura-violet);
+    opacity: 0.085;
+  }
+
+  :global(.hero-ribbon) {
+    bottom: 3%;
+    left: -2rem;
+    width: clamp(20rem, 45vw, 39rem);
+    color: var(--ribbon-red);
+    opacity: 0.13;
+    transform: rotate(-8deg);
+  }
+
+  @media (max-width: 56rem) {
+    .hero-inner {
+      grid-template-columns: 1fr;
+      min-height: auto;
+      padding-top: 4.25rem;
+    }
+
+    .hero-copy {
+      max-width: 42rem;
+    }
+
+    h1 {
+      font-size: clamp(4rem, 17vw, 7rem);
+    }
+
+    .hero-book {
+      margin-top: -2rem;
+    }
+  }
+
+  @media (max-width: 35rem) {
+    .hero-inner {
+      width: min(100% - 1.25rem, 76rem);
+    }
+
+    .credits {
+      grid-template-columns: 1fr;
+    }
+
+    .credits div + div {
+      border-top: 1px solid var(--rule-faint);
+      border-left: 0;
+      padding-left: 0;
+    }
+
+    .hero-actions {
+      display: grid;
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .button {
+      transition: none;
+    }
+  }
+</style>

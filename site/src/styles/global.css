@@ -1,0 +1,184 @@
+@font-face {
+  font-family: "Noto Serif SC";
+  src: url("/fonts/noto/noto-serif-sc-site.woff2?v=10a45d56769a") format("woff2");
+  font-style: normal;
+  font-weight: 200 900;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Noto Sans SC";
+  src: url("/fonts/noto/noto-sans-sc-site.woff2?v=c54aa8eaa40c") format("woff2");
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Libertinus Serif";
+  src: url("/fonts/libertinus/libertinus-serif-regular.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Libertinus Serif";
+  src: url("/fonts/libertinus/libertinus-serif-italic.woff2") format("woff2");
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Libertinus Serif";
+  src: url("/fonts/libertinus/libertinus-serif-bold.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Libertinus Serif";
+  src: url("/fonts/libertinus/libertinus-serif-bold-italic.woff2") format("woff2");
+  font-style: italic;
+  font-weight: 700;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Libertinus Sans";
+  src: url("/fonts/libertinus/libertinus-sans-regular.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Libertinus Sans";
+  src: url("/fonts/libertinus/libertinus-sans-bold.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Madoka Runes";
+  src: url("/fonts/madoka-runes/madoka-runes.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+:root {
+  color-scheme: light;
+  --book-black: #18151c;
+  --madoka-pink: #e84d8a;
+  --homura-violet: #6f4aa8;
+  --sayaka-blue: #4386c6;
+  --mami-gold: #d9a83e;
+  --kyoko-red: #c94c57;
+  --ribbon-red: #ca384b;
+  --book-gray: #716b75;
+  --book-pale: #fff4f8;
+  --paper-white: #fffafd;
+  --rule-faint: rgb(113 107 117 / 0.28);
+  --rule-faint-dark: rgb(255 244 248 / 0.17);
+  --page-gutter: clamp(1.25rem, 4vw, 4rem);
+  --content-width: 76rem;
+  --font-serif: "Noto Serif SC", "Source Han Serif SC", "Songti SC", serif;
+  --font-sans: "Noto Sans SC", "Source Han Sans SC", "Microsoft YaHei", "Libertinus Sans", sans-serif;
+  --font-latin: "Libertinus Serif", Georgia, serif;
+  --font-display: "Libertinus Serif", "Noto Serif SC", "Source Han Serif SC", "Songti SC", serif;
+  font-family: var(--font-serif);
+  background: var(--book-pale);
+  color: var(--book-black);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  overflow-x: hidden;
+  background:
+    radial-gradient(circle at 12% 2%, color-mix(in srgb, var(--madoka-pink) 7%, transparent), transparent 26rem),
+    radial-gradient(circle at 86% 17%, color-mix(in srgb, var(--homura-violet) 8%, transparent), transparent 30rem),
+    radial-gradient(circle at 16% 68%, color-mix(in srgb, var(--sayaka-blue) 5%, transparent), transparent 28rem),
+    radial-gradient(circle at 84% 82%, color-mix(in srgb, var(--mami-gold) 5%, transparent), transparent 25rem),
+    var(--book-pale);
+}
+
+main {
+  display: block;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+::selection {
+  background: var(--madoka-pink);
+  color: var(--book-black);
+}
+
+:focus-visible {
+  outline: 3px solid var(--homura-violet);
+  outline-offset: 4px;
+}
+
+.skip-link {
+  position: fixed;
+  z-index: 100;
+  top: 0.75rem;
+  left: 0.75rem;
+  translate: 0 -200%;
+  padding: 0.7rem 1rem;
+  background: var(--book-black);
+  color: white;
+  font-family: var(--font-sans);
+  text-decoration: none;
+}
+
+.skip-link:focus {
+  translate: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

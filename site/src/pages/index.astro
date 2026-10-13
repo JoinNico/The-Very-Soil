@@ -1,0 +1,22 @@
+---
+import About from '../components/About.astro';
+import Availability from '../components/Availability.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import Hero from '../components/Hero.astro';
+import Parts from '../components/Parts.astro';
+import PhysicalEdition from '../components/PhysicalEdition.astro';
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout>
+  <Header />
+  <main id="main-content">
+    <Hero />
+    <About />
+    <Parts />
+    <PhysicalEdition />
+    <Availability />
+  </main>
+  <Footer />
+</Layout>

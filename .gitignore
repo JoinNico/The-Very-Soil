@@ -67,9 +67,5 @@ _minted-*/
 *.nlo
 *.nls
 
-# generated PDF
-*.pdf
-!assets/plates/**/*.pdf
-
 # GitHub Pages staging directory
 /public/

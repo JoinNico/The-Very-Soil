@@ -1,0 +1,179 @@
+---
+import { book } from '../data/site';
+---
+
+<footer class='site-footer'>
+  <div class='footer-inner'>
+    <div class='footer-lead'>
+      <a class='footer-mark' href='#top' aria-label='返回页首'>
+        <span aria-hidden='true'>TVS</span>
+        <strong>{book.title}</strong>
+      </a>
+      <p>愿我们仍能在绝望之中，辨认希望赖以萌发的土壤。</p>
+    </div>
+
+    <nav aria-label='页尾导航'>
+      <a href='#about'>关于本书</a>
+      <a href='#parts'>章节结构</a>
+      <a href='#physical-edition'>实体版</a>
+      <a href='#availability'>购买信息</a>
+    </nav>
+
+    <div class='copyright'>
+      <p>译文与排版 © {book.editionYear} {book.translator}，保留所有权利。未经许可，不得复制、转载、改编或用于商业用途。</p>
+      <p>本书为非官方翻译评论作品，与原作者、出版方及相关权利方无隶属或授权关系。</p>
+      <p>原著及相关作品的权利归各自权利人所有。</p>
+    </div>
+
+    <div class='footer-base'>
+      <span>{book.eyebrow} · CHINESE EDITION</span>
+      <a href='#top'>BACK TO TOP <span aria-hidden='true'>↑</span></a>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    color: var(--book-pale);
+    background: #0f0d12;
+    border-top: 2px solid;
+    border-image: linear-gradient(
+        90deg,
+        var(--madoka-pink),
+        var(--homura-violet),
+        var(--sayaka-blue),
+        var(--mami-gold),
+        var(--kyoko-red)
+      ) 1;
+  }
+
+  .footer-inner {
+    width: min(100% - 2rem, 76rem);
+    margin-inline: auto;
+    padding-block: clamp(4rem, 8vw, 7rem) 2rem;
+  }
+
+  .footer-lead {
+    display: grid;
+    grid-template-columns: minmax(12rem, 0.6fr) minmax(0, 1.4fr);
+    gap: clamp(2rem, 8vw, 8rem);
+    align-items: start;
+  }
+
+  .footer-mark {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8rem;
+    width: fit-content;
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .footer-mark > span {
+    width: 2.7rem;
+    aspect-ratio: 1;
+    display: grid;
+    place-items: center;
+    border: 1px solid rgb(255 244 248 / 0.5);
+    color: var(--madoka-pink);
+    font-size: 0.74rem;
+    letter-spacing: 0.08em;
+  }
+
+  .footer-mark strong {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+  }
+
+  .footer-lead p {
+    max-width: 20em;
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: clamp(1.65rem, 4vw, 3.5rem);
+    line-height: 1.45;
+  }
+
+  nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem clamp(1.5rem, 4vw, 3rem);
+    margin-top: clamp(3.5rem, 7vw, 6rem);
+    padding-block: 1.25rem;
+    border-block: 1px solid rgb(255 244 248 / 0.16);
+  }
+
+  nav a,
+  .footer-base a {
+    color: rgb(255 244 248 / 0.7);
+    font-size: 0.77rem;
+    font-weight: 650;
+    letter-spacing: 0.09em;
+    text-decoration: none;
+    transition: color 160ms ease;
+  }
+
+  nav a:hover,
+  .footer-base a:hover {
+    color: var(--madoka-pink);
+  }
+
+  a:focus-visible {
+    outline: 2px solid var(--madoka-pink);
+    outline-offset: 4px;
+  }
+
+  .copyright {
+    max-width: 56rem;
+    margin: 2.25rem auto 0;
+    text-align: center;
+  }
+
+  .copyright p {
+    margin: 0;
+    color: rgb(255 244 248 / 0.55);
+    font-size: 0.74rem;
+    line-height: 1.8;
+  }
+
+  .copyright p + p {
+    margin-top: 0.3rem;
+  }
+
+  .footer-base {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: clamp(3rem, 6vw, 5rem);
+    color: rgb(255 244 248 / 0.55);
+    font-size: 0.7rem;
+    letter-spacing: 0.14em;
+  }
+
+  .footer-base a span {
+    margin-left: 0.35rem;
+    color: var(--homura-violet);
+  }
+
+  @media (max-width: 42rem) {
+    .footer-inner {
+      width: min(100% - 1.25rem, 76rem);
+    }
+
+    .footer-lead {
+      grid-template-columns: 1fr;
+    }
+
+    .footer-base {
+      flex-direction: column;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    nav a,
+    .footer-base a {
+      transition: none;
+    }
+  }
+</style>

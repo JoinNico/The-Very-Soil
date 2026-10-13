@@ -1,0 +1,122 @@
+---
+export interface Props {
+  name?: 'soul-pair' | 'time-rings' | 'ribbon' | 'seed';
+  class?: string;
+  label?: string;
+}
+
+const {
+  name = 'soul-pair',
+  class: className,
+  label,
+} = Astro.props;
+
+const labelled = Boolean(label);
+---
+
+{
+  name === 'soul-pair' && (
+    <svg
+      class={className}
+      viewBox='0 0 160 104'
+      fill='none'
+      xmlns='http://www.w3.org/2000/svg'
+      role={labelled ? 'img' : undefined}
+      aria-hidden={labelled ? undefined : 'true'}
+      aria-label={label}
+    >
+      <path
+        d='M34 73.5c-9.6-9.1-8.7-24.8 2-32.8l17.8-13.2 17.9 13.2c10.6 8 11.5 23.7 2 32.8L53.8 92 34 73.5Z'
+        stroke='currentColor'
+        stroke-width='1.5'
+      />
+      <path
+        d='m53.8 38.8 9.4 7c5.7 4.3 6.2 12.6 1.1 17.5l-10.5 9.8-10.5-9.8c-5.1-4.9-4.6-13.2 1.1-17.5l9.4-7Z'
+        stroke='currentColor'
+        stroke-width='1.2'
+      />
+      <path
+        d='M86.3 73.5c-9.5-9.1-8.6-24.8 2-32.8l17.9-13.2L124 40.7c10.7 8 11.6 23.7 2 32.8L106.2 92 86.3 73.5Z'
+        stroke='currentColor'
+        stroke-width='1.5'
+      />
+      <path
+        d='m106.2 38.8 9.4 7c5.7 4.3 6.2 12.6 1 17.5l-10.4 9.8-10.5-9.8c-5.2-4.9-4.7-13.2 1-17.5l9.5-7Z'
+        stroke='currentColor'
+        stroke-width='1.2'
+      />
+      <path d='M75 60h10' stroke='currentColor' stroke-width='1' stroke-dasharray='1 4' />
+      <circle cx='53.8' cy='59' r='3' fill='currentColor' />
+      <circle cx='106.2' cy='59' r='3' fill='currentColor' />
+    </svg>
+  )
+}
+
+{
+  name === 'time-rings' && (
+    <svg
+      class={className}
+      viewBox='0 0 160 160'
+      fill='none'
+      xmlns='http://www.w3.org/2000/svg'
+      role={labelled ? 'img' : undefined}
+      aria-hidden={labelled ? undefined : 'true'}
+      aria-label={label}
+    >
+      <circle cx='80' cy='80' r='65' stroke='currentColor' stroke-width='1' />
+      <circle cx='80' cy='80' r='47' stroke='currentColor' stroke-width='1' />
+      <circle cx='80' cy='80' r='26' stroke='currentColor' stroke-width='1' />
+      <path d='M80 8v14M80 138v14M8 80h14M138 80h14' stroke='currentColor' />
+      <path d='m29 29 10 10M121 121l10 10M131 29l-10 10M39 121l-10 10' stroke='currentColor' />
+      <path d='M80 80 54 51M80 80l37 14' stroke='currentColor' stroke-width='1.5' />
+      <circle cx='80' cy='80' r='4' fill='currentColor' />
+    </svg>
+  )
+}
+
+{
+  name === 'ribbon' && (
+    <svg
+      class={className}
+      viewBox='0 0 220 90'
+      fill='none'
+      xmlns='http://www.w3.org/2000/svg'
+      role={labelled ? 'img' : undefined}
+      aria-hidden={labelled ? undefined : 'true'}
+      aria-label={label}
+    >
+      <path
+        d='M4 65c36-5 52-28 83-27 27 1 35 19 61 18 27-1 38-23 68-21'
+        stroke='currentColor'
+        stroke-width='2'
+      />
+      <path
+        d='M84 38c8-22 27-26 38-15 12 12-1 32-17 37-18 6-34-5-32-20 2-12 14-20 25-20'
+        stroke='currentColor'
+        stroke-width='1.25'
+      />
+    </svg>
+  )
+}
+
+{
+  name === 'seed' && (
+    <svg
+      class={className}
+      viewBox='0 0 100 140'
+      fill='none'
+      xmlns='http://www.w3.org/2000/svg'
+      role={labelled ? 'img' : undefined}
+      aria-hidden={labelled ? undefined : 'true'}
+      aria-label={label}
+    >
+      <path
+        d='M50 5c3 17 15 27 27 39 12 13 18 28 14 46-5 23-20 39-41 45-21-6-36-22-41-45-4-18 2-33 14-46C35 32 47 22 50 5Z'
+        stroke='currentColor'
+        stroke-width='1.5'
+      />
+      <path d='M50 22v96M31 54c15 7 23 19 19 36M69 54c-15 7-23 19-19 36' stroke='currentColor' />
+      <circle cx='50' cy='91' r='7' stroke='currentColor' />
+    </svg>
+  )
+}

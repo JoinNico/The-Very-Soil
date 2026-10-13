@@ -1,0 +1,654 @@
+---
+import { book } from '../data/site';
+import Motifs from './Motifs.astro';
+
+const imagePath = (filename: string) => `${import.meta.env.BASE_URL}images/${filename}`;
+
+const specifications = [
+  ['FORMAT', book.format],
+  ['EXTENT', `${book.pages} pages`],
+  ['EDITION', book.language],
+  ['YEAR', String(book.editionYear)],
+] as const;
+---
+
+<section class='physical' id='physical-edition' aria-labelledby='physical-title'>
+  <Motifs name='seed' class='physical-seed' />
+  <Motifs name='ribbon' class='physical-ribbon' />
+
+  <p class='edge-note edge-note-left' aria-hidden='true'>INDEPENDENT PUBLISHING</p>
+  <p class='edge-note edge-note-right' aria-hidden='true'>WORDS · EARTH · CONNECTION</p>
+
+  <div class='physical-inner'>
+    <div class='masthead' aria-hidden='true'>
+      <span>THE VERY SOIL</span>
+      <span>A CHINESE TRANSLATION PROJECT</span>
+    </div>
+
+    <div class='edition-layout'>
+      <header class='edition-intro'>
+        <p class='section-index' aria-label='第 03 节'>
+          <span>03</span>
+          <i aria-hidden='true'>/</i>
+        </p>
+
+        <h2 id='physical-title' lang='en'>
+          <span>PHYSICAL</span>
+          <span>EDITION</span>
+        </h2>
+        <p class='chinese-title'>中文版实体书</p>
+
+        <p class='edition-note'>
+          为长篇批评文本设计的中文译本，以 125 × 176 mm 的 B6 开本收纳 144 页内容。纸张、装帧与粉紫双色的导航系统，共同服务于安静而连续的阅读。
+        </p>
+
+        <dl class='book-specs' aria-label='实体书规格'>
+          {
+            specifications.map(([term, value]) => (
+              <div>
+                <dt>{term}</dt>
+                <dd>{value}</dd>
+              </div>
+            ))
+          }
+        </dl>
+      </header>
+
+      <div class='edition-collage' aria-label='实体书封面、内页与书脊实拍展示'>
+        <div class='color-block color-block-pink' aria-hidden='true'></div>
+        <div class='color-block color-block-violet' aria-hidden='true'></div>
+
+        <figure class='photo photo-spread'>
+          <img
+            src={imagePath('the-very-soil-interior-spread.jpg')}
+            width='3584'
+            height='2688'
+            loading='lazy'
+            decoding='async'
+            alt='《绝望即壤》中文实体书第三章内页跨页实拍'
+          />
+        </figure>
+
+        <aside class='quote-card' aria-label='装帧寄语'>
+          <span aria-hidden='true'></span>
+          <p>让文字离开屏幕，<br />在纸页间重新获得<br />呼吸与秩序。</p>
+        </aside>
+
+        <figure class='photo photo-cover'>
+          <img
+            src={imagePath('the-very-soil-front-cover.jpg')}
+            width='1932'
+            height='2580'
+            loading='lazy'
+            decoding='async'
+            alt='《绝望即壤》中文实体书正面封面实拍'
+          />
+        </figure>
+
+        <figure class='photo photo-spine'>
+          <img
+            src={imagePath('the-very-soil-spine-detail.jpg')}
+            width='1812'
+            height='1020'
+            loading='lazy'
+            decoding='async'
+            alt='《绝望即壤》中文实体书书脊与封面材质特写'
+          />
+        </figure>
+      </div>
+    </div>
+
+    <footer class='section-folio' aria-hidden='true'>
+      <span>03</span>
+      <p>DESIGNED FOR SLOW, LONG-FORM READING</p>
+      <span>144 P.</span>
+    </footer>
+  </div>
+</section>
+
+<style>
+  .physical {
+    --physical-pink: #c78596;
+    --physical-violet: #75658f;
+    --physical-paper: #f7f4f1;
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    color: var(--book-black);
+    background: var(--physical-paper);
+  }
+
+  .physical::before {
+    content: '';
+    position: absolute;
+    z-index: -3;
+    inset: 0;
+    opacity: 0.35;
+    background-image:
+      radial-gradient(circle at 15% 20%, rgb(117 101 143 / 0.1) 0 0.7px, transparent 0.8px),
+      radial-gradient(circle at 70% 66%, rgb(199 133 150 / 0.1) 0 0.65px, transparent 0.75px);
+    background-position: 0 0, 4px 5px;
+    background-size: 8px 8px, 9px 9px;
+  }
+
+  .physical::after {
+    content: '';
+    position: absolute;
+    z-index: -2;
+    inset: 2rem 4.25rem;
+    border-inline: 1px solid rgb(24 21 28 / 0.24);
+    pointer-events: none;
+  }
+
+  .physical-inner {
+    width: min(100% - 8.5rem, 96rem);
+    margin-inline: auto;
+    padding-block: 2.25rem 2rem;
+  }
+
+  .masthead {
+    min-height: 2.5rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 4rem;
+    border-bottom: 1px solid rgb(24 21 28 / 0.46);
+    font-family: var(--font-latin);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+  }
+
+  .masthead span:last-child {
+    color: var(--physical-violet);
+    font-family: var(--font-sans);
+    font-size: 0.61rem;
+    letter-spacing: 0.2em;
+  }
+
+  .edition-layout {
+    display: grid;
+    grid-template-columns: minmax(18rem, 0.38fr) minmax(0, 1fr);
+    gap: clamp(2.5rem, 5vw, 5.5rem);
+    padding-block: clamp(3.25rem, 6.5vw, 6rem) 3rem;
+  }
+
+  .edition-intro {
+    position: relative;
+    z-index: 4;
+    align-self: start;
+    padding-left: 0.55rem;
+  }
+
+  .section-index {
+    display: flex;
+    align-items: center;
+    gap: 1.15rem;
+    margin: 0 0 1.3rem;
+    font-family: var(--font-latin);
+    line-height: 1;
+  }
+
+  .section-index span {
+    color: var(--physical-pink);
+    font-size: clamp(4.5rem, 6.6vw, 6.7rem);
+    letter-spacing: -0.055em;
+  }
+
+  .section-index i {
+    color: var(--book-black);
+    font-size: clamp(3rem, 4.2vw, 4.5rem);
+    font-weight: 400;
+    transform: translateY(0.08em);
+  }
+
+  h2 {
+    margin: 0;
+    font-family: var(--font-latin);
+    font-size: clamp(3.4rem, 5.35vw, 5.45rem);
+    font-weight: 400;
+    letter-spacing: -0.025em;
+    line-height: 0.88;
+  }
+
+  h2 span {
+    display: block;
+  }
+
+  h2 span + span {
+    margin-top: 0.18em;
+  }
+
+  .chinese-title {
+    margin: 1.25rem 0 0;
+    color: var(--physical-violet);
+    font-size: clamp(1.35rem, 2.2vw, 2rem);
+    letter-spacing: 0.08em;
+  }
+
+  .edition-note {
+    max-width: 31rem;
+    margin: clamp(2rem, 4vw, 3.5rem) 0 0;
+    color: #49434c;
+    font-size: clamp(0.92rem, 1.2vw, 1.02rem);
+    line-height: 2;
+    text-wrap: pretty;
+  }
+
+  .book-specs {
+    position: relative;
+    display: grid;
+    max-width: 26rem;
+    margin: clamp(2.5rem, 4.5vw, 4.25rem) 0 0;
+  }
+
+  .book-specs::before {
+    content: '';
+    position: absolute;
+    top: 0.25rem;
+    bottom: 0.25rem;
+    left: 5.55rem;
+    width: 1px;
+    background: var(--physical-pink);
+  }
+
+  .book-specs div {
+    display: grid;
+    grid-template-columns: 5.55rem minmax(0, 1fr);
+    align-items: baseline;
+    min-height: 2.9rem;
+  }
+
+  dt {
+    margin: 0;
+    font-family: var(--font-sans);
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.19em;
+  }
+
+  dd {
+    margin: 0;
+    padding-left: 1.8rem;
+    font-family: var(--font-latin);
+    font-size: 0.9rem;
+    letter-spacing: 0.04em;
+  }
+
+  .edition-collage {
+    position: relative;
+    min-width: 0;
+    min-height: clamp(47rem, 61vw, 59rem);
+  }
+
+  .color-block {
+    position: absolute;
+    z-index: -1;
+    pointer-events: none;
+  }
+
+  .color-block-pink {
+    top: 8rem;
+    left: -3.5rem;
+    width: 27%;
+    height: 27rem;
+    background: color-mix(in srgb, var(--physical-pink) 62%, white);
+  }
+
+  .color-block-violet {
+    right: -1.2rem;
+    bottom: 7rem;
+    width: 61%;
+    height: 3rem;
+    background: color-mix(in srgb, var(--physical-violet) 76%, white);
+  }
+
+  figure {
+    margin: 0;
+  }
+
+  .photo {
+    position: absolute;
+  }
+
+  .photo img {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border: 1px solid rgb(24 21 28 / 0.12);
+    background: #e5e0dc;
+    box-shadow: 0 1.5rem 3.5rem rgb(24 21 28 / 0.18);
+  }
+
+  .photo-spread {
+    z-index: 1;
+    top: 0;
+    right: 6%;
+    width: 86%;
+  }
+
+  .photo-spread img {
+    aspect-ratio: 4 / 3;
+  }
+
+  .photo-spread::before {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    inset: 1rem -1rem -1rem 1rem;
+    background: #e4ded9;
+  }
+
+  .photo-cover {
+    z-index: 3;
+    bottom: 1.25rem;
+    left: 0;
+    width: 34%;
+    transform: rotate(-0.8deg);
+    transform-origin: center bottom;
+  }
+
+  .photo-cover img {
+    aspect-ratio: 1932 / 2580;
+  }
+
+  .photo-spine {
+    z-index: 4;
+    right: -2%;
+    bottom: 0;
+    width: 58%;
+  }
+
+  .photo-spine img {
+    aspect-ratio: 151 / 85;
+  }
+
+  .quote-card {
+    position: absolute;
+    z-index: 2;
+    top: 3.5rem;
+    right: -1rem;
+    width: 10.5rem;
+    padding: 1.5rem 1.35rem;
+    color: var(--physical-pink);
+    background: rgb(247 244 241 / 0.94);
+    box-shadow: 0 1rem 2.5rem rgb(24 21 28 / 0.1);
+  }
+
+  .quote-card > span {
+    display: block;
+    width: 1rem;
+    height: 1px;
+    margin-bottom: 1.1rem;
+    background: currentColor;
+  }
+
+  .quote-card p {
+    margin: 0;
+    font-size: 0.78rem;
+    letter-spacing: 0.05em;
+    line-height: 1.8;
+  }
+
+  .section-folio {
+    display: grid;
+    grid-template-columns: 3rem 1fr 3rem;
+    align-items: end;
+    gap: 1rem;
+    min-height: 3rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgb(24 21 28 / 0.46);
+    color: var(--physical-violet);
+    font-family: var(--font-sans);
+    font-size: 0.52rem;
+    font-weight: 700;
+    letter-spacing: 0.17em;
+  }
+
+  .section-folio p {
+    margin: 0;
+    text-align: center;
+  }
+
+  .section-folio span:last-child {
+    text-align: right;
+  }
+
+  .edge-note {
+    position: absolute;
+    z-index: 5;
+    top: 50%;
+    margin: 0;
+    color: #4b4357;
+    font-family: var(--font-sans);
+    font-size: 0.5rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    writing-mode: vertical-rl;
+  }
+
+  .edge-note-left {
+    left: 1.6rem;
+    transform: translateY(-50%) rotate(180deg);
+  }
+
+  .edge-note-right {
+    right: 1.6rem;
+    transform: translateY(-50%);
+  }
+
+  :global(.physical-seed) {
+    position: absolute;
+    z-index: -1;
+    top: 27%;
+    right: 1.35rem;
+    width: 6.5rem;
+    color: var(--physical-violet);
+    opacity: 0.38;
+    transform: rotate(15deg);
+  }
+
+  :global(.physical-ribbon) {
+    position: absolute;
+    z-index: -1;
+    right: 4.5rem;
+    bottom: 3rem;
+    width: clamp(25rem, 48vw, 48rem);
+    color: var(--physical-pink);
+    opacity: 0.17;
+    transform: rotate(-5deg);
+  }
+
+  @media (max-width: 72rem) {
+    .physical::after {
+      inset-inline: 2rem;
+    }
+
+    .physical-inner {
+      width: min(100% - 4rem, 96rem);
+    }
+
+    .edition-layout {
+      grid-template-columns: minmax(17rem, 0.42fr) minmax(0, 1fr);
+      gap: 2.5rem;
+    }
+
+    .edition-collage {
+      min-height: 45rem;
+    }
+
+    .edge-note,
+    :global(.physical-seed) {
+      display: none;
+    }
+  }
+
+  @media (max-width: 54rem) {
+    .edition-layout {
+      grid-template-columns: 1fr;
+      padding-bottom: 2rem;
+    }
+
+    .edition-intro {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(16rem, 0.8fr);
+      gap: 0 3rem;
+      padding-left: 0;
+    }
+
+    .section-index,
+    h2,
+    .chinese-title {
+      grid-column: 1;
+    }
+
+    .edition-note {
+      grid-column: 2;
+      grid-row: 1 / span 3;
+      align-self: end;
+      margin-top: 0;
+    }
+
+    .book-specs {
+      grid-column: 1 / -1;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      max-width: none;
+      border-block: 1px solid rgb(24 21 28 / 0.25);
+    }
+
+    .book-specs::before {
+      display: none;
+    }
+
+    .book-specs div {
+      display: block;
+      min-height: auto;
+      padding: 0.9rem 1rem;
+    }
+
+    .book-specs div:first-child {
+      padding-left: 0;
+    }
+
+    .book-specs div + div {
+      border-left: 1px solid rgb(24 21 28 / 0.2);
+    }
+
+    dd {
+      margin-top: 0.35rem;
+      padding-left: 0;
+    }
+
+    .edition-collage {
+      min-height: clamp(44rem, 96vw, 50rem);
+    }
+  }
+
+  @media (max-width: 38rem) {
+    .physical::after {
+      inset: 0.75rem;
+    }
+
+    .physical-inner {
+      width: min(100% - 1.5rem, 96rem);
+      padding-block: 1.5rem;
+    }
+
+    .masthead {
+      gap: 1.5rem;
+    }
+
+    .masthead span:last-child {
+      margin-left: auto;
+      text-align: right;
+    }
+
+    .edition-layout {
+      gap: 3.5rem;
+      padding-top: 3rem;
+    }
+
+    .edition-intro {
+      display: block;
+    }
+
+    .section-index {
+      margin-bottom: 1rem;
+    }
+
+    h2 {
+      font-size: clamp(3.3rem, 18vw, 4.7rem);
+    }
+
+    .edition-note {
+      margin-top: 2.5rem;
+    }
+
+    .book-specs {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .book-specs div {
+      padding: 0.9rem 0.8rem;
+    }
+
+    .book-specs div:nth-child(odd) {
+      padding-left: 0;
+      border-left: 0;
+    }
+
+    .book-specs div:nth-child(n + 3) {
+      border-top: 1px solid rgb(24 21 28 / 0.2);
+    }
+
+    .edition-collage {
+      min-height: 38rem;
+    }
+
+    .photo-spread {
+      right: 0;
+      width: 96%;
+    }
+
+    .quote-card {
+      top: 1.5rem;
+      right: 0;
+      width: 7.7rem;
+      padding: 1rem;
+    }
+
+    .quote-card p {
+      font-size: 0.66rem;
+    }
+
+    .photo-cover {
+      bottom: 3.5rem;
+      left: 0;
+      width: 42%;
+    }
+
+    .photo-spine {
+      right: -2%;
+      bottom: 0;
+      width: 66%;
+    }
+
+    .color-block-pink {
+      top: 6rem;
+      left: -0.75rem;
+      height: 18rem;
+    }
+
+    .color-block-violet {
+      right: -0.2rem;
+      bottom: 4rem;
+      width: 66%;
+      height: 2rem;
+    }
+
+    .section-folio {
+      grid-template-columns: 2rem 1fr 2.5rem;
+      font-size: 0.45rem;
+    }
+  }
+</style>

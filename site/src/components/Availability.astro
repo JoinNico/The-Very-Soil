@@ -1,0 +1,558 @@
+---
+import { release } from '../data/site';
+import { publicPath } from '../utils/publicPath';
+
+const showEventAction = release.phase === 'pre_event' || release.phase === 'event';
+const showOnlineAction = release.phase === 'online_remainder';
+
+const timeline = [
+  {
+    date: '2026.08',
+    title: '印制准备',
+    detail: '校对 · 印刷',
+  },
+  {
+    date: '2026.10.05—06',
+    title: 'ComicQuest 5.0',
+    detail: '现场发行',
+  },
+  {
+    date: '展会结束后',
+    title: '线上余量',
+    detail: '余量通贩',
+  },
+] as const;
+
+const currentStep = {
+  pre_event: 0,
+  event: 1,
+  online_remainder: 2,
+  sold_out: 2,
+}[release.phase];
+---
+
+<section class='availability' id='availability' aria-labelledby='availability-title'>
+  <div class='availability-inner'>
+    <header class='availability-heading'>
+      <div>
+        <p class='section-index'>04 / AVAILABILITY</p>
+        <h2 id='availability-title'>发行信息</h2>
+      </div>
+      <p class='availability-intro'>
+        中文版实体书将在 ComicQuest 5.0 首次与读者见面。展会结束后，如有剩余库存，将另行开放线上通贩。
+      </p>
+    </header>
+
+    <figure class='event-visual'>
+      <img
+        src={publicPath('images/cq5-0.webp')}
+        width='1600'
+        height='600'
+        loading='lazy'
+        decoding='async'
+        alt='ComicQuest 5.0 活动视觉'
+      />
+    </figure>
+
+    <dl class='event-details'>
+      <div>
+        <dt>EVENT</dt>
+        <dd>{release.event.name}</dd>
+      </div>
+      <div>
+        <dt>DATE</dt>
+        <dd>{release.event.dateLabel}</dd>
+      </div>
+      <div>
+        <dt>VENUE</dt>
+        <dd>{release.event.city} · {release.event.venue}</dd>
+      </div>
+      <div>
+        <dt>BOOTH</dt>
+        <dd>{release.booth || '待公布'}</dd>
+      </div>
+      <div>
+        <dt>PRICE</dt>
+        <dd>{release.price || '待公布'}</dd>
+      </div>
+    </dl>
+
+    <div class='interest-panel'>
+      <div class='interest-copy'>
+        <p>如果你有意购买，可以留下一个简单的意向记录。</p>
+        <p class='release-notice'>登记仅用于印量统计参考，不构成预订、付款或现场留货。</p>
+      </div>
+
+      <div class='release-actions'>
+        {
+          showEventAction && release.interestFormUrl ? (
+            <a class='action action-primary' href={release.interestFormUrl} target='_blank' rel='noreferrer'>填写意向 <span aria-hidden='true'>→</span></a>
+          ) : showEventAction ? (
+            <span class='action action-disabled' aria-disabled='true'>填写意向 <span aria-hidden='true'>→</span></span>
+          ) : showOnlineAction && release.onlineSaleUrl ? (
+            <a class='action action-primary' href={release.onlineSaleUrl} target='_blank' rel='noreferrer'>购买展后余量 <span aria-hidden='true'>→</span></a>
+          ) : showOnlineAction ? (
+            <span class='action action-disabled' aria-disabled='true'>线上余量待公布</span>
+          ) : (
+            <span class='action action-disabled' aria-disabled='true'>本次已售罄</span>
+          )
+        }
+        <a class='event-link' href={release.event.officialUrl} target='_blank' rel='noreferrer'>活动官方页面 ↗</a>
+      </div>
+    </div>
+
+    <div class='release-timeline'>
+      <h3>发行进度</h3>
+      <ol>
+        {
+          timeline.map((step, index) => (
+            <li
+              class:list={{
+                'is-complete': index < currentStep,
+                'is-current': index === currentStep,
+                'is-upcoming': index > currentStep,
+              }}
+              aria-current={index === currentStep ? 'step' : undefined}
+            >
+              <time>{step.date}</time>
+              <div class='timeline-marker' aria-hidden='true'><span /></div>
+              <h4>{step.title}</h4>
+              <p>{step.detail}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </div>
+</section>
+
+<style>
+  .availability {
+    position: relative;
+    overflow: hidden;
+    color: var(--book-pale);
+    background: var(--book-black);
+  }
+
+  .availability::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    opacity: 0.32;
+    background:
+      radial-gradient(circle at 12% 12%, color-mix(in srgb, var(--madoka-pink) 18%, transparent), transparent 30%),
+      radial-gradient(circle at 88% 82%, color-mix(in srgb, var(--homura-violet) 20%, transparent), transparent 32%),
+      radial-gradient(circle at 82% 16%, color-mix(in srgb, var(--sayaka-blue) 12%, transparent), transparent 26%),
+      radial-gradient(circle at 18% 92%, color-mix(in srgb, var(--mami-gold) 9%, transparent), transparent 25%);
+    pointer-events: none;
+  }
+
+  .availability-inner {
+    position: relative;
+    width: min(100% - 2rem, 76rem);
+    margin-inline: auto;
+    padding-block: clamp(6rem, 11vw, 10rem);
+  }
+
+  .availability-heading {
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(17rem, 0.65fr);
+    align-items: end;
+    gap: clamp(3rem, 9vw, 9rem);
+  }
+
+  .section-index {
+    margin: 0 0 2rem;
+    color: var(--madoka-pink);
+    font-size: 0.76rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+  }
+
+  h2 {
+    max-width: 12em;
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 5.2vw, 4.8rem);
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    line-height: 1.18;
+  }
+
+  .availability-intro {
+    margin: 0;
+    color: rgb(255 244 248 / 0.65);
+    font-family: var(--font-serif, serif);
+    font-size: 0.98rem;
+    line-height: 1.9;
+  }
+
+  .event-visual {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 8 / 3;
+    margin: clamp(4rem, 8vw, 7rem) 0 0;
+    background: rgb(255 244 248 / 0.05);
+    box-shadow: 0 1.25rem 3.5rem rgb(0 0 0 / 0.2);
+  }
+
+  .event-visual::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border: 1px solid rgb(255 244 248 / 0.14);
+    border-bottom: 3px solid var(--kyoko-red);
+    pointer-events: none;
+  }
+
+  .event-visual img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+  }
+
+  .event-details {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    margin: clamp(4rem, 8vw, 7rem) 0 0;
+    border-block: 1px solid var(--rule-faint-dark);
+  }
+
+  .event-details div {
+    min-width: 0;
+    padding: 1.25rem 1rem 1.25rem 0;
+  }
+
+  .event-details div + div {
+    padding-left: clamp(1rem, 2vw, 1.5rem);
+    border-left: 1px solid var(--rule-faint-dark);
+  }
+
+  .event-details div:nth-child(1) dt {
+    color: var(--madoka-pink);
+  }
+
+  .event-details div:nth-child(2) dt {
+    color: color-mix(in srgb, var(--homura-violet) 75%, white);
+  }
+
+  .event-details div:nth-child(3) dt {
+    color: var(--sayaka-blue);
+  }
+
+  .event-details div:nth-child(4) dt {
+    color: var(--mami-gold);
+  }
+
+  .event-details div:nth-child(5) dt {
+    color: var(--kyoko-red);
+  }
+
+  dt {
+    margin: 0 0 0.45rem;
+    color: rgb(255 244 248 / 0.42);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+  }
+
+  dd {
+    margin: 0;
+    font-family: var(--font-serif, serif);
+    font-size: 0.96rem;
+    line-height: 1.55;
+  }
+
+  .interest-panel {
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) auto;
+    gap: 2rem clamp(3rem, 8vw, 8rem);
+    align-items: end;
+    margin-top: clamp(3rem, 7vw, 6rem);
+  }
+
+  .interest-copy > p:first-child {
+    max-width: 42rem;
+    margin: 0;
+    font-family: var(--font-serif, serif);
+    font-size: clamp(1rem, 1.8vw, 1.18rem);
+    line-height: 1.9;
+  }
+
+  .release-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .action {
+    min-height: 3.15rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.8rem 1.25rem;
+    border: 1px solid rgb(255 244 248 / 0.56);
+    font-size: 0.84rem;
+    font-weight: 650;
+    letter-spacing: 0.05em;
+    text-decoration: none;
+    transition: color 180ms ease, background 180ms ease, border-color 180ms ease;
+  }
+
+  .action-primary {
+    color: var(--book-black);
+    background: var(--book-pale);
+    border-color: var(--book-pale);
+  }
+
+  .action[href]:hover {
+    color: var(--book-pale);
+    background: var(--homura-violet);
+    border-color: var(--homura-violet);
+  }
+
+  .action:focus-visible {
+    outline: 2px solid var(--madoka-pink);
+    outline-offset: 3px;
+  }
+
+  .action-disabled {
+    color: rgb(255 244 248 / 0.42);
+    border-color: rgb(255 244 248 / 0.2);
+    cursor: not-allowed;
+  }
+
+  .release-notice {
+    margin: 1rem 0 0;
+    color: rgb(255 244 248 / 0.52);
+    font-size: 0.78rem;
+    line-height: 1.65;
+  }
+
+  .event-link {
+    color: rgb(255 244 248 / 0.52);
+    font-size: 0.76rem;
+    letter-spacing: 0.06em;
+    text-underline-offset: 0.3em;
+    transition: color 180ms ease;
+  }
+
+  .event-link:hover {
+    color: var(--mami-gold);
+  }
+
+  .event-link:focus-visible {
+    outline: 2px solid var(--madoka-pink);
+    outline-offset: 3px;
+  }
+
+  .release-timeline {
+    margin-top: clamp(4.5rem, 9vw, 8rem);
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--rule-faint-dark);
+  }
+
+  .release-timeline > h3 {
+    margin: 0 0 2.25rem;
+    color: rgb(255 244 248 / 0.72);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+  }
+
+  .release-timeline ol {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .release-timeline li {
+    min-width: 0;
+    color: rgb(255 244 248 / 0.42);
+    text-align: center;
+  }
+
+  .release-timeline time {
+    display: block;
+    min-height: 1.8em;
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.07em;
+  }
+
+  .timeline-marker {
+    position: relative;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .timeline-marker::before,
+  .timeline-marker::after {
+    content: '';
+    position: absolute;
+    z-index: 0;
+    top: 50%;
+    width: calc(50% - 0.3rem);
+    height: 1px;
+    background: rgb(255 244 248 / 0.2);
+  }
+
+  .timeline-marker::before {
+    left: 0;
+  }
+
+  .timeline-marker::after {
+    right: 0;
+  }
+
+  .release-timeline li:first-child .timeline-marker::before,
+  .release-timeline li:last-child .timeline-marker::after {
+    display: none;
+  }
+
+  .timeline-marker span {
+    position: relative;
+    z-index: 1;
+    width: 0.6rem;
+    aspect-ratio: 1;
+    border: 1px solid currentColor;
+    border-radius: 50%;
+    background: var(--book-black);
+  }
+
+  .release-timeline h4 {
+    margin: 0.35rem 0 0;
+    font-family: var(--font-serif, serif);
+    font-size: clamp(0.88rem, 1.6vw, 1.02rem);
+    font-weight: 500;
+    line-height: 1.5;
+  }
+
+  .release-timeline li > p {
+    margin: 0.35rem 0 0;
+    font-size: 0.78rem;
+    line-height: 1.5;
+  }
+
+  .release-timeline .is-complete {
+    color: rgb(255 244 248 / 0.7);
+  }
+
+  .release-timeline .is-complete .timeline-marker::before,
+  .release-timeline .is-complete .timeline-marker::after {
+    background: var(--sayaka-blue);
+  }
+
+  .release-timeline .is-current .timeline-marker::before {
+    background: linear-gradient(90deg, var(--sayaka-blue), var(--madoka-pink));
+  }
+
+  .release-timeline .is-complete .timeline-marker span {
+    border-color: var(--sayaka-blue);
+    background: var(--sayaka-blue);
+  }
+
+  .release-timeline .is-current .timeline-marker span {
+    border-color: var(--madoka-pink);
+    background: var(--madoka-pink);
+  }
+
+  .release-timeline .is-current time,
+  .release-timeline .is-current h4,
+  .release-timeline .is-current > p {
+    color: var(--madoka-pink);
+    font-weight: 700;
+  }
+
+  @media (max-width: 52rem) {
+    .availability-heading,
+    .interest-panel {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    .availability-intro {
+      max-width: 39rem;
+    }
+
+    .event-details {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .event-details div:nth-child(odd) {
+      padding-left: 0;
+      border-left: 0;
+    }
+
+    .event-details div:nth-child(n + 3) {
+      border-top: 1px solid var(--rule-faint-dark);
+    }
+  }
+
+  @media (max-width: 38rem) {
+    .availability-inner {
+      width: min(100% - 1.25rem, 76rem);
+    }
+
+    .release-actions {
+      display: grid;
+      justify-items: start;
+    }
+
+    .release-timeline ol {
+      grid-template-columns: 1fr;
+    }
+
+    .release-timeline li {
+      display: grid;
+      grid-template-columns: 1.5rem minmax(0, 1fr);
+      padding-bottom: 2rem;
+    }
+
+    .release-timeline time,
+    .release-timeline h4,
+    .release-timeline li > p {
+      grid-column: 2;
+    }
+
+    .timeline-marker {
+      grid-column: 1;
+      grid-row: 1 / span 3;
+      height: auto;
+      display: block;
+    }
+
+    .timeline-marker span {
+      position: absolute;
+      top: 0.25rem;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .timeline-marker::before {
+      display: none;
+    }
+
+    .timeline-marker::after {
+      top: 0.85rem;
+      right: auto;
+      bottom: -1.4rem;
+      left: 50%;
+      width: 1px;
+      height: auto;
+      transform: translateX(-50%);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .action {
+      transition: none;
+    }
+  }
+</style>

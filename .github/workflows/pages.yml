@@ -1,10 +1,16 @@
-name: Build and Deploy LaTeX Book
+name: Build LaTeX Book
 
 on:
   push:
     branches: [dev, main]
+    paths-ignore:
+      - 'site/**'
+      - '.github/workflows/site.yml'
   pull_request:
     branches: [dev, main]
+    paths-ignore:
+      - 'site/**'
+      - '.github/workflows/site.yml'
   workflow_dispatch:
 
 permissions:
@@ -33,18 +39,6 @@ jobs:
           latexmk_use_xelatex: true
           texlive_version: 2026
 
-      # - name: Verify PDF and cross-references
-      #   shell: bash
-      #   run: |
-      #     test -s build/main.pdf
-
-      #     if grep -En \
-      #       'LaTeX Warning: (There were undefined references|Citation .* undefined|Reference .* undefined)' \
-      #       build/main.log; then
-      #       echo '::error::The PDF contains unresolved references or citations.'
-      #       exit 1
-      #     fi
-
       - name: Upload PDF for review
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
         with:
@@ -61,42 +55,3 @@ jobs:
           path: build/main.log
           if-no-files-found: ignore
           retention-days: 7
-
-      - name: Prepare GitHub Pages site
-        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
-        shell: bash
-        run: |
-          mkdir -p public
-          cp site/index.html public/index.html
-          cp build/main.pdf public/book.pdf
-
-      - name: Upload GitHub Pages artifact
-        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
-        uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
-        with:
-          path: public
-
-  deploy:
-    name: Deploy GitHub Pages
-    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
-    needs: build
-    runs-on: ubuntu-latest
-    timeout-minutes: 10
-
-    concurrency:
-      group: github-pages
-      cancel-in-progress: false
-
-    permissions:
-      actions: read
-      pages: write
-      id-token: write
-
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5.0.1

@@ -1,0 +1,131 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="1200" viewBox="0 0 1800 1200" role="img" aria-labelledby="title desc">
+  <title id="title">《绝望即壤》内页跨页排版预览</title>
+  <desc id="desc">以主题色和书籍正文排版构成的数字样书示意，不含动画截图或角色素材</desc>
+  <defs>
+    <linearGradient id="backdrop" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#18151C"/>
+      <stop offset="1" stop-color="#29222E"/>
+    </linearGradient>
+    <linearGradient id="leftPaper" x1="0" y1="0" x2="1" y2=".15">
+      <stop stop-color="#F4E7EC"/>
+      <stop offset=".12" stop-color="#FFF8FA"/>
+      <stop offset=".92" stop-color="#FFF4F8"/>
+      <stop offset="1" stop-color="#E8D8E0"/>
+    </linearGradient>
+    <linearGradient id="rightPaper" x1="1" y1="0" x2="0" y2=".15">
+      <stop stop-color="#F2E3E9"/>
+      <stop offset=".12" stop-color="#FFF9FB"/>
+      <stop offset=".92" stop-color="#FFF4F8"/>
+      <stop offset="1" stop-color="#E4D4DC"/>
+    </linearGradient>
+    <linearGradient id="fold" x1="0" y1="0" x2="1" y2="0">
+      <stop stop-color="#18151C" stop-opacity="0"/>
+      <stop offset=".45" stop-color="#18151C" stop-opacity=".17"/>
+      <stop offset=".55" stop-color="#18151C" stop-opacity=".2"/>
+      <stop offset="1" stop-color="#18151C" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="gem" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#E84D8A"/>
+      <stop offset=".49" stop-color="#E84D8A"/>
+      <stop offset=".51" stop-color="#6F4AA8"/>
+      <stop offset="1" stop-color="#6F4AA8"/>
+    </linearGradient>
+    <filter id="bookShadow" x="-25%" y="-25%" width="150%" height="170%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="35" result="blur"/>
+      <feOffset in="blur" dy="30" result="offset"/>
+      <feColorMatrix in="offset" values="0 0 0 0 0.02 0 0 0 0 0.01 0 0 0 0 0.03 0 0 0 .58 0"/>
+      <feBlend in="SourceGraphic"/>
+    </filter>
+    <style>
+      .cn-serif { font-family: "Noto Serif CJK SC", "Noto Serif SC", serif; }
+      .cn-sans { font-family: "Noto Sans CJK SC", "Noto Sans SC", sans-serif; }
+      .latin { font-family: "Libertinus Sans", "Noto Sans", sans-serif; }
+      .bodyline { fill: #716B75; opacity: .62; }
+    </style>
+  </defs>
+
+  <rect width="1800" height="1200" fill="url(#backdrop)"/>
+  <circle cx="1610" cy="55" r="380" fill="none" stroke="#E84D8A" stroke-width="2" opacity=".11"/>
+  <circle cx="1510" cy="130" r="310" fill="none" stroke="#6F4AA8" stroke-width="2" opacity=".13"/>
+  <path d="M-60 1095C365 889 507 907 795 1200" fill="none" stroke="#CA384B" stroke-width="3" opacity=".24"/>
+  <path d="M-80 1148C330 950 507 951 750 1200" fill="none" stroke="#E84D8A" stroke-width="2" opacity=".15"/>
+
+  <g transform="translate(102 72)">
+    <rect width="292" height="46" rx="23" fill="#FFF4F8" opacity=".08"/>
+    <circle cx="25" cy="23" r="5" fill="#E84D8A"/>
+    <text x="46" y="30" class="latin" fill="#FFF4F8" font-size="17" font-weight="700" letter-spacing="2.5">LAYOUT PREVIEW</text>
+  </g>
+  <text x="1698" y="102" class="latin" fill="#FFF4F8" font-size="16" text-anchor="end" letter-spacing="3" opacity=".66">THE VERY SOIL · 2026</text>
+
+  <ellipse cx="910" cy="1001" rx="730" ry="118" fill="#08070A" opacity=".55"/>
+  <g filter="url(#bookShadow)">
+    <path d="M153 285C402 237 645 205 895 233L895 1004C648 977 401 989 153 1068Z" fill="#CA384B"/>
+    <path d="M895 233C1145 205 1411 237 1657 285L1657 1068C1408 989 1161 977 895 1004Z" fill="#6F4AA8"/>
+
+    <path d="M174 260C407 222 657 194 895 226L895 988C659 954 416 972 174 1047Z" fill="url(#leftPaper)"/>
+    <path d="M895 226C1134 194 1384 222 1636 260L1636 1047C1384 972 1137 954 895 988Z" fill="url(#rightPaper)"/>
+
+    <path d="M191 280C427 243 661 221 878 246" fill="none" stroke="#DCCBD3" stroke-width="2" opacity=".8"/>
+    <path d="M912 246C1130 221 1372 243 1617 280" fill="none" stroke="#DCCBD3" stroke-width="2" opacity=".8"/>
+    <path d="M191 1027C422 959 656 944 878 973" fill="none" stroke="#D0BDC7" stroke-width="2" opacity=".75"/>
+    <path d="M912 973C1137 944 1372 959 1617 1027" fill="none" stroke="#D0BDC7" stroke-width="2" opacity=".75"/>
+
+    <rect x="838" y="221" width="116" height="782" fill="url(#fold)"/>
+
+    <g transform="translate(282 321) rotate(-2.5)">
+      <circle cx="270" cy="196" r="132" fill="none" stroke="#E84D8A" stroke-width="1.5" opacity=".17"/>
+      <circle cx="356" cy="196" r="132" fill="none" stroke="#6F4AA8" stroke-width="1.5" opacity=".2"/>
+      <path d="M313 72c29 31 44 61 44 91 0 34-19 61-44 78-25-17-44-44-44-78 0-30 15-60 44-91Z" fill="#FFF4F8" stroke="#18151C" stroke-width="1.4"/>
+      <path d="m313 100 31 64-31 53-31-53 31-64Z" fill="url(#gem)"/>
+      <circle cx="313" cy="164" r="7" fill="#FFF4F8"/>
+
+      <text x="313" y="321" class="latin" fill="#716B75" font-size="15" font-weight="700" text-anchor="middle" letter-spacing="4">PART ONE</text>
+      <text x="313" y="376" class="cn-serif" fill="#18151C" font-size="51" font-weight="600" text-anchor="middle" letter-spacing="7">第一部分</text>
+      <line x1="138" y1="407" x2="302" y2="407" stroke="#E84D8A" stroke-width="3"/>
+      <line x1="324" y1="407" x2="488" y2="407" stroke="#6F4AA8" stroke-width="3"/>
+      <text x="313" y="463" class="cn-sans" fill="#716B75" font-size="31" text-anchor="middle" letter-spacing="5">电视动画</text>
+      <text x="313" y="505" class="latin" fill="#6F4AA8" font-size="13" font-weight="700" text-anchor="middle" letter-spacing="4">TELEVISION ANIMATION</text>
+      <text x="313" y="637" class="cn-serif" fill="#716B75" font-size="16" text-anchor="middle">希望与绝望，在同一片土壤中生长。</text>
+      <text x="313" y="684" class="latin" fill="#716B75" font-size="13" text-anchor="middle" letter-spacing="2">THE VERY SOIL</text>
+      <text x="22" y="692" class="latin" fill="#E84D8A" font-size="13" font-weight="700">1</text>
+    </g>
+
+    <g transform="translate(1004 312) rotate(2.5)">
+      <text x="0" y="28" class="cn-sans" fill="#E84D8A" font-size="14" font-weight="700" letter-spacing="4">第一章 / CHAPTER ONE</text>
+      <text x="0" y="92" class="cn-serif" fill="#18151C" font-size="43" font-weight="600" letter-spacing="3">一股秘溪潺潺流淌</text>
+      <line x1="0" y1="122" x2="452" y2="122" stroke="#18151C" stroke-width="1.5" opacity=".25"/>
+      <path d="M476 4c18 18 27 36 27 54 0 22-12 38-27 49-15-11-27-27-27-49 0-18 9-36 27-54Z" fill="none" stroke="#6F4AA8" stroke-width="1.8" opacity=".65"/>
+      <path d="m476 26 18 32-18 28-18-28 18-32Z" fill="#6F4AA8" opacity=".22"/>
+
+      <text x="0" y="176" class="cn-serif" fill="#18151C" font-size="16.5">一种体裁必须被腐化、拆解，而后方能显露其真实形态。</text>
+      <g transform="translate(0 207)">
+        <rect class="bodyline" width="482" height="5" rx="2.5"/>
+        <rect class="bodyline" y="23" width="503" height="5" rx="2.5"/>
+        <rect class="bodyline" y="46" width="492" height="5" rx="2.5"/>
+        <rect class="bodyline" y="69" width="510" height="5" rx="2.5"/>
+        <rect class="bodyline" y="92" width="472" height="5" rx="2.5"/>
+        <rect class="bodyline" y="115" width="507" height="5" rx="2.5"/>
+        <rect class="bodyline" y="138" width="421" height="5" rx="2.5"/>
+      </g>
+      <text x="0" y="398" class="cn-serif" fill="#18151C" font-size="17" font-weight="600">后现代的入口</text>
+      <g transform="translate(0 424)">
+        <rect class="bodyline" width="501" height="5" rx="2.5"/>
+        <rect class="bodyline" y="23" width="488" height="5" rx="2.5"/>
+        <rect class="bodyline" y="46" width="510" height="5" rx="2.5"/>
+        <rect class="bodyline" y="69" width="465" height="5" rx="2.5"/>
+        <rect class="bodyline" y="92" width="499" height="5" rx="2.5"/>
+        <rect class="bodyline" y="115" width="505" height="5" rx="2.5"/>
+        <rect class="bodyline" y="138" width="444" height="5" rx="2.5"/>
+      </g>
+      <line x1="0" y1="603" x2="512" y2="603" stroke="#716B75" stroke-width="1" opacity=".2"/>
+      <text x="0" y="632" class="latin" fill="#716B75" font-size="11.5" letter-spacing="1.5">THE VERY SOIL · CHINESE EDITION</text>
+      <text x="512" y="632" class="latin" fill="#6F4AA8" font-size="13" font-weight="700" text-anchor="end">3</text>
+    </g>
+  </g>
+
+  <g transform="translate(104 1124)">
+    <text class="cn-sans" fill="#FFF4F8" font-size="15" letter-spacing="2">内页排版数字预览</text>
+    <circle cx="201" cy="-6" r="4" fill="#E84D8A"/>
+    <text x="225" class="latin" fill="#FFF4F8" font-size="15" letter-spacing="2">B6 / 144 PAGES / CHINESE EDITION / 2026</text>
+  </g>
+</svg>
