@@ -10,7 +10,7 @@
 	},
 	"dependencies": {
 		"@astrojs/sitemap": "3.7.4",
-		"astro": "6.0.4"
+		"astro": "7.4.4"
 	},
 	"devDependencies": {
 		"fontkit": "^2.0.4",
